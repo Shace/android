@@ -1,4 +1,4 @@
-package io.shace.app.shace;
+package io.shace.app;
 
 
 import android.os.Bundle;
@@ -7,16 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+public class homePage extends Fragment {
 
-public class photos extends Fragment {
-
-    public photos() {
+    public homePage() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_photos, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home_page, container, false);
         return rootView;
     }
 }

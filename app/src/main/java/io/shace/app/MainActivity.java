@@ -1,4 +1,4 @@
-package io.shace.app.shace;
+package io.shace.app;
 
 import android.os.Bundle;
 
@@ -15,19 +15,16 @@ import android.content.res.TypedArray;
 import android.content.res.Configuration;
 
 import adapter.NavDrawerListAdapter;
-import adapter.TabsPagerAdapter;
 import model.NavDrawerItem;
 
 import java.util.ArrayList;
 
 import android.view.View;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import android.util.Log;
 
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;

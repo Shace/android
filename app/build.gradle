@@ -16,7 +16,7 @@ android {
     buildToolsVersion "19.1.0"
 
     defaultConfig {
-        applicationId "io.shace.app.shace"
+        applicationId "io.shace.app"
         minSdkVersion 14
         targetSdkVersion 'L'
         versionCode 1

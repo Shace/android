@@ -4,7 +4,7 @@ package adapter;
  * Created by leandredeguerville on 02/07/14.
  */
 
-import io.shace.app.shace.R;
+import io.shace.app.R;
 import model.NavDrawerItem;
 import java.util.ArrayList;
 import android.app.Activity;
@@ -19,7 +19,6 @@ import android.widget.TextView;
 import model.NavDrawerItem;
 
 public class NavDrawerListAdapter extends BaseAdapter {
-
 
     private Context context;
     private ArrayList<NavDrawerItem> navDrawerItems;
