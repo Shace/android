@@ -1,4 +1,15 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.2+'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 'android-L'
@@ -17,10 +28,49 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+    }
 }
 
 dependencies {
+    apt "org.androidannotations:androidannotations:3.0+"
+    compile 'org.androidannotations:androidannotations-api:3.0.+'
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:+'
     compile 'com.android.support:support-v4:+'
+}
+
+def getSourceSetName(variant) {
+    return new File(variant.dirName).getName();
+}
+
+android.applicationVariants.all { variant ->
+    def aptOutputDir = project.file("build/source/apt")
+    def aptOutput = new File(aptOutputDir, variant.dirName)
+    println "****************************"
+    println "variant: ${variant.name}"
+    println "manifest:  ${variant.processResources.manifestFile}"
+    println "aptOutput:  ${aptOutput}"
+    println "****************************"
+
+    android.sourceSets[getSourceSetName(variant)].java.srcDirs+= aptOutput.getPath()
+
+    variant.javaCompile.options.compilerArgs += [
+            '-processorpath', configurations.apt.getAsPath(),
+            '-AandroidManifestFile=' + variant.processResources.manifestFile,
+            '-s', aptOutput
+    ]
+
+    variant.javaCompile.source = variant.javaCompile.source.filter { p ->
+        return !p.getPath().startsWith(aptOutputDir.getPath())
+    }
+
+    variant.javaCompile.doFirst {
+        aptOutput.mkdirs()
+    }
 }

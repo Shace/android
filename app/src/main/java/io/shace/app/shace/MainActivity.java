@@ -6,7 +6,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 
 import android.widget.AdapterView;
@@ -30,9 +29,17 @@ import android.util.Log;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+
+@EActivity(R.layout.activity_main)
 public class MainActivity extends FragmentActivity {
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+
+    @ViewById(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @ViewById(R.id.list_slidermenu) ListView mDrawerList;
+
     private ActionBarDrawerToggle mDrawerToggle;
 
     // nav drawer title
@@ -42,37 +49,28 @@ public class MainActivity extends FragmentActivity {
     private CharSequence mTitle;
 
     // slide menu items
-    private String[] navMenuTitles;
+    @StringArrayRes(R.array.nav_drawer_items) String[] navMenuTitles;
+
+
     private TypedArray navMenuIcons;
 
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
+    @AfterViews
+    void init() {
         //sliding menu start
         mTitle = mDrawerTitle = getTitle();
-
-        // load slide menu items
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
         // nav drawer icons from resources
         navMenuIcons = getResources()
                 .obtainTypedArray(R.array.nav_drawer_icons);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
         navDrawerItems = new ArrayList<NavDrawerItem>();
 
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
-
-        // adding nav drawer items to array
         // Home
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
         // Find People
@@ -121,10 +119,6 @@ public class MainActivity extends FragmentActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        if (savedInstanceState == null) {
-            // on first time display view for first nav item
-            displayView(0);
-        }
     }
 
 
