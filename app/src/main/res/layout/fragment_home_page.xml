@@ -68,7 +68,7 @@
             android:orientation="horizontal"
             >
                 <Button
-                    android:id="@+id/SignInButton"
+                    android:id="@+id/signInButton"
                     style="@style/formButtonHalf"
                     android:layout_marginTop="16dp"
                     android:text="@string/action_sign_in"
@@ -78,7 +78,7 @@
                     />
 
                 <Button
-                    android:id="@+id/SignUpButton"
+                    android:id="@+id/signUpButton"
                     style="@style/formButtonHalf"
                     android:layout_marginTop="16dp"
                     android:text="@string/action_sign_up"

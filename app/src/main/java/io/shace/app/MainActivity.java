@@ -1,35 +1,29 @@
 package io.shace.app;
 
+import android.app.ActionBar;
+import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
-
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import android.content.res.TypedArray;
-import android.content.res.Configuration;
-
-import io.shace.app.adapter.NavDrawerListAdapter;
-import io.shace.app.model.NavDrawerItem;
-
-import java.util.ArrayList;
-
-import android.view.View;
-import android.view.Menu;
-
-import android.util.Log;
-
-import android.app.ActionBar;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringArrayRes;
+
+import java.util.ArrayList;
+
+import io.shace.app.adapter.NavDrawerListAdapter;
+import io.shace.app.model.NavDrawerItem;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends FragmentActivity {
@@ -170,10 +164,10 @@ public class MainActivity extends FragmentActivity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new Homepage();
+                fragment = new Homepage_();
                 break;
             case 1:
-                fragment = new Photos();
+                fragment = new Photos_();
                 break;
             case 2:
 

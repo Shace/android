@@ -2,8 +2,6 @@ package io.shace.app.tools;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -14,7 +12,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import io.shace.app.MainActivity_;
 import io.shace.app.R;
 
 /**
@@ -54,13 +51,13 @@ public class NetworkTools {
      * @param activity
      */
     static public void signOut(Activity activity) {
-        SharedPreferences settings = activity.getSharedPreferences("Settings", Context.MODE_APPEND);
-
-        settings.edit().clear().apply();
-        Intent intent = new Intent(activity, MainActivity_.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        activity.startActivity(intent);
-        activity.finish();
+//        SharedPreferences settings = activity.getSharedPreferences("Settings", Context.MODE_APPEND);
+//
+//        settings.edit().clear().apply();
+//        Intent intent = new Intent(activity, MainActivity_.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        activity.startActivity(intent);
+//        activity.finish();
     }
 
     /**
