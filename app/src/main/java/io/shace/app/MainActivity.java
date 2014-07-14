@@ -170,10 +170,10 @@ public class MainActivity extends FragmentActivity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new homePage();
+                fragment = new Homepage();
                 break;
             case 1:
-                fragment = new photos();
+                fragment = new Photos();
                 break;
             case 2:
 

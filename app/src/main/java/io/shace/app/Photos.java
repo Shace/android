@@ -7,15 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class homePage extends Fragment {
+import org.androidannotations.annotations.EFragment;
 
-    public homePage() {
+@EFragment
+public class Photos extends Fragment {
+
+    public Photos() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home_page, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_photos, container, false);
     }
 }
