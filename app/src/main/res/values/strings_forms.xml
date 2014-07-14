@@ -5,6 +5,11 @@
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
 
+    <!-- Actions -->
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_up">Sign up</string>
+
+
     <!-- Errors -->
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
