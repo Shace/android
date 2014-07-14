@@ -1,11 +1,11 @@
-package adapter;
+package io.shace.app.adapter;
 
 /**
  * Created by leandredeguerville on 02/07/14.
  */
 
 import io.shace.app.R;
-import model.NavDrawerItem;
+import io.shace.app.model.NavDrawerItem;
 import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
@@ -15,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import model.NavDrawerItem;
 
 public class NavDrawerListAdapter extends BaseAdapter {
 

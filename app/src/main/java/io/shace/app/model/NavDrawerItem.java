@@ -1,4 +1,4 @@
-package model;
+package io.shace.app.model;
 
 /**
  * Created by leandredeguerville on 02/07/14.
@@ -7,7 +7,6 @@ public class NavDrawerItem {
     private String title;
     private int icon;
     private String count = "0";
-    // boolean to set visiblity of the counter
     private boolean isCounterVisible = false;
 
     public NavDrawerItem(){}

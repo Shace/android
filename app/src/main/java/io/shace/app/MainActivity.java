@@ -14,8 +14,8 @@ import android.widget.ListView;
 import android.content.res.TypedArray;
 import android.content.res.Configuration;
 
-import adapter.NavDrawerListAdapter;
-import model.NavDrawerItem;
+import io.shace.app.adapter.NavDrawerListAdapter;
+import io.shace.app.model.NavDrawerItem;
 
 import java.util.ArrayList;
 
