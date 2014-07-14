@@ -28,7 +28,7 @@ public class AssetTools {
     }
 
     static public Properties getProjectSettings(Context context) {
-        String filename = "forever.properties";
+        String filename = "shace.properties";
         Properties prop = AssetTools.getProperties(context, filename);
 
         if (prop == null) {

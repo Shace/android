@@ -49,6 +49,8 @@ public class NetworkTools {
     /**
      * Sign out the current user
      *
+     * TODO: Adapt to shace
+     *
      * @param activity
      */
     static public void signOut(Activity activity) {
@@ -65,6 +67,8 @@ public class NetworkTools {
      * Validate basic forms through an API call
      *
      * TODO: Proper documentation
+     * TODO: Adapt to shace
+     *
      *
      * @param tag Tag of the class
      * @param context Context of the application
