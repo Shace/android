@@ -21,8 +21,8 @@
         android:id="@+id/editText"
         android:layout_gravity="center_horizontal"
         android:editable="true"
-        android:text="E-Mail Adress"
-        android:textSize="20dp"
+        android:hint="@string/email_address"
+        android:textSize="20sp"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true" />
 
@@ -37,7 +37,7 @@
         android:layout_alignStart="@+id/editText"
         android:layout_alignRight="@+id/editText"
         android:layout_alignEnd="@+id/editText"
-        android:text="Password" />
+        android:hint="@string/password" />
 
 
 </RelativeLayout>
