@@ -11,21 +11,21 @@ public class ApiResponse {
     /*
     * HTTP codes allowed in the error callback
     */
-    private int[] mAllowedCode = {};
+    private int[] mAllowedCodes = {};
 
     public ApiResponse() {
     }
 
-    public int[] getAllowedCode() {
-        return mAllowedCode;
+    public int[] getAllowedCodes() {
+        return mAllowedCodes;
     }
 
     /**
      *
-     * @param allowedCode see {@link ApiResponse#mAllowedCode}
+     * @param allowedCode see {@link ApiResponse#mAllowedCodes}
      */
     public ApiResponse(int[] allowedCode) {
-        this.mAllowedCode = allowedCode;
+        this.mAllowedCodes = allowedCode;
     }
 
     /**
@@ -37,7 +37,7 @@ public class ApiResponse {
     }
 
     /**
-     * Callback called when the request has failed, and when the returned HTTP code match {@link ApiResponse#mAllowedCode}
+     * Callback called when the request has failed, and when the returned HTTP code match {@link ApiResponse#mAllowedCodes}
      *
      * @param code HTTP code return by the server
      * @param response return by the API

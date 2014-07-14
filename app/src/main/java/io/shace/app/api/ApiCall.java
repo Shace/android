@@ -11,9 +11,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.Properties;
 
-import io.shace.app.tools.AssetTools;
 import io.shace.app.tools.NetworkTools;
 
 
@@ -26,12 +24,10 @@ import io.shace.app.tools.NetworkTools;
 public abstract class ApiCall {
     private static final String TAG = "ApiCall";
 
-    protected Properties mProp = null;
     protected Context mContext = null;
 
     public ApiCall(Context context) {
         mContext = context;
-        mProp = AssetTools.getProjectSettings(context);
     }
 
     /**
@@ -87,7 +83,7 @@ public abstract class ApiCall {
                 userResponse.alwaysBefore();
 
                 boolean found = false;
-                int[] codes = userResponse.getAllowedCode();
+                int[] codes = userResponse.getAllowedCodes();
                 int currentErrorCode = 0;
 
                 if (error.networkResponse != null) { // Server down
@@ -117,7 +113,7 @@ public abstract class ApiCall {
                     }
                 } else if (error.networkResponse == null) {
                     NetworkTools.sendServerError(mContext);
-                    Log.e(TAG, "Volley networkResponse is null. + error was: " + error.toString());
+                    Log.e(TAG, "Volley networkResponse is null. Error was: " + error.toString());
                 } else {
                     NetworkTools.sendServerError(mContext);
                     Log.e(TAG, error.toString());

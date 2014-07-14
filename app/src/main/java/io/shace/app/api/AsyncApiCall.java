@@ -41,8 +41,11 @@ public class AsyncApiCall extends ApiCall {
     }
 
 
-    private void _post(String uri, HashMap<String, String> data, ApiResponse response) {
-        String url = mProp.getProperty("api.uri") + uri;
+    // TODO Allow GET data too (ex. to POST on /event/:eventId/)
+    private void _post(String url, HashMap<String, String> data, ApiResponse response) {
+        // We removed the optional variables that have not been given
+        url = url.replaceAll(Routes.VARIABLES_REGEX, "");
+
         makeRequest(Request.Method.POST, url, new JSONObject(data), response);
     }
 
@@ -60,14 +63,15 @@ public class AsyncApiCall extends ApiCall {
         _get(uri, data, null);
     }
 
-    private void _get(String uri, HashMap<String, String> data, ApiResponse response) {
-        String url = mProp.getProperty("api.uri") + uri;
-
+    private void _get(String url, HashMap<String, String> data, ApiResponse response) {
         if (data != null) {
             for (Map.Entry<String, String> entry : data.entrySet()) {
-                url = url.replaceAll(entry.getKey(), entry.getValue());
+                url = url.replaceAll("::?" + entry.getKey(), entry.getValue());
             }
         }
+
+        // We removed the optional variables that have not been given
+        url = url.replaceAll(Routes.VARIABLES_REGEX, "");
 
         makeRequest(Request.Method.GET, url, null, response);
     }
