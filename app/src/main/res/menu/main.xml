@@ -6,12 +6,14 @@
     <item android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/action_search"
-        android:showAsAction="ifRoom" />
+        android:showAsAction="collapseActionView|ifRoom"
+        android:actionViewClass="android.widget.SearchView"
+        />
 
-    <item android:id="@+id/action_settings"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:title="@string/action_settings"
-        android:showAsAction="ifRoom" />
+    <!--<item android:id="@+id/action_settings"-->
+        <!--android:icon="@android:drawable/ic_menu_manage"-->
+        <!--android:title="@string/action_settings"-->
+        <!--android:showAsAction="ifRoom" />-->
     <!-- Search, should appear as action button -->
 
     <!-- Settings, should always be in the overflow -->
