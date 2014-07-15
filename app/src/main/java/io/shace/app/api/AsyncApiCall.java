@@ -27,7 +27,7 @@ public class AsyncApiCall extends ApiCall {
     }
 
     /*
-     * Post
+     * POST
      */
 
     @Override
@@ -43,6 +43,29 @@ public class AsyncApiCall extends ApiCall {
 
     // TODO Allow GET data too (ex. to POST on /event/:eventId/)
     private void _post(String url, HashMap<String, String> data, ApiResponse response) {
+        // We removed the optional variables that have not been given
+        url = url.replaceAll(Routes.VARIABLES_REGEX, "");
+
+        makeRequest(Request.Method.POST, url, new JSONObject(data), response);
+    }
+
+    /*
+     * PUT
+     */
+
+    @Override
+    public void put(String uri, HashMap<String, String> data, ApiResponse response) {
+        _put(uri, data, response);
+    }
+
+    @Override
+    public void put(String uri, HashMap<String, String> data) {
+        _post(uri, data, null);
+    }
+
+
+    // TODO Allow GET data too (ex. to PUT on /event/:eventId/)
+    private void _put(String url, HashMap<String, String> data, ApiResponse response) {
         // We removed the optional variables that have not been given
         url = url.replaceAll(Routes.VARIABLES_REGEX, "");
 

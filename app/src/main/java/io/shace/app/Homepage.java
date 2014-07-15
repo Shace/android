@@ -99,6 +99,58 @@ public class Homepage extends Fragment {
 
     @Click
     void signUpButton() {
-        Log.d(TAG, "Sign up");
+        mFormView.setVisibility(View.GONE);
+        mIconLoader.setVisibility(View.VISIBLE);
+
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        HashMap<String,String> putData = new HashMap<String, String>();
+        putData.put("email", email);
+        putData.put("password", password);
+
+        new AsyncApiCall(getApplicationContext()).put(Routes.USERS, putData,
+                new ApiResponse(new int[]{400}) {
+                    @Override
+                    public void onSuccess(JSONObject response) {
+                        Log.i(TAG, "Created!");
+
+                        try {
+                            SharedPreferences.Editor settings = getActivity().getSharedPreferences("Settings", Context.MODE_APPEND).edit();
+                            settings.putString("accessToken", response.getString("token"));
+                            settings.putInt("creation", response.getInt("user_id"));
+                            settings.putLong("creation", response.getLong("creation"));
+                            settings.putLong("expiration", response.getLong("expiration"));
+                            settings.apply();
+
+//                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(intent);
+//                            finish();
+                        } catch (JSONException e) {
+                            Log.e(TAG, e.getMessage());
+                            ToastTools.use().longToast(getApplicationContext(), R.string.internal_error);
+                        }
+                    }
+
+                    @Override
+                    public void onError(int errorCode, JSONObject response) {
+                        Log.v(TAG, response.toString());
+                        ToastTools.use().longToast(getApplicationContext(), R.string.error_sign_up);
+                    }
+
+                    @Override
+                    public void onError(int errorCode, String response) {
+                        Log.v(TAG, response);
+                        ToastTools.use().longToast(getApplicationContext(), R.string.error_sign_up);
+                    }
+
+                    @Override
+                    protected void alwaysAfter() {
+                        mIconLoader.setVisibility(View.GONE);
+                        mFormView.setVisibility(View.VISIBLE);
+                    }
+                }
+        );
     }
 }

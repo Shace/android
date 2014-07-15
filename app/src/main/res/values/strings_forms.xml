@@ -21,5 +21,6 @@
 
     <!-- Forms -->
     <string name="error_sign_in">Cannot sign in</string>
+    <string name="error_sign_up">Cannot sign up</string>
 
 </resources>
