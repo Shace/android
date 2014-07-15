@@ -36,8 +36,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView"
-                android:src="@drawable/ic_launcher"
-                android:layout_marginTop="75dp"
+                android:src="@drawable/logo_shace"
+                android:layout_marginTop="55dp"
                 android:layout_marginBottom="55dp"
                 android:layout_gravity="center" />
 
