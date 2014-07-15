@@ -3,10 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.shace.app.MainActivity" >
 
+    <!--
+        TODO: Set a default text (hint/label)
+        TODO: Leave opened by default (setIconifiedByDefault)
+     -->
     <item android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/action_search"
-        android:showAsAction="collapseActionView|ifRoom"
+        android:showAsAction="ifRoom|collapseActionView"
         android:actionViewClass="android.widget.SearchView"
         />
 
