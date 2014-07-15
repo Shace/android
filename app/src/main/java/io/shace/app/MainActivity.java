@@ -109,7 +109,7 @@ public class MainActivity extends FragmentActivity {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
+        displayView(0);
     }
 
 
