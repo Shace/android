@@ -92,7 +92,7 @@ public class MainActivity extends FragmentActivity {
         actionBarMenu.setHomeButtonEnabled(true);
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, //nav menu toggle icon
+                R.drawable.abc_ic_menu_moreoverflow_normal_holo_dark, //nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
                 R.string.app_name // nav drawer close - description for accessibility
         ){
