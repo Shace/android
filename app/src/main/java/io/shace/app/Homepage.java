@@ -29,7 +29,6 @@ public class Homepage extends Fragment {
     @ViewById(R.id.formLayout) View mFormView;
     @ViewById(R.id.iconLoader) ProgressBar mIconLoader;
 
-
     @ViewById(R.id.fieldEmail) AutoCompleteTextView mEmailView;
     @ViewById(R.id.fieldPassword) EditText mPasswordView;
 
