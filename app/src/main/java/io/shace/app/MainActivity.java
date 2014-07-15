@@ -197,9 +197,7 @@ public class MainActivity extends FragmentActivity {
             setTitle(navMenuTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerList);
         } else {
-            if (position != 0) {
-                Log.e("MainActivity", "Error in creating fragment");
-            }
+            Log.e("MainActivity", "Error in creating fragment: " + position);
         }
     }
 }
