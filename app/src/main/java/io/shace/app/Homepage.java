@@ -1,8 +1,8 @@
 package io.shace.app;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -12,8 +12,8 @@ import android.widget.ProgressBar;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.json.JSONObject;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
