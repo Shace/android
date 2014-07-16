@@ -95,9 +95,6 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
             case 4:
                 mTitle = getString(R.string.title_profile);
                 break;
-            case 5:
-                mTitle = getString(R.string.title_sign_out);
-                break;
         }
     }
 
@@ -129,6 +126,9 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_sign_out) {
+            User.signOut(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

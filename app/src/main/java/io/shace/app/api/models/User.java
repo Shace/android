@@ -1,5 +1,9 @@
 package io.shace.app.api.models;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -11,6 +15,7 @@ import java.util.HashMap;
 
 import io.shace.app.EmptyCallback;
 import io.shace.app.R;
+import io.shace.app.SignInFragment_;
 import io.shace.app.StringCallback;
 import io.shace.app.api.ApiResponse;
 import io.shace.app.api.AsyncApiCall;
@@ -23,6 +28,24 @@ import io.shace.app.tools.ToastTools;
  */
 public class User {
     private static final String TAG = "User";
+
+
+    /**
+     * Sign out the current user
+     *
+     * @param activity
+     */
+    static public void signOut(Activity activity) {
+        SharedPreferences settings = activity.getSharedPreferences("settings", Context.MODE_APPEND);
+        settings.edit().clear().apply();
+
+        // TODO: Put in a tool
+        Fragment fragment = new SignInFragment_();
+        FragmentManager fm = activity.getFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.commit();
+    }
 
     static public void connectAsGuest(final Context context, final EmptyCallback callback) {
         HashMap<String,String> postData = new HashMap<String, String>();

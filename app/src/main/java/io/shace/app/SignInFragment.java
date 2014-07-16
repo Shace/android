@@ -41,6 +41,7 @@ public class SignInFragment extends Fragment {
         return getActivity().getApplicationContext();
     }
 
+    // TODO: Put in a tool
     private void redirectToHomepage() {
         Fragment fragment = new Homepage_();
 

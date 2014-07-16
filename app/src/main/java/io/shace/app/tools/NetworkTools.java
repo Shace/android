@@ -1,6 +1,5 @@
 package io.shace.app.tools;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -43,22 +42,6 @@ public class NetworkTools {
         ToastTools.use().longToast(context, R.string.server_error);
     }
 
-    /**
-     * Sign out the current user
-     *
-     * TODO: Adapt to shace
-     *
-     * @param activity
-     */
-    static public void signOut(Activity activity) {
-//        SharedPreferences settings = activity.getSharedPreferences("Settings", Context.MODE_APPEND);
-//
-//        settings.edit().clear().apply();
-//        Intent intent = new Intent(activity, MainActivity_.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        activity.startActivity(intent);
-//        activity.finish();
-    }
 
     /**
      * Validate basic forms through an API call
