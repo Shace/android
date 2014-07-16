@@ -130,6 +130,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
             return true;
         } else if (id == R.id.action_sign_out) {
             User.signOut(this);
+            User.connectAsGuest(getApplicationContext(), null);
             return true;
         }
         return super.onOptionsItemSelected(item);
