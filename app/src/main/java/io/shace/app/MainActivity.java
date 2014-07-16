@@ -51,6 +51,9 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
             case 0:
                 fragment = new Homepage_();
                 break;
+            case 3:
+                fragment = new Profil_();
+                break;
             default:
                 ToastTools.use().longToast(getApplicationContext(), R.string.todo);
                 Log.e(TAG, "Fragment " + position + " not available");
