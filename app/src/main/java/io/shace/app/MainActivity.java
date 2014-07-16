@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
+import io.shace.app.api.models.User;
 import io.shace.app.tools.ToastTools;
 
 
@@ -32,6 +33,17 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
     @AfterViews
     void init() {
+        if (User.isAuthenticated(getApplicationContext()) == false) {
+            Log.e(TAG, "NOT AUTHENTICATED");
+            User.connectAsGuest(getApplicationContext(), null);
+        } else {
+            Log.e(TAG, "AUTHENTICATED");
+        }
+
+        _init();
+    }
+
+    private void _init() {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -49,7 +61,11 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
         switch (position) {
             case 0:
-                fragment = new Homepage_();
+                if (User.isLogged(getApplicationContext())) {
+                    fragment = new Homepage_();
+                } else {
+                    fragment = new SignInFragment_();
+                }
                 break;
             default:
                 ToastTools.use().longToast(getApplicationContext(), R.string.todo);

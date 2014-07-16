@@ -25,9 +25,30 @@ public abstract class ApiCall {
     private static final String TAG = "ApiCall";
 
     protected Context mContext = null;
+    protected boolean mUpdateToken = true;
 
     public ApiCall(Context context) {
         mContext = context;
+    }
+
+    /**
+     * Optional: Specify that the provided token has to be checked and updated (if needed)
+     * TODO: API 2.0
+     */
+    @Deprecated
+    public ApiCall checkToken() {
+        mUpdateToken = true;
+        return this;
+    }
+
+    /**
+     * Specify that the provided token should not be checked nor updated in any way
+     * TODO API 2.0
+     */
+    @Deprecated
+    public ApiCall noToken() {
+        mUpdateToken = false;
+        return this;
     }
 
     /**
@@ -46,7 +67,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    abstract void get(String uri, HashMap<String, String> data, ApiResponse response);
+    public abstract void get(String uri, HashMap<String, String> data, ApiResponse response);
 
     /**
      * Send a POST request to the specified URL using the data
