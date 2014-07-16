@@ -1,7 +1,6 @@
 package io.shace.app.api;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyLog;
@@ -78,7 +77,6 @@ public class AsyncApiCall extends ApiCall {
 
                 if(url.equals(oldUrl) == false){
                     iterator.remove();
-                    Log.i(TAG, "Removed");
                 }
             }
         }
