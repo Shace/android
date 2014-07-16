@@ -12,9 +12,11 @@ import android.view.MenuItem;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
+import io.shace.app.api.models.User;
 import io.shace.app.tools.ToastTools;
 
 
+// TODO: Remove the sign out button when user not logged
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -32,6 +34,14 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
     @AfterViews
     void init() {
+        if (User.isAuthenticated(getApplicationContext()) == false) {
+            User.connectAsGuest(getApplicationContext(), null);
+        }
+
+        _init();
+    }
+
+    private void _init() {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -49,7 +59,11 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
         switch (position) {
             case 0:
-                fragment = new Homepage_();
+                if (User.isLogged(getApplicationContext())) {
+                    fragment = new Homepage_();
+                } else {
+                    fragment = new SignInFragment_();
+                }
                 break;
             case 3:
                 fragment = new Profil_();
@@ -82,9 +96,6 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
             case 4:
                 mTitle = getString(R.string.title_profile);
                 break;
-            case 5:
-                mTitle = getString(R.string.title_sign_out);
-                break;
         }
     }
 
@@ -116,6 +127,10 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_sign_out) {
+            User.signOut(this);
+            User.connectAsGuest(getApplicationContext(), null);
             return true;
         }
         return super.onOptionsItemSelected(item);
