@@ -43,7 +43,7 @@ public class SignInFragment extends Fragment {
 
     // TODO: Put in a tool
     private void redirectToHomepage() {
-        Fragment fragment = new Homepage_();
+        Fragment fragment = new HomepageFragment_();
 
         FragmentManager fm = getActivity().getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();

@@ -61,13 +61,13 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         switch (position) {
             case 0:
                 if (User.isLogged(getApplicationContext())) {
-                    fragment = new Homepage_();
+                    fragment = new HomepageFragment_();
                 } else {
                     fragment = new SignInFragment_();
                 }
                 break;
             case 3:
-                fragment = new Profile_();
+                fragment = new ProfileFragment_();
                 break;
             default:
                 ToastTools.use().longToast(getApplicationContext(), R.string.todo);

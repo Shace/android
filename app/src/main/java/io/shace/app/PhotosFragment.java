@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import org.androidannotations.annotations.EFragment;
 
 @EFragment(R.layout.fragment_photos)
-public class Photos extends Fragment {
+public class PhotosFragment extends Fragment {
 
-    public Photos() {
+    public PhotosFragment() {
     }
 
     @Override
