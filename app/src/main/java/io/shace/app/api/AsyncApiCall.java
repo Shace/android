@@ -131,8 +131,6 @@ public class AsyncApiCall extends ApiCall {
 
             if (token != null) {
                 url = url.replaceAll(":access_token", token);
-            } else {
-                Log.e(TAG, "Token is null");
             }
 
 //            TODO: API 2.0. Remove the _makerequest and uncomment the following

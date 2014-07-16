@@ -35,10 +35,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
     @AfterViews
     void init() {
         if (User.isAuthenticated(getApplicationContext()) == false) {
-            Log.e(TAG, "NOT AUTHENTICATED");
             User.connectAsGuest(getApplicationContext(), null);
-        } else {
-            Log.e(TAG, "AUTHENTICATED");
         }
 
         _init();
