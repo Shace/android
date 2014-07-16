@@ -14,7 +14,9 @@
             android:name=".MainActivity_"
             android:label="@string/app_name"
             android:launchMode="standard"
-            android:enabled="true">
+            android:enabled="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
