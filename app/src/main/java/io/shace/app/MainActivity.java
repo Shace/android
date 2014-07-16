@@ -16,6 +16,7 @@ import io.shace.app.api.models.User;
 import io.shace.app.tools.ToastTools;
 
 
+// TODO: Remove the sign out button when user not logged
 @EActivity(R.layout.activity_main)
 public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
