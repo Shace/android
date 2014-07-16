@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SearchActivity" >
+
+    <!--
+       TODO: Set a default text (hint/label)
+       TODO: Leave opened by default (setIconifiedByDefault)
+    -->
+    <item android:id="@+id/action_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/action_search"
+        android:showAsAction="always"
+        android:actionViewClass="android.widget.SearchView"
+        />
+</menu>

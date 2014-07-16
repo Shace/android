@@ -29,7 +29,6 @@ import io.shace.app.tools.ToastTools;
 public class User {
     private static final String TAG = "User";
 
-
     /**
      * Sign out the current user
      *
