@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
                 }
                 break;
             case 3:
-                fragment = new Profil_();
+                fragment = new Profile_();
                 break;
             default:
                 ToastTools.use().longToast(getApplicationContext(), R.string.todo);

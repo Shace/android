@@ -3,20 +3,16 @@ package io.shace.app;
 
 
 import android.app.Fragment;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.provider.MediaStore;
 
 import org.androidannotations.annotations.EFragment;
 
-@EFragment(R.layout.fragment_profil)
-public class Profil extends Fragment {
+@EFragment(R.layout.fragment_profile)
+public class Profile extends Fragment {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
 
-    public Profil() {
+    public Profile() {
     }
 
     private android.content.Context getApplicationContext() {
