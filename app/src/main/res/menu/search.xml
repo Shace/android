@@ -1,4 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SearchActivity" >
 
@@ -11,5 +12,6 @@
         android:title="@string/action_search"
         android:showAsAction="always"
         android:actionViewClass="android.widget.SearchView"
+        app:iconifiedByDefault="false"
         />
 </menu>

@@ -2,9 +2,11 @@ package io.shace.app;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -64,10 +66,14 @@ public class SearchActivity extends Activity implements SearchView.OnQueryTextLi
     }
 
     protected void setupSearch(MenuItem searchItem) {
-        mSearchView.setIconifiedByDefault(false);
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setQueryHint(getString(R.string.action_search_hint));
+        
+        mSearchView.setFocusable(true);
+        mSearchView.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     @Override
