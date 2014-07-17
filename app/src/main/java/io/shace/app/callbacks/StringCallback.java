@@ -1,4 +1,4 @@
-package io.shace.app;
+package io.shace.app.callbacks;
 
 /**
  * Created by melvin on 7/15/14.

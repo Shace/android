@@ -13,10 +13,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-import io.shace.app.EmptyCallback;
+import io.shace.app.callbacks.EmptyCallback;
 import io.shace.app.R;
 import io.shace.app.SignInFragment_;
-import io.shace.app.StringCallback;
+import io.shace.app.callbacks.StringCallback;
 import io.shace.app.api.ApiResponse;
 import io.shace.app.api.AsyncApiCall;
 import io.shace.app.api.Routes;
@@ -28,7 +28,6 @@ import io.shace.app.tools.ToastTools;
  */
 public class User {
     private static final String TAG = "User";
-
 
     /**
      * Sign out the current user

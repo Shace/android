@@ -17,4 +17,5 @@ public class Routes {
     public static final String ACCESS_TOKEN = ROOT_URL + "/access_token/::token";
     public static final String USERS = ROOT_URL + "/users/::id?access_token=:access_token";
     public static final String ME = ROOT_URL + "/users/me?access_token=:access_token";
+    public static final String EVENT_ACCESS = ROOT_URL + "/events/:token/access?access_token=:access_token";
 }

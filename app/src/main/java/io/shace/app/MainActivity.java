@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -66,7 +67,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
                 }
                 break;
             case 3:
-                fragment = new Profil_();
+                fragment = new Profile_();
                 break;
             default:
                 ToastTools.use().longToast(getApplicationContext(), R.string.todo);
@@ -79,23 +80,6 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
             fragmentManager.beginTransaction()
                     .replace(R.id.container, fragment)
                     .commit();
-        }
-    }
-
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_home);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_create_private_event);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_my_events);
-                break;
-            case 4:
-                mTitle = getString(R.string.title_profile);
-                break;
         }
     }
 
@@ -117,6 +101,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
             restoreActionBar();
             return true;
         }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -126,7 +111,10 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            openSearch();
+            return true;
+        } else if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_sign_out) {
             User.signOut(this);
@@ -134,5 +122,10 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openSearch() {
+        Intent myIntent = new Intent(this, SearchActivity_.class);
+        startActivity(myIntent);
     }
 }
