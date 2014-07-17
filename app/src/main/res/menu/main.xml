@@ -7,7 +7,7 @@
        TODO: Leave opened by default (setIconifiedByDefault)
     -->
     <item android:id="@+id/action_search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/abc_ic_search"
         android:title="@string/action_search"
         android:showAsAction="ifRoom|collapseActionView"
         />
