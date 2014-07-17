@@ -93,7 +93,7 @@ public class SignInFragment extends Fragment {
                     @Override
                     public void onError(int errorCode, String response) {
                         Log.v(TAG, response);
-                        ToastTools.use().longToast(getApplicationContext(), R.string.error_sign_in);
+                        ToastTools.use().longToast(getApplicationContext(), response);
                     }
 
                     @Override
@@ -121,7 +121,7 @@ public class SignInFragment extends Fragment {
         putData.put("birth_date", password);
 
         new AsyncApiCall(getApplicationContext()).post(Routes.USERS, putData,
-                new ApiResponse(new int[]{400}) {
+                new ApiResponse(new int[]{400, 403}) {
                     @Override
                     public void onSuccess(JSONObject response) {
                         try {
@@ -145,7 +145,7 @@ public class SignInFragment extends Fragment {
                     @Override
                     public void onError(int errorCode, String response) {
                         Log.v(TAG, response);
-                        ToastTools.use().longToast(getApplicationContext(), R.string.error_sign_up);
+                        ToastTools.use().longToast(getApplicationContext(), response);
                     }
 
                     @Override

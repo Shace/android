@@ -69,7 +69,7 @@ public class SearchActivity extends Activity implements SearchView.OnQueryTextLi
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setQueryHint(getString(R.string.action_search_hint));
-        
+
         mSearchView.setFocusable(true);
         mSearchView.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

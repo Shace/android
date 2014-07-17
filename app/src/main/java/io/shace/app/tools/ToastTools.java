@@ -30,15 +30,15 @@ public class ToastTools {
         return getInstance();
     }
 
+
     /**
      * Display a long toast. The previous toast will be cancelled
      */
-    public void longToast(Context context, int stringID) {
+    public void longToast(Context context, String message) {
         if (lastToast != null) {
             lastToast.cancel();
         }
 
-        String message = context.getString(stringID);
         lastToast = Toast.makeText(context, message, Toast.LENGTH_LONG);
 
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -47,5 +47,13 @@ public class ToastTools {
         }
 
         lastToast.show();
+    }
+
+    /**
+     * Display a long toast. The previous toast will be cancelled
+     */
+    public void longToast(Context context, int stringID) {
+        String message = context.getString(stringID);
+        longToast(context, message);
     }
 }
