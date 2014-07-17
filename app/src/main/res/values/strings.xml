@@ -9,6 +9,10 @@
     <string name="action_search_hint">Enter your token</string>
     <string name="action_sign_out">Sign out</string>
 
+    <string name="search_event_logo">Event logo</string>
+    <string name="search_event_create">Create</string>
+    <string name="search_event_access">access</string>
+
 
     <string name="photo">Photo</string>
     <string name="title_activity_menu">menu</string>

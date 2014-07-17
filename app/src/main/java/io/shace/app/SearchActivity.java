@@ -4,18 +4,34 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import io.shace.app.api.ApiResponse;
+import io.shace.app.api.AsyncApiCall;
+import io.shace.app.api.Routes;
+import io.shace.app.tools.ToastTools;
 
 @EActivity(R.layout.activity_search)
 public class SearchActivity extends Activity implements SearchView.OnQueryTextListener {
     private static final String TAG = "SearchActivity";
 
-    @ViewById(R.id.tmpTxt) TextView tmpTxt;
+    @ViewById(R.id.existingEvent) LinearLayout mExistingEvent;
+    @ViewById(R.id.unknownEvent) LinearLayout mUnknownEvent;
+
+    @ViewById(R.id.createEventName) TextView mCreateEventName;
+    @ViewById(R.id.joinEventName) TextView mJoinEventName;
+
     SearchView mSearchView;
     private CharSequence mTitle;
 
@@ -48,21 +64,6 @@ public class SearchActivity extends Activity implements SearchView.OnQueryTextLi
     }
 
     protected void setupSearch(MenuItem searchItem) {
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        if (searchManager != null) {
-//            List<SearchableInfo> searchables = searchManager.getSearchablesInGlobalSearch();
-//
-//            SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
-//            for (SearchableInfo inf : searchables) {
-//                if (inf.getSuggestAuthority() != null
-//                        && inf.getSuggestAuthority().startsWith("applications")) {
-//                    info = inf;
-//                }
-//            }
-//            mSearchView.setSearchableInfo(info);
-//        }
-
-
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
@@ -70,8 +71,37 @@ public class SearchActivity extends Activity implements SearchView.OnQueryTextLi
     }
 
     @Override
-    public boolean onQueryTextChange(String newText) {
-        tmpTxt.setText(newText);
+    public boolean onQueryTextChange(final String newText) {
+        if (newText.length() > 0) {
+            HashMap<String, String> data = new HashMap<String, String>();
+            data.put("token", newText);
+
+            new AsyncApiCall(getApplicationContext()).get(Routes.EVENT_ACCESS, data,
+                    new ApiResponse(new int[]{404,403}) {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            mExistingEvent.setVisibility(View.VISIBLE);
+                            mUnknownEvent.setVisibility(View.GONE);
+
+                            try {
+                                mJoinEventName.setText(response.getString("name"));
+                            } catch (JSONException e) {
+                                ToastTools.use().longToast(getApplicationContext(), R.string.internal_error);
+                            }
+                        }
+
+                        @Override
+                        public void onError(int code, String response) {
+                            mExistingEvent.setVisibility(View.GONE);
+                            mUnknownEvent.setVisibility(View.VISIBLE);
+                            mCreateEventName.setText(newText);
+                        }
+                    }
+            );
+        } else {
+            mExistingEvent.setVisibility(View.GONE);
+            mUnknownEvent.setVisibility(View.GONE);
+        }
         return false;
     }
 
