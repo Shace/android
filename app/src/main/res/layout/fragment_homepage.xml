@@ -24,24 +24,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Hello Bob"
+            android:text="Hello"
             android:id="@+id/helloUser"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="30dp"
+            android:textColor="#555"
+            />
 
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Try to find your event using the search tool at the top !"
+        android:text="Find an event using the search menu"
         android:id="@+id/helpSearchEventText"
         android:layout_below="@+id/linearLayout"
         android:layout_marginTop="90dp"
         android:gravity="center_horizontal"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp" />
+        android:textColor="#555"
+        />
 
 
 </RelativeLayout>
