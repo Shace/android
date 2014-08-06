@@ -12,3 +12,12 @@ android
 - Run -> Run 'app' (Or click on the green arrow)
 
 If you don't `Build -> Make project` before Running it, you will have some error about unexisting file (creating by Android Annotations)
+
+
+## Resources
+
+* Doc [Android Developer](https://developer.android.com/index.html)
+* Doc [Android API Reference](https://developer.android.com/reference/packages.html)
+* Doc: [Material Designs](http://www.google.com/design/spec/material-design/introduction.html)
+* Course by Google: [Developing Android Apps](https://www.udacity.com/course/viewer#!/c-ud853/l-1395568821/m-1643858568)
+* Course by Google: [UX Design for Mobile Developers](https://www.udacity.com/course/viewer#!/c-ud849/l-1613818915/e-1581848542/m-1581848543)
