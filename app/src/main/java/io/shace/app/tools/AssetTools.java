@@ -11,6 +11,8 @@ import java.util.Properties;
  * Created by melvin on 5/7/14.
  */
 public class AssetTools {
+    public static final String API_URL_KEY = "dev.api.url";
+
     static private final String TAG = "AssetTools";
 
     static public Properties getProperties(Context context, String filePath) {
@@ -35,5 +37,14 @@ public class AssetTools {
             throw new RuntimeException(filename + " does not exists");
         }
         return prop;
+    }
+
+    static public String getDevApiUrl(Context context) {
+        Properties prop = getProjectSettings(context);
+        String apiUrl = prop.getProperty(API_URL_KEY, null);
+        if (apiUrl == null) {
+            throw new RuntimeException(API_URL_KEY + " not defined");
+        }
+        return apiUrl;
     }
 }

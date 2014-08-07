@@ -1,6 +1,8 @@
 package io.shace.app.api;
 
+import io.shace.app.App;
 import io.shace.app.BuildConfig;
+import io.shace.app.tools.AssetTools;
 
 /**
  * Created by melvin on 5/24/14.
@@ -14,7 +16,7 @@ import io.shace.app.BuildConfig;
 public class Routes {
     public static final String VARIABLES_REGEX = "/::[A-Za-z_-]+";
 
-    public static final String ROOT_URL = (BuildConfig.DEBUG) ? "http://0.0.0.0:9000" : "http://api.shace.io";
+    public static final String ROOT_URL = (BuildConfig.DEBUG) ? AssetTools.getDevApiUrl(App.getContext()) : "http://api.shace.io";
 
     public static final String ACCESS_TOKEN = ROOT_URL + "/access_token/::token";
     public static final String USERS = ROOT_URL + "/users/::id?access_token=:access_token";

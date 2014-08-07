@@ -3,6 +3,8 @@ android
 
 
 - `git clone https://github.com/Shace/android.git`
+- cp android/app/src/main/assets/shace.example.properties android/app/src/main/assets/shace.properties
+- Set the correct values in android/app/src/main/assets/shace.properties
 - [Install Android Studio](https://developer.android.com/sdk/installing/studio.html) (The one with the Android SDK)
 - File -> Open -> Select the folder android created by git
 - Open the SDK manager (The icon with the Droid and a blue box with an arrow) and install All from 4.0 to the latest version
