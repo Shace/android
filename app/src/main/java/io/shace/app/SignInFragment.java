@@ -64,7 +64,7 @@ public class SignInFragment extends Fragment {
         postData.put("password", password);
         postData.put("auto_renew", "true");
 
-        new AsyncApiCall(getApplicationContext()).post(Routes.ACCESS_TOKEN, postData,
+        new AsyncApiCall().post(Routes.ACCESS_TOKEN, postData,
                 new ApiResponse(new int[]{401}) {
                     @Override
                     public void onSuccess(JSONObject response) {
@@ -80,20 +80,20 @@ public class SignInFragment extends Fragment {
                             redirectToHomepage();
                         } catch (JSONException e) {
                             Log.e(TAG, e.getMessage());
-                            ToastTools.use().longToast(getApplicationContext(), R.string.internal_error);
+                            ToastTools.use().longToast(R.string.internal_error);
                         }
                     }
 
                     @Override
                     public void onError(int errorCode, JSONObject response) {
                         Log.v(TAG, response.toString());
-                        ToastTools.use().longToast(getApplicationContext(), R.string.error_sign_in);
+                        ToastTools.use().longToast(R.string.error_sign_in);
                     }
 
                     @Override
                     public void onError(int errorCode, String response) {
                         Log.v(TAG, response);
-                        ToastTools.use().longToast(getApplicationContext(), response);
+                        ToastTools.use().longToast(response);
                     }
 
                     @Override
@@ -120,7 +120,7 @@ public class SignInFragment extends Fragment {
         putData.put("last_name", password);
         putData.put("birth_date", password);
 
-        new AsyncApiCall(getApplicationContext()).post(Routes.USERS, putData,
+        new AsyncApiCall().post(Routes.USERS, putData,
                 new ApiResponse(new int[]{400, 403}) {
                     @Override
                     public void onSuccess(JSONObject response) {
@@ -132,20 +132,20 @@ public class SignInFragment extends Fragment {
 
                         } catch (JSONException e) {
                             Log.e(TAG, e.getMessage());
-                            ToastTools.use().longToast(getApplicationContext(), R.string.internal_error);
+                            ToastTools.use().longToast(R.string.internal_error);
                         }
                     }
 
                     @Override
                     public void onError(int errorCode, JSONObject response) {
                         Log.v(TAG, response.toString());
-                        ToastTools.use().longToast(getApplicationContext(), R.string.error_sign_up);
+                        ToastTools.use().longToast(R.string.error_sign_up);
                     }
 
                     @Override
                     public void onError(int errorCode, String response) {
                         Log.v(TAG, response);
-                        ToastTools.use().longToast(getApplicationContext(), response);
+                        ToastTools.use().longToast(response);
                     }
 
                     @Override

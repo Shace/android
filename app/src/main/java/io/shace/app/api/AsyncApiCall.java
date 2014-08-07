@@ -24,8 +24,7 @@ import io.shace.app.tools.ToastTools;
 public class AsyncApiCall extends ApiCall {
     private static final String TAG = "AsyncApiCall";
 
-    public AsyncApiCall(Context context) {
-        super(context);
+    public AsyncApiCall() {
     }
 
     /*
@@ -124,8 +123,8 @@ public class AsyncApiCall extends ApiCall {
      * @param response instance of ApiResponse to handle the callbacks
      */
     protected void makeRequest(final int method, String url, final JSONObject data, final ApiResponse response) {
-        if (NetworkTools.hasInternet(mContext)) {
-            String token = User.getAccessToken(mContext);
+        if (NetworkTools.hasInternet()) {
+            String token = User.getAccessToken();
 
             if (token != null) {
                 url = url.replaceAll(":access_token", token);
@@ -145,7 +144,7 @@ public class AsyncApiCall extends ApiCall {
 //                _makeRequest(method, url, data, response);
 //            }
         } else {
-            ToastTools.use().longToast(mContext, R.string.no_internet);
+            ToastTools.use().longToast(R.string.no_internet);
         }
     }
 
@@ -154,6 +153,6 @@ public class AsyncApiCall extends ApiCall {
         String methodName = (method == Request.Method.GET) ? "GET" : "POST";
         VolleyLog.v(methodName + " " + url);
         JsonObjectRequest req = new JsonObjectRequest(method, url, data, _success(response), _error(response));
-        ApiRequestQueue.getInstance(mContext).add(req, TAG);
+        ApiRequestQueue.getInstance().add(req, TAG);
     }
 }

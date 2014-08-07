@@ -1,6 +1,5 @@
 package io.shace.app.api;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.Response;
@@ -24,11 +23,9 @@ import io.shace.app.tools.NetworkTools;
 public abstract class ApiCall {
     private static final String TAG = "ApiCall";
 
-    protected Context mContext = null;
     protected boolean mUpdateToken = true;
 
-    public ApiCall(Context context) {
-        mContext = context;
+    public ApiCall() {
     }
 
     /**
@@ -147,14 +144,14 @@ public abstract class ApiCall {
                             userResponse.onError(currentErrorCode, responseBody);
                         }
                     } catch (UnsupportedEncodingException e) {
-                        NetworkTools.sendServerError(mContext);
+                        NetworkTools.sendServerError();
                         Log.e(TAG, e.getMessage());
                     }
                 } else if (error.networkResponse == null) {
-                    NetworkTools.sendServerError(mContext);
+                    NetworkTools.sendServerError();
                     Log.e(TAG, "Volley networkResponse is null. Error was: " + error.toString());
                 } else {
-                    NetworkTools.sendServerError(mContext);
+                    NetworkTools.sendServerError();
                     Log.e(TAG, error.toString());
                 }
                 userResponse.alwaysAfter();

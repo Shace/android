@@ -82,7 +82,7 @@ public class SearchActivity extends Activity implements SearchView.OnQueryTextLi
             HashMap<String, String> data = new HashMap<String, String>();
             data.put("token", newText);
 
-            new AsyncApiCall(getApplicationContext()).get(Routes.EVENT_ACCESS, data,
+            new AsyncApiCall().get(Routes.EVENT_ACCESS, data,
                     new ApiResponse(new int[]{404,403}) {
                         @Override
                         public void onSuccess(JSONObject response) {
@@ -92,7 +92,7 @@ public class SearchActivity extends Activity implements SearchView.OnQueryTextLi
                             try {
                                 mJoinEventName.setText(response.getString("name"));
                             } catch (JSONException e) {
-                                ToastTools.use().longToast(getApplicationContext(), R.string.internal_error);
+                                ToastTools.use().longToast(R.string.internal_error);
                             }
                         }
 

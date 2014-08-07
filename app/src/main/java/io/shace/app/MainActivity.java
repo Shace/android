@@ -35,8 +35,8 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
     @AfterViews
     void init() {
-        if (User.isAuthenticated(getApplicationContext()) == false) {
-            User.connectAsGuest(getApplicationContext(), null);
+        if (User.isAuthenticated() == false) {
+            User.connectAsGuest(null);
         }
 
         _init();
@@ -60,7 +60,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
         switch (position) {
             case 0:
-                if (User.isLogged(getApplicationContext())) {
+                if (User.isLogged()) {
                     fragment = new HomepageFragment_();
                 } else {
                     fragment = new SignInFragment_();
@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
                 fragment = new ProfileFragment_();
                 break;
             default:
-                ToastTools.use().longToast(getApplicationContext(), R.string.todo);
+                ToastTools.use().longToast(R.string.todo);
                 Log.e(TAG, "Fragment " + position + " not available");
                 break;
         }
@@ -118,7 +118,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
             return true;
         } else if (id == R.id.action_sign_out) {
             User.signOut(this);
-            User.connectAsGuest(getApplicationContext(), null);
+            User.connectAsGuest(null);
             return true;
         }
         return super.onOptionsItemSelected(item);

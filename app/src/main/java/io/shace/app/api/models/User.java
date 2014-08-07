@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import io.shace.app.App;
 import io.shace.app.callbacks.EmptyCallback;
 import io.shace.app.R;
 import io.shace.app.SignInFragment_;
@@ -28,6 +29,7 @@ import io.shace.app.tools.ToastTools;
  */
 public class User {
     private static final String TAG = "User";
+    protected static Context sContext = App.getContext();
 
     /**
      * Sign out the current user
@@ -46,24 +48,24 @@ public class User {
         transaction.commit();
     }
 
-    static public void connectAsGuest(final Context context, final EmptyCallback callback) {
+    static public void connectAsGuest(final EmptyCallback callback) {
         HashMap<String,String> postData = new HashMap<String, String>();
         postData.put("password", "");
         postData.put("auto_renew", "true");
 
-        new AsyncApiCall(context).post(Routes.ACCESS_TOKEN, postData,
+        new AsyncApiCall().post(Routes.ACCESS_TOKEN, postData,
                 new ApiResponse(new int[]{}) {
                     @Override
                     public void onSuccess(JSONObject response) {
                         try {
-                            SharedPreferences.Editor settings = context.getSharedPreferences("settings", Context.MODE_APPEND).edit();
+                            SharedPreferences.Editor settings = sContext.getSharedPreferences("settings", Context.MODE_APPEND).edit();
                             settings.putString("accessToken", response.getString("token"));
                             settings.putLong("creation", response.getLong("creation"));
                             settings.putLong("expiration", response.getLong("expiration"));
                             settings.apply();
                         } catch (JSONException e) {
                             Log.e(TAG, e.getMessage());
-                            ToastTools.use().longToast(context, R.string.internal_error);
+                            ToastTools.use().longToast(R.string.internal_error);
                         }
 
                         if (callback != null) {
@@ -73,8 +75,8 @@ public class User {
                 });
     }
 
-    static public String getAccessToken(Context context) {
-        SharedPreferences settings = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+    static public String getAccessToken() {
+        SharedPreferences settings = sContext.getSharedPreferences("settings", Context.MODE_PRIVATE);
         return settings.getString("accessToken", null);
     }
 
@@ -83,21 +85,20 @@ public class User {
      * refresh the access_token
      * TODO: API 2.0
      *
-     * @param context Context of the caller
      * @param callback callback to call or null
      */
     @Deprecated
-    static public void refreshToken(final Context context, final StringCallback callback) {
+    static public void refreshToken(final StringCallback callback) {
         HashMap<String, String> data = new HashMap<String, String>();
-        data.put("access_token", getAccessToken(context));
+        data.put("access_token", getAccessToken());
 
-        new AsyncApiCall(context).noToken().get(Routes.ACCESS_TOKEN, data,
+        new AsyncApiCall().noToken().get(Routes.ACCESS_TOKEN, data,
                 new ApiResponse(new int[]{401}) {
                     @Override
                     public void onSuccess(JSONObject response) {
                         String token = "";
 
-                        SharedPreferences.Editor settings = context.getSharedPreferences("settings", Context.MODE_APPEND).edit();
+                        SharedPreferences.Editor settings = sContext.getSharedPreferences("settings", Context.MODE_APPEND).edit();
                         try {
                             token = response.getString("token");
                             settings.putString("accessToken", token);
@@ -115,11 +116,10 @@ public class User {
      * Check if the user is properly logged with a user account
      * DOES NOT VALIDATE THE ACCESS_TOKEN
      *
-     * @param context Context of the caller
      * @return True if the user is logged, false otherwise
      */
-    static public boolean isLogged(Context context) {
-        SharedPreferences settings = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+    static public boolean isLogged() {
+        SharedPreferences settings = sContext.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String token = settings.getString("accessToken", null);
         int userId = settings.getInt("userId", -1);
         long creation = settings.getLong("creation", 0);
@@ -133,11 +133,10 @@ public class User {
      * Check if the user has been authenticated using whether a user or guest account
      * DOES NOT VALIDATE THE ACCESS_TOKEN
      *
-     * @param context Context of the caller
      * @return True if the user is authenticated, false otherwise
      */
-    static public boolean isAuthenticated(Context context) {
-        SharedPreferences settings = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+    static public boolean isAuthenticated() {
+        SharedPreferences settings = sContext.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String token = settings.getString("accessToken", null);
         int userId = settings.getInt("userId", -1);
         long creation = settings.getLong("creation", 0);
@@ -151,12 +150,11 @@ public class User {
      * Check if the access_token is still valid
      * TODO: API 2.0
      *
-     * @param context Context of the caller
      * @return True if the token has expired, false otherwise
      */
     @Deprecated
-    static public boolean sessionHasExpired(Context context) {
-        SharedPreferences settings = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+    static public boolean sessionHasExpired() {
+        SharedPreferences settings = sContext.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String token = settings.getString("accessToken", null);
         int userId = settings.getInt("userId", -1);
         long creation = settings.getLong("creation", 0);

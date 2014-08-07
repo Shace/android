@@ -5,11 +5,15 @@ import android.view.Gravity;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import io.shace.app.App;
+
 /**
  * Created by melvin on 4/30/14.
  */
 public class ToastTools {
     static ToastTools sInstance = null;
+    static protected Context sContext = App.getContext();
+
     Toast lastToast = null;
 
     private ToastTools() {
@@ -34,14 +38,14 @@ public class ToastTools {
     /**
      * Display a long toast. The previous toast will be cancelled
      */
-    public void longToast(Context context, String message) {
+    public void longToast(String message) {
         if (lastToast != null) {
             lastToast.cancel();
         }
 
-        lastToast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+        lastToast = Toast.makeText(sContext, message, Toast.LENGTH_LONG);
 
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) sContext.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isAcceptingText()) {
             lastToast.setGravity(Gravity.CENTER|Gravity.CENTER_HORIZONTAL, 0, 0);
         }
@@ -52,8 +56,8 @@ public class ToastTools {
     /**
      * Display a long toast. The previous toast will be cancelled
      */
-    public void longToast(Context context, int stringID) {
-        String message = context.getString(stringID);
-        longToast(context, message);
+    public void longToast(int stringID) {
+        String message = sContext.getString(stringID);
+        longToast(message);
     }
 }

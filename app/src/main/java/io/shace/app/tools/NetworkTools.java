@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import io.shace.app.App;
 import io.shace.app.R;
 
 /**
@@ -19,14 +20,14 @@ import io.shace.app.R;
  * Generic class to wrap common calls to block of codes linked to the networks
  */
 public class NetworkTools {
-
     /**
      * Check if the current device has a working internet connexion
      *
-     * @param context
      * @return the state of the connection
      */
-    static public boolean hasInternet(Context context) {
+    static public boolean hasInternet() {
+        Context context = App.getContext();
+
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
@@ -35,11 +36,10 @@ public class NetworkTools {
 
     /**
      * Display a Toast display the "Server Error" message
-     *
-     * @param context
      */
-    static public void sendServerError(Context context) {
-        ToastTools.use().longToast(context, R.string.server_error);
+    static public void sendServerError() {
+
+        ToastTools.use().longToast(R.string.server_error);
     }
 
 
@@ -51,12 +51,13 @@ public class NetworkTools {
      *
      *
      * @param tag Tag of the class
-     * @param context Context of the application
      * @param fields Hashmap containing the fields of the form. The key must match the post name of the data
      * @param errorCode Error code sent by the server
      * @param response Response of the server
      */
-    static public void validateBasicApiForm(String tag, Context context, HashMap<String, TextView> fields, int errorCode, JSONObject response) {
+    static public void validateBasicApiForm(String tag, HashMap<String, TextView> fields, int errorCode, JSONObject response) {
+        Context context = App.getContext();
+
         HashMap<String, Integer> errorMessages = new HashMap<String, Integer>();
         errorMessages.put("required", R.string.error_field_required);
         errorMessages.put("unique", R.string.error_field_duplicate);
@@ -84,22 +85,22 @@ public class NetworkTools {
                             String errorMessage = context.getString(errorMessageCode);
                             field.setError(errorMessage);
                         } else {
-                            ToastTools.use().longToast(context, R.string.internal_error);
+                            ToastTools.use().longToast(R.string.internal_error);
                             Log.e(tag, "Error " + errorType + " is not handled by the application (on field " + fieldName + ").");
                         }
 
 
                     } else {
-                        ToastTools.use().longToast(context, R.string.internal_error);
+                        ToastTools.use().longToast(R.string.internal_error);
                         Log.e(tag, "Field " + fieldName + " is not handled by the application.");
                     }
                 }
             } catch (Exception e) {
-                ToastTools.use().longToast(context, R.string.unknown_error);
+                ToastTools.use().longToast(R.string.unknown_error);
                 Log.e(tag, e.getMessage() + ". Response was: " + response.toString());
             }
         } else {
-            ToastTools.use().longToast(context, R.string.internal_error);
+            ToastTools.use().longToast(R.string.internal_error);
             Log.e(tag, "Error code " + errorCode + " is not handled by the application.");
         }
     }
