@@ -14,15 +14,8 @@ import android.widget.TextView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
-
-import io.shace.app.api.ApiResponse;
-import io.shace.app.api.AsyncApiCall;
-import io.shace.app.api.Routes;
-import io.shace.app.tools.ToastTools;
 
 @EActivity(R.layout.activity_search)
 public class SearchActivity extends Activity implements SearchView.OnQueryTextListener {
@@ -82,28 +75,28 @@ public class SearchActivity extends Activity implements SearchView.OnQueryTextLi
             HashMap<String, String> data = new HashMap<String, String>();
             data.put("token", newText);
 
-            new AsyncApiCall().get(Routes.EVENT_ACCESS, data,
-                    new ApiResponse(new int[]{404,403}) {
-                        @Override
-                        public void onSuccess(JSONObject response) {
-                            mExistingEvent.setVisibility(View.VISIBLE);
-                            mUnknownEvent.setVisibility(View.GONE);
-
-                            try {
-                                mJoinEventName.setText(response.getString("name"));
-                            } catch (JSONException e) {
-                                ToastTools.use().longToast(R.string.internal_error);
-                            }
-                        }
-
-                        @Override
-                        public void onError(int code, String response) {
-                            mExistingEvent.setVisibility(View.GONE);
-                            mUnknownEvent.setVisibility(View.VISIBLE);
-                            mCreateEventName.setText(newText);
-                        }
-                    }
-            );
+//            new AsyncApiCall().get(Routes.EVENT_ACCESS, data,
+//                    new ApiResponseCallbacks(new int[]{404,403}) {
+//                        @Override
+//                        public void onSuccess(JSONObject response) {
+//                            mExistingEvent.setVisibility(View.VISIBLE);
+//                            mUnknownEvent.setVisibility(View.GONE);
+//
+//                            try {
+//                                mJoinEventName.setText(response.getString("name"));
+//                            } catch (JSONException e) {
+//                                ToastTools.use().longToast(R.string.internal_error);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onError(int code, String response) {
+//                            mExistingEvent.setVisibility(View.GONE);
+//                            mUnknownEvent.setVisibility(View.VISIBLE);
+//                            mCreateEventName.setText(newText);
+//                        }
+//                    }
+//            );
         } else {
             mExistingEvent.setVisibility(View.GONE);
             mUnknownEvent.setVisibility(View.GONE);

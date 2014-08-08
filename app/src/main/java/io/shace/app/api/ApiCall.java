@@ -64,7 +64,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    public abstract void get(String uri, HashMap<String, String> data, ApiResponse response);
+    public abstract void get(String uri, HashMap<String, String> data, ApiResponseCallbacks response);
 
     /**
      * Send a POST request to the specified URL using the data
@@ -82,7 +82,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    abstract void post(String uri, HashMap<String, String> data, ApiResponse response);
+    abstract void post(String uri, HashMap<String, String> data, ApiResponseCallbacks response);
 
     /**
      * Send a PUT request to the specified URL using the data
@@ -100,7 +100,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    abstract void put(String uri, HashMap<String, String> data, ApiResponse response);
+    abstract void put(String uri, HashMap<String, String> data, ApiResponseCallbacks response);
 
     /**
      * Callback for Volley, called when the request fails (whether the server sent a 404 error code,
@@ -109,15 +109,13 @@ public abstract class ApiCall {
      * @param userResponse Instance of ApiResponse to call the user's callbacks
      * @return Response.ErrorListener()
      */
-    protected Response.ErrorListener _error(final ApiResponse userResponse) {
+    protected Response.ErrorListener _error(final ApiResponseCallbacks userResponse) {
         /**
          * Check the kind of error and call the callbacks accordingly
          */
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                userResponse.alwaysBefore();
-
                 boolean found = false;
                 int[] codes = userResponse.getAllowedCodes();
                 int currentErrorCode = 0;
@@ -160,17 +158,16 @@ public abstract class ApiCall {
     }
 
     /**
-     * Callback for Volley, called when the request fails (whether the server sent a 404 error code,
+     * Callback for Volley, called when the request succeed (whether the server sent a 404 error code,
      * or the server is unreachable)
      *
      * @param userResponse Instance of ApiResponse to call the user's callbacks
-     * @return Response.ErrorListener()
+     * @return Response.Listener()
      */
-    protected Response.Listener<JSONObject> _success(final ApiResponse userResponse) {
+    protected Response.Listener<JSONObject> _success(final ApiResponseCallbacks userResponse) {
         return new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                userResponse.alwaysBefore();
                 userResponse.onSuccess(response);
                 userResponse.alwaysAfter();
             }

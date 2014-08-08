@@ -1,7 +1,5 @@
 package io.shace.app.api;
 
-import android.content.Context;
-
 import com.android.volley.Request;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -13,7 +11,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import io.shace.app.R;
-import io.shace.app.api.models.User;
+import io.shace.app.api.models.EmptyApiResponse;
 import io.shace.app.tools.NetworkTools;
 import io.shace.app.tools.ToastTools;
 
@@ -32,7 +30,7 @@ public class AsyncApiCall extends ApiCall {
      */
 
     @Override
-    public void post(String uri, HashMap<String, String> data, ApiResponse response) {
+    public void post(String uri, HashMap<String, String> data, ApiResponseCallbacks response) {
         _post(uri, data, response);
     }
 
@@ -43,7 +41,7 @@ public class AsyncApiCall extends ApiCall {
 
 
     // TODO Allow GET data too (ex. to POST on /event/:eventId/)
-    private void _post(String url, HashMap<String, String> data, ApiResponse response) {
+    private void _post(String url, HashMap<String, String> data, ApiResponseCallbacks response) {
         // We removed the optional variables that have not been given
         url = url.replaceAll(Routes.VARIABLES_REGEX, "");
 
@@ -55,7 +53,7 @@ public class AsyncApiCall extends ApiCall {
      */
 
     @Override
-    public void put(String uri, HashMap<String, String> data, ApiResponse response) {
+    public void put(String uri, HashMap<String, String> data, ApiResponseCallbacks response) {
         _put(uri, data, response);
     }
 
@@ -65,7 +63,7 @@ public class AsyncApiCall extends ApiCall {
     }
 
 
-    private void _put(String url, HashMap<String, String> data, ApiResponse response) {
+    private void _put(String url, HashMap<String, String> data, ApiResponseCallbacks response) {
         if (data != null) {
             Iterator<Map.Entry<String,String>> iterator = data.entrySet().iterator();
 
@@ -91,7 +89,7 @@ public class AsyncApiCall extends ApiCall {
      */
 
     @Override
-    public void get(String uri, HashMap<String, String> data, ApiResponse response) {
+    public void get(String uri, HashMap<String, String> data, ApiResponseCallbacks response) {
         _get(uri, data, response);
     }
 
@@ -100,7 +98,7 @@ public class AsyncApiCall extends ApiCall {
         _get(uri, data, null);
     }
 
-    private void _get(String url, HashMap<String, String> data, ApiResponse response) {
+    private void _get(String url, HashMap<String, String> data, ApiResponseCallbacks response) {
         if (data != null) {
             for (Map.Entry<String, String> entry : data.entrySet()) {
                 url = url.replaceAll("::?" + entry.getKey(), entry.getValue());
@@ -122,37 +120,26 @@ public class AsyncApiCall extends ApiCall {
      * @param data POST data
      * @param response instance of ApiResponse to handle the callbacks
      */
-    protected void makeRequest(final int method, String url, final JSONObject data, final ApiResponse response) {
+    protected void makeRequest(final int method, String url, final JSONObject data, final ApiResponseCallbacks response) {
         if (NetworkTools.hasInternet()) {
-            String token = User.getAccessToken();
+            //String token = User.getAccessToken();
 
-            if (token != null) {
-                url = url.replaceAll(":access_token", token);
-            }
-
-//            TODO: API 2.0. Remove the _makerequest and uncomment the following
-                    _makeRequest(method, url, data, response);
-//            if (User.sessionHasExpired(mContext)) {
-//                User.refreshToken(mContext, new StringCallback(){
-//                    @Override
-//                    public void onSuccess(String newToken) {
-//                        // TODO: Replace the access_token=[A-Za-z0-9-] by newToken
-//                        _makeRequest(method, url, data, response);
-//                    }
-//                });
-//            } else {
-//                _makeRequest(method, url, data, response);
+//            if (token != null) {
+//                url = url.replaceAll(":access_token", token);
 //            }
+
+            _makeRequest(method, url, data, response);
         } else {
             ToastTools.use().longToast(R.string.no_internet);
         }
     }
 
-    private void _makeRequest(int method, String url, JSONObject data, ApiResponse response) {
-        response = (response == null) ? (new ApiResponse()) : (response);
+    private void _makeRequest(int method, String url, JSONObject data, ApiResponseCallbacks response) {
+        response = (response == null) ? (new EmptyApiResponse()) : (response);
         String methodName = (method == Request.Method.GET) ? "GET" : "POST";
         VolleyLog.v(methodName + " " + url);
         JsonObjectRequest req = new JsonObjectRequest(method, url, data, _success(response), _error(response));
         ApiRequestQueue.getInstance().add(req, TAG);
+        response.alwaysBefore();
     }
 }

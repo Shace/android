@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
-import io.shace.app.api.models.User;
 import io.shace.app.tools.ToastTools;
 
 
@@ -35,9 +34,9 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
     @AfterViews
     void init() {
-        if (User.isAuthenticated() == false) {
-            User.connectAsGuest(null);
-        }
+//        if (User.isAuthenticated() == false) {
+//            User.connectAsGuest(null);
+//        }
 
         _init();
     }
@@ -60,11 +59,11 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
         switch (position) {
             case 0:
-                if (User.isLogged()) {
-                    fragment = new HomepageFragment_();
-                } else {
+//                if (User.isLogged()) {
+//                    fragment = new HomepageFragment_();
+//                } else {
                     fragment = new SignInFragment_();
-                }
+                //}
                 break;
             case 3:
                 fragment = new ProfileFragment_();
@@ -117,8 +116,8 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         } else if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_sign_out) {
-            User.signOut(this);
-            User.connectAsGuest(null);
+//            User.signOut(this);
+//            User.connectAsGuest(null);
             return true;
         }
         return super.onOptionsItemSelected(item);
