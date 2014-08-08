@@ -2,7 +2,6 @@ package io.shace.app.api.models.tasks.tokenTasks;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
 import org.json.JSONObject;
@@ -43,9 +42,7 @@ public class Generate extends Task {
 //                settings.putLong("expiration", response.getLong("expiration"));
 //                settings.apply();
 
-            Gson gson = new Gson();
-            Token token = gson.fromJson(response.toString(), Token.class);
-
+            Token token = jsonObjectToModel(response, Token.class);
             mListener.onTokenCreated(token);
 
             // Todo move to the caller

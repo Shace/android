@@ -2,10 +2,15 @@ package io.shace.app.api.models.tasks;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import io.shace.app.App;
 import io.shace.app.api.ApiResponseCallbacks;
+import io.shace.app.api.models.Model;
 import io.shace.app.api.models.listeners.TokenListener;
 
 /**
@@ -43,6 +48,22 @@ abstract public class Task implements ApiResponseCallbacks {
      * @param data Data to use for the query
      */
     public abstract void exec(HashMap<String, String> data);
+
+
+    /**
+     * Transform a JSONObject into a model
+     * Example: {@code User user = jsonObjectToModel(json, User.class)}
+     *
+     * @param json
+     * @param type Type of the class you want
+     * @param <T> class that extends model
+     *
+     * @return instance of T
+     */
+    protected <T extends Model> T jsonObjectToModel(JSONObject json, Class<T> type) {
+        Gson gson = new Gson();
+        return gson.fromJson(json.toString(), type);
+    }
 
 
     @Override
