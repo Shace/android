@@ -1,4 +1,4 @@
-package io.shace.app.api.models;
+package io.shace.app.api;
 
 import org.json.JSONObject;
 

@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import io.shace.app.R;
-import io.shace.app.api.models.EmptyApiResponse;
 import io.shace.app.tools.NetworkTools;
 import io.shace.app.tools.ToastTools;
 

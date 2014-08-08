@@ -71,14 +71,21 @@ public class Token extends Model{
     }
 
     /**
-     * TODO: Take callback to notify
+     * Generate a new guest token
+     *
+     * @param listener instance of TokenListener
      */
     public static void generate(TokenListener listener) {
         Task task = new Generate(listener);
         task.exec();
     }
 
-    public static void update() {
-        // Update the guest token using PUT
+    /**
+     * Update a token
+     *
+     * @param listener instance of TokenListener
+     */
+    public static void update(TokenListener listener) {
+        // todo Update the guest token using PUT
     }
 }

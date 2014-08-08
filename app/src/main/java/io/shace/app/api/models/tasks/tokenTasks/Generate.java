@@ -22,14 +22,11 @@ import io.shace.app.tools.ToastTools;
  */
 public class Generate extends Task {
     private static final String TAG = Generate.class.getSimpleName();
-    private TokenListener mListener;
-
 
     public Generate(TokenListener listener) {
         mListener = listener;
         setAllowedCodes(new int[] {401});
     }
-
 
     public void exec(HashMap<String, String> postData) {
         new AsyncApiCall().post(Routes.ACCESS_TOKEN, postData, this);
@@ -69,15 +66,5 @@ public class Generate extends Task {
     public void onError(int code, String response) {
         Log.v(TAG, response);
         ToastTools.use().longToast(response);
-    }
-
-    @Override
-    public void alwaysBefore() {
-        mListener.onPreExecute();
-    }
-
-    @Override
-    public void alwaysAfter() {
-        mListener.onPostExecute();
     }
 }

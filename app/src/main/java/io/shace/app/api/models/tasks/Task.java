@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import io.shace.app.App;
 import io.shace.app.api.ApiResponseCallbacks;
+import io.shace.app.api.models.listeners.TokenListener;
 
 /**
  * Created by melvin on 8/7/14.
@@ -13,6 +14,8 @@ import io.shace.app.api.ApiResponseCallbacks;
 abstract public class Task implements ApiResponseCallbacks {
     private static final String TAG = Task.class.getSimpleName();
     protected static Context sContext = App.getContext();
+
+    protected TokenListener mListener;
 
     /*
     * HTTP codes allowed in the error callback
@@ -40,5 +43,16 @@ abstract public class Task implements ApiResponseCallbacks {
      * @param data Data to use for the query
      */
     public abstract void exec(HashMap<String, String> data);
+
+
+    @Override
+    public void alwaysBefore() {
+        mListener.onPreExecute();
+    }
+
+    @Override
+    public void alwaysAfter() {
+        mListener.onPostExecute();
+    }
 
 }

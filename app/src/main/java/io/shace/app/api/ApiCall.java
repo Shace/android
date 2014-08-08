@@ -29,26 +29,6 @@ public abstract class ApiCall {
     }
 
     /**
-     * Optional: Specify that the provided token has to be checked and updated (if needed)
-     * TODO: API 2.0
-     */
-    @Deprecated
-    public ApiCall checkToken() {
-        mUpdateToken = true;
-        return this;
-    }
-
-    /**
-     * Specify that the provided token should not be checked nor updated in any way
-     * TODO API 2.0
-     */
-    @Deprecated
-    public ApiCall noToken() {
-        mUpdateToken = false;
-        return this;
-    }
-
-    /**
      * Send a GET request to the specified URL using the data
      *
      * @param uri the uri (without the protocol nor the domain) to GET
