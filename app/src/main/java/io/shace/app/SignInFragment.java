@@ -18,6 +18,7 @@ import java.util.HashMap;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.listeners.TokenListener;
 
+// todo move signup form
 @EFragment(R.layout.fragment_sign_in)
 public class SignInFragment extends Fragment implements TokenListener {
     private static final String TAG = "SignInFragment";

@@ -2,18 +2,14 @@
 <resources>
 
     <string name="app_name">Shace</string>
-
     <string name="todo">Action not yet available</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="action_search_hint">Enter your token</string>
     <string name="action_sign_out">Sign out</string>
-
     <string name="search_event_logo">Event logo</string>
     <string name="search_event_create">Create</string>
     <string name="search_event_access">access</string>
-
-
     <string name="photo">Photo</string>
     <string name="title_activity_menu">menu</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -31,5 +27,7 @@
     <string name="title_activity_photos">photos</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_sign_up">SignUp</string>
+    <string name="title_activity_tour">TourActivity</string>
 
 </resources>
