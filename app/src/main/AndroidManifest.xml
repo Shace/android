@@ -37,7 +37,7 @@
                 android:value=".MainActivity_" />
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".SignUpActivity_"
             android:label="@string/title_activity_sign_up" >
         </activity>
         <activity

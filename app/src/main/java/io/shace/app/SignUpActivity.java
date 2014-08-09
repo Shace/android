@@ -1,35 +1,41 @@
 package io.shace.app;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.Window;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.WindowFeature;
+
+import io.shace.app.api.models.User;
+import io.shace.app.tools.ToastTools;
+
+@WindowFeature({
+        Window.FEATURE_NO_TITLE,
+        Window.FEATURE_INDETERMINATE_PROGRESS
+})
+@EActivity(R.layout.activity_sign_up)
 public class SignUpActivity extends Activity {
+    @ViewById(R.id.icon_loader) protected ProgressBar mIconLoader;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-    }
+    @ViewById(R.id.first_name) protected AutoCompleteTextView mFirstNameView;
+    @ViewById(R.id.last_name) protected AutoCompleteTextView mLastNameView;
+    @ViewById(R.id.email) protected AutoCompleteTextView mEmailView;
+    @ViewById(R.id.password) protected EditText mPasswordView;
 
+    @Click(R.id.signUpButton)
+    protected void signUp() {
+        String firstName = mFirstNameView.getText().toString();
+        String lastName = mLastNameView.getText().toString();
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.sign_up, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        User user = new User(email, password, firstName, lastName, null);
+        //user.save(this);
+        ToastTools.use().longToast("OK");
     }
 }

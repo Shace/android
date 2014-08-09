@@ -1,6 +1,7 @@
 package io.shace.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -28,7 +29,7 @@ public class WelcomeActivity extends Activity {
 
     @Click(R.id.signUpButton)
     protected void signUp() {
-//        Intent intent = new Intent(this, SignInFragment.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, SignUpActivity_.class);
+        startActivity(intent);
     }
 }
