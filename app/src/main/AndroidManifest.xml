@@ -44,6 +44,10 @@
             android:name=".TourActivity"
             android:label="@string/title_activity_tour" >
         </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/title_activity_welcome" >
+        </activity>
     </application>
 
 </manifest>

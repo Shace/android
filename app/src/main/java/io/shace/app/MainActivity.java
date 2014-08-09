@@ -38,6 +38,10 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 //            User.connectAsGuest(null);
 //        }
 
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
+        finish();
+
         _init();
     }
 
