@@ -88,6 +88,15 @@ public class Token extends Model {
         return gson.fromJson(json, Token.class);
     }
 
+    public void save() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        SharedPreferences.Editor editor = pref.edit();
+
+        Gson gson = new Gson();
+        editor.putString("token", gson.toJson(this));
+        editor.apply();
+    }
+
     /**
      * Generate a new guest token
      *

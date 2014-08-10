@@ -37,15 +37,8 @@ public class Generate extends Task {
     @Override
     public void onSuccess(JSONObject response) {
         try {
-            // Todo save Token as string
-//                SharedPreferences.Editor settings = sContext.getSharedPreferences("settings", Context.MODE_APPEND).edit();
-//                settings.putString("accessToken", response.getString("token"));
-//                settings.putInt("userId", response.getInt("user_id"));
-//                settings.putLong("creation", response.getLong("creation"));
-//                settings.putLong("expiration", response.getLong("expiration"));
-//                settings.apply();
-
             Token token = jsonObjectToModel(response, Token.class);
+            token.save();
             mListener.onTokenCreated(token);
 
             // Todo move to the caller
