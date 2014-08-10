@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.util.Map;
 
 import io.shace.app.R;
+import io.shace.app.api.ApiError;
 import io.shace.app.api.AsyncApiCall;
 import io.shace.app.api.Routes;
 import io.shace.app.api.models.Token;
@@ -40,7 +41,7 @@ public class Add extends Task {
     @Override
     public void onSuccess(JSONObject response) {
         try {
-            User user = jsonObjectToModel(response, User.class);
+            User user = jsonObjectToObject(response, User.class);
 
             Token token = Token.get();
             token.setUserId(user.getId());
@@ -55,13 +56,9 @@ public class Add extends Task {
 
     @Override
     public void onError(int code, JSONObject response) {
-        Log.v(TAG, response.toString());
-        ToastTools.use().longToast(R.string.error_sign_in);
-    }
-
-    @Override
-    public void onError(int code, String response) {
-        Log.v(TAG, response);
-        ToastTools.use().longToast(response);
+        ApiError error = getError(response);
+        if (error != null) {
+            mListener.onUserCreatedFail(error);
+        }
     }
 }

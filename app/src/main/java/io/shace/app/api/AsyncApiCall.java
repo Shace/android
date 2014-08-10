@@ -1,5 +1,7 @@
 package io.shace.app.api;
 
+import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -22,6 +24,7 @@ public class AsyncApiCall extends ApiCall {
     private static final String TAG = "AsyncApiCall";
 
     public AsyncApiCall() {
+        VolleyLog.setTag(TAG);
     }
 
     /*
@@ -136,7 +139,7 @@ public class AsyncApiCall extends ApiCall {
     private void _makeRequest(int method, String url, JSONObject data, ApiResponseCallbacks response) {
         response = (response == null) ? (new EmptyApiResponse()) : (response);
         String methodName = (method == Request.Method.GET) ? "GET" : "POST";
-        VolleyLog.v(methodName + " " + url);
+        Log.i(TAG, methodName + " " + url);
         JsonObjectRequest req = new JsonObjectRequest(method, url, data, _success(response), _error(response));
         ApiRequestQueue.getInstance().add(req, TAG);
         response.alwaysBefore();

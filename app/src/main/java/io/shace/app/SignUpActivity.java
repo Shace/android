@@ -15,6 +15,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
 
+import io.shace.app.api.ApiError;
 import io.shace.app.api.models.User;
 import io.shace.app.api.models.listeners.UserListener;
 
@@ -72,17 +73,16 @@ public class SignUpActivity extends Activity implements TextView.OnEditorActionL
     }
 
     @Override
-    public void onUserCreatedFail() {
+    public void onUserCreatedFail(ApiError error) {
+    }
+
+    @Override
+    public void onUserUpdatedFail(ApiError error) {
 
     }
 
     @Override
-    public void onUserUpdatedFail() {
-
-    }
-
-    @Override
-    public void onUserDeletedFail() {
+    public void onUserDeletedFail(ApiError error) {
 
     }
 

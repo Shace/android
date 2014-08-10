@@ -1,5 +1,6 @@
 package io.shace.app.api.models.listeners;
 
+import io.shace.app.api.ApiError;
 import io.shace.app.api.models.User;
 
 /**
@@ -13,9 +14,9 @@ public interface UserListener extends Listener {
 
     public void onUserDeleted();
 
-    public void onUserCreatedFail();
+    public void onUserCreatedFail(ApiError error);
 
-    public void onUserUpdatedFail();
+    public void onUserUpdatedFail(ApiError error);
 
-    public void onUserDeletedFail();
+    public void onUserDeletedFail(ApiError error);
 }

@@ -37,7 +37,7 @@ public class Generate extends Task {
     @Override
     public void onSuccess(JSONObject response) {
         try {
-            Token token = jsonObjectToModel(response, Token.class);
+            Token token = jsonObjectToObject(response, Token.class);
             token.save();
             mListener.onTokenCreated(token);
 
