@@ -6,7 +6,7 @@ import com.google.gson.JsonParseException;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import io.shace.app.R;
 import io.shace.app.api.AsyncApiCall;
@@ -21,20 +21,23 @@ import io.shace.app.tools.ToastTools;
  */
 public class Generate extends Task {
     private static final String TAG = Generate.class.getSimpleName();
+    protected TokenListener mListener;
 
     public Generate(TokenListener listener) {
         mListener = listener;
+        setGenericListener(listener);
+
         setAllowedCodes(new int[] {401});
     }
 
-    public void exec(HashMap<String, String> postData) {
+    public void exec(Map<String, String> postData) {
         new AsyncApiCall().post(Routes.ACCESS_TOKEN, postData, this);
     }
 
     @Override
     public void onSuccess(JSONObject response) {
         try {
-            // Todo json to object
+            // Todo save Token as string
 //                SharedPreferences.Editor settings = sContext.getSharedPreferences("settings", Context.MODE_APPEND).edit();
 //                settings.putString("accessToken", response.getString("token"));
 //                settings.putInt("userId", response.getInt("user_id"));

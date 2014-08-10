@@ -7,11 +7,12 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.shace.app.App;
 import io.shace.app.api.ApiResponseCallbacks;
 import io.shace.app.api.models.Model;
-import io.shace.app.api.models.listeners.TokenListener;
+import io.shace.app.api.models.listeners.Listener;
 
 /**
  * Created by melvin on 8/7/14.
@@ -20,7 +21,8 @@ abstract public class Task implements ApiResponseCallbacks {
     private static final String TAG = Task.class.getSimpleName();
     protected static Context sContext = App.getContext();
 
-    protected TokenListener mListener;
+    // Find way to get ride of this without breaking the two callback
+    protected Listener mGenericListener;
 
     /*
     * HTTP codes allowed in the error callback
@@ -32,6 +34,10 @@ abstract public class Task implements ApiResponseCallbacks {
     }
     public void setAllowedCodes(int[] allowedCodes) {
         this.mAllowedCodes = mAllowedCodes;
+    }
+
+    public void setGenericListener(Listener mGenericListener) {
+        this.mGenericListener = mGenericListener;
     }
 
     /**
@@ -47,7 +53,16 @@ abstract public class Task implements ApiResponseCallbacks {
      *
      * @param data Data to use for the query
      */
-    public abstract void exec(HashMap<String, String> data);
+    public abstract void exec(Map<String, String> data);
+
+    /**
+     * Execute the query with the given model
+     *
+     * @param model Model to use for the query
+     */
+    public void exec(Model model) {
+        exec(model.mapData());
+    }
 
 
     /**
@@ -68,12 +83,12 @@ abstract public class Task implements ApiResponseCallbacks {
 
     @Override
     public void alwaysBefore() {
-        mListener.onPreExecute();
+        mGenericListener.onPreExecute();
     }
 
     @Override
     public void alwaysAfter() {
-        mListener.onPostExecute();
+        mGenericListener.onPostExecute();
     }
 
 }

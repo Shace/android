@@ -6,7 +6,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -29,18 +28,18 @@ public class AsyncApiCall extends ApiCall {
      */
 
     @Override
-    public void post(String uri, HashMap<String, String> data, ApiResponseCallbacks response) {
+    public void post(String uri, Map<String, String> data, ApiResponseCallbacks response) {
         _post(uri, data, response);
     }
 
     @Override
-    public void post(String uri, HashMap<String, String> data) {
+    public void post(String uri, Map<String, String> data) {
         _post(uri, data, null);
     }
 
 
     // TODO Allow GET data too (ex. to POST on /event/:eventId/)
-    private void _post(String url, HashMap<String, String> data, ApiResponseCallbacks response) {
+    private void _post(String url, Map<String, String> data, ApiResponseCallbacks response) {
         // We removed the optional variables that have not been given
         url = url.replaceAll(Routes.VARIABLES_REGEX, "");
 
@@ -52,17 +51,17 @@ public class AsyncApiCall extends ApiCall {
      */
 
     @Override
-    public void put(String uri, HashMap<String, String> data, ApiResponseCallbacks response) {
+    public void put(String uri, Map<String, String> data, ApiResponseCallbacks response) {
         _put(uri, data, response);
     }
 
     @Override
-    public void put(String uri, HashMap<String, String> data) {
-        _post(uri, data, null);
+    public void put(String uri, Map<String, String> data) {
+        _put(uri, data, null);
     }
 
 
-    private void _put(String url, HashMap<String, String> data, ApiResponseCallbacks response) {
+    private void _put(String url, Map<String, String> data, ApiResponseCallbacks response) {
         if (data != null) {
             Iterator<Map.Entry<String,String>> iterator = data.entrySet().iterator();
 
@@ -88,16 +87,16 @@ public class AsyncApiCall extends ApiCall {
      */
 
     @Override
-    public void get(String uri, HashMap<String, String> data, ApiResponseCallbacks response) {
+    public void get(String uri, Map<String, String> data, ApiResponseCallbacks response) {
         _get(uri, data, response);
     }
 
     @Override
-    public void get(String uri, HashMap<String, String> data) {
+    public void get(String uri, Map<String, String> data) {
         _get(uri, data, null);
     }
 
-    private void _get(String url, HashMap<String, String> data, ApiResponseCallbacks response) {
+    private void _get(String url, Map<String, String> data, ApiResponseCallbacks response) {
         if (data != null) {
             for (Map.Entry<String, String> entry : data.entrySet()) {
                 url = url.replaceAll("::?" + entry.getKey(), entry.getValue());

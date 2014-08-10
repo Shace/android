@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
+import java.util.Map;
 
 import io.shace.app.tools.NetworkTools;
 
@@ -35,7 +35,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to inject in the uri. The method will look for
      *             the data keys in the uri param and replace all occurrences by the its associated value
      */
-    abstract void get(String uri, HashMap<String, String> data);
+    abstract void get(String uri, Map<String, String> data);
 
     /**
      * Send a GET request to the specified URL using the data, and call the given callbacks.
@@ -44,7 +44,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    public abstract void get(String uri, HashMap<String, String> data, ApiResponseCallbacks response);
+    public abstract void get(String uri, Map<String, String> data, ApiResponseCallbacks response);
 
     /**
      * Send a POST request to the specified URL using the data
@@ -53,7 +53,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to inject in the uri. The method will look for
      *             the data keys in the uri param and replace all occurrences by the its associated value
      */
-    abstract void post(String uri, HashMap<String, String> data);
+    abstract void post(String uri, Map<String, String> data);
 
     /**
      * Send a POST request to the specified URL using the data, and call the given callbacks.
@@ -62,7 +62,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    abstract void post(String uri, HashMap<String, String> data, ApiResponseCallbacks response);
+    abstract void post(String uri, Map<String, String> data, ApiResponseCallbacks response);
 
     /**
      * Send a PUT request to the specified URL using the data
@@ -71,7 +71,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to inject in the uri. The method will look for
      *             the data keys in the uri param and replace all occurrences by the its associated value
      */
-    abstract void put(String uri, HashMap<String, String> data);
+    abstract void put(String uri, Map<String, String> data);
 
     /**
      * Send a PUT request to the specified URL using the data, and call the given callbacks.
@@ -80,7 +80,7 @@ public abstract class ApiCall {
      * @param data hashmap containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    abstract void put(String uri, HashMap<String, String> data, ApiResponseCallbacks response);
+    abstract void put(String uri, Map<String, String> data, ApiResponseCallbacks response);
 
     /**
      * Callback for Volley, called when the request fails (whether the server sent a 404 error code,
