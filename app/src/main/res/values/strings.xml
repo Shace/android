@@ -33,5 +33,6 @@
     <string name="welcome_sign_in_text">Already have an account?</string>
     <string name="welcome_sign_up_button">Sign up for Shace</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
 
 </resources>

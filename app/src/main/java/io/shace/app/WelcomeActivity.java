@@ -23,8 +23,8 @@ public class WelcomeActivity extends Activity {
 
     @Click(R.id.signInText)
     protected void signIn() {
-//        Intent intent = new Intent(this, SignInFragment.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, SignInActivity_.class);
+        startActivity(intent);
     }
 
     @Click(R.id.signUpButton)
