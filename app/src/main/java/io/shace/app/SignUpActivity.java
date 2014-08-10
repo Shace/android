@@ -16,14 +16,14 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
 
 import io.shace.app.api.models.User;
-import io.shace.app.tools.ToastTools;
+import io.shace.app.api.models.listeners.UserListener;
 
 @WindowFeature({
         Window.FEATURE_NO_TITLE,
         Window.FEATURE_INDETERMINATE_PROGRESS
 })
 @EActivity(R.layout.activity_sign_up)
-public class SignUpActivity extends Activity implements TextView.OnEditorActionListener {
+public class SignUpActivity extends Activity implements TextView.OnEditorActionListener, UserListener {
     @ViewById(R.id.icon_loader) protected ProgressBar mIconLoader;
 
     @ViewById(R.id.first_name) protected AutoCompleteTextView mFirstNameView;
@@ -45,8 +45,7 @@ public class SignUpActivity extends Activity implements TextView.OnEditorActionL
         String password = mPasswordView.getText().toString();
 
         User user = new User(email, password, firstName, lastName, null);
-        //user.save(this);
-        ToastTools.use().longToast("OK");
+        user.save(this);
     }
 
     @Override
@@ -55,5 +54,45 @@ public class SignUpActivity extends Activity implements TextView.OnEditorActionL
             signUp();
         }
         return true;
+    }
+
+    @Override
+    public void onUserCreated(User user) {
+
+    }
+
+    @Override
+    public void onUserUpdated(User user) {
+
+    }
+
+    @Override
+    public void onUserDeleted() {
+
+    }
+
+    @Override
+    public void onUserCreatedFail() {
+
+    }
+
+    @Override
+    public void onUserUpdatedFail() {
+
+    }
+
+    @Override
+    public void onUserDeletedFail() {
+
+    }
+
+    @Override
+    public void onPreExecute() {
+
+    }
+
+    @Override
+    public void onPostExecute() {
+
     }
 }

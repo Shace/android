@@ -2,6 +2,10 @@ package io.shace.app.api.models;
 
 import java.util.Date;
 
+import io.shace.app.api.models.listeners.UserListener;
+import io.shace.app.api.models.tasks.Task;
+import io.shace.app.api.models.tasks.userTasks.Add;
+
 /**
  * Created by melvin on 7/15/14.
  */
@@ -83,20 +87,30 @@ public class User extends Model {
 
     // Actions, the cool stuffs
 
+    public static boolean isAuthenticated() {
+        return Token.get() != null;
+    }
+
+    public static boolean isLogged() {
+        return Token.get().getUserId() > -1;
+    }
 
     /**
-     * TODO take a callback as parameter to notify the user
+     * Save or update a user
+     *
+     * @param listener
      */
-    public void save() {
+    public void save(UserListener listener) {
         if (id == -1) {
-            // register a new user
+            Task task = new Add(listener);
+            task.exec(this);
         } else {
-            // update the current user
+            // todo update the current user
         }
     }
 
     /**
-     * Retreive a user from is ID
+     * Retrieve a user from is ID
      * @param id
      *
      *
