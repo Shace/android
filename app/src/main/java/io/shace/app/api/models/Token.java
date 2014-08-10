@@ -1,7 +1,12 @@
 package io.shace.app.api.models;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import io.shace.app.App;
 import io.shace.app.api.models.listeners.TokenListener;
 import io.shace.app.api.models.tasks.Task;
 import io.shace.app.api.models.tasks.tokenTasks.Generate;
@@ -9,7 +14,7 @@ import io.shace.app.api.models.tasks.tokenTasks.Generate;
 /**
  * Created by melvin on 8/7/14.
  */
-public class Token extends Model{
+public class Token extends Model {
     private enum Type {
         GUEST,
         USER
@@ -68,6 +73,19 @@ public class Token extends Model{
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public static Token get() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        String json = pref.getString("token", null);
+
+        if (json == null) {
+            return null;
+        }
+
+        // TODO move into a utility file
+        Gson gson = new Gson();
+        return gson.fromJson(json, Token.class);
     }
 
     /**
