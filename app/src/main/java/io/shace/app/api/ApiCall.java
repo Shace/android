@@ -21,9 +21,7 @@ import io.shace.app.tools.NetworkTools;
  */
 
 public abstract class ApiCall {
-    private static final String TAG = "ApiCall";
-
-    protected boolean mUpdateToken = true;
+    private static final String TAG = ApiCall.class.getSimpleName();
 
     public ApiCall() {
     }
