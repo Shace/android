@@ -11,6 +11,7 @@ import java.util.Map;
 import io.shace.app.R;
 import io.shace.app.api.AsyncApiCall;
 import io.shace.app.api.Routes;
+import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
 import io.shace.app.api.models.listeners.UserListener;
 import io.shace.app.api.models.tasks.Task;
@@ -40,9 +41,12 @@ public class Add extends Task {
     public void onSuccess(JSONObject response) {
         try {
             User user = jsonObjectToModel(response, User.class);
-            mListener.onUserCreated(user);
 
-            // TODO update Token information
+            Token token = Token.get();
+            token.setUserId(user.getId());
+            token.save();
+
+            mListener.onUserCreated(user);
         } catch (JsonParseException e) {
             Log.e(TAG, e.getMessage());
             ToastTools.use().longToast(R.string.internal_error);
