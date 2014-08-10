@@ -33,7 +33,7 @@ abstract public class Task implements ApiResponseCallbacks {
         return mAllowedCodes;
     }
     public void setAllowedCodes(int[] allowedCodes) {
-        this.mAllowedCodes = mAllowedCodes;
+        mAllowedCodes = allowedCodes;
     }
 
     public void setGenericListener(Listener mGenericListener) {
