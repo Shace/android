@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import io.shace.app.R;
+import io.shace.app.api.models.Token;
 import io.shace.app.tools.NetworkTools;
 import io.shace.app.tools.ToastTools;
 
@@ -120,11 +121,11 @@ public class AsyncApiCall extends ApiCall {
      */
     protected void makeRequest(final int method, String url, final JSONObject data, final ApiResponseCallbacks response) {
         if (NetworkTools.hasInternet()) {
-            //String token = User.getAccessToken();
+            Token token = Token.get();
 
-//            if (token != null) {
-//                url = url.replaceAll(":access_token", token);
-//            }
+            if (token != null) {
+                url = url.replaceAll(":access_token", token.getToken());
+            }
 
             _makeRequest(method, url, data, response);
         } else {
