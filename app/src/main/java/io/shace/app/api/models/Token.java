@@ -6,10 +6,13 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 import io.shace.app.App;
 import io.shace.app.api.models.listeners.TokenListener;
 import io.shace.app.api.models.tasks.Task;
 import io.shace.app.api.models.tasks.tokenTasks.Generate;
+import io.shace.app.api.models.tasks.tokenTasks.Update;
 
 /**
  * Created by melvin on 8/7/14.
@@ -112,7 +115,9 @@ public class Token extends Model {
      *
      * @param listener instance of TokenListener
      */
-    public static void update(TokenListener listener) {
-        // todo Update the guest token using PUT
+    public static void update(TokenListener listener, Map<String, String> postData) {
+        postData.put("token", Token.get().getToken());
+        Task task = new Update(listener);
+        task.exec(postData);
     }
 }
