@@ -27,7 +27,7 @@
     <string name="title_activity_photos">photos</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_sign_up">SignUp</string>
+    <string name="title_activity_sign_up">Sign up for Shace</string>
     <string name="title_activity_tour">TourActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="welcome_sign_in_text">Already have an account? Sign in!</string>
