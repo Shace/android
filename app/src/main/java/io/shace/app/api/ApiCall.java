@@ -32,7 +32,7 @@ public abstract class ApiCall {
      * Send a GET request to the specified URL using the data
      *
      * @param uri the uri (without the protocol nor the domain) to GET
-     * @param data hashmap containing the data to inject in the uri. The method will look for
+     * @param data map containing the data to inject in the uri. The method will look for
      *             the data keys in the uri param and replace all occurrences by the its associated value
      */
     abstract void get(String uri, Map<String, String> data);
@@ -41,7 +41,7 @@ public abstract class ApiCall {
      * Send a GET request to the specified URL using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
-     * @param data hashmap containing the data to post.
+     * @param data map containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
     public abstract void get(String uri, Map<String, String> data, ApiResponseCallbacks response);
@@ -50,7 +50,7 @@ public abstract class ApiCall {
      * Send a POST request to the specified URL using the data
      *
      * @param uri the uri (without the protocol nor the domain) to GET
-     * @param data hashmap containing the data to inject in the uri. The method will look for
+     * @param data map containing the data to inject in the uri. The method will look for
      *             the data keys in the uri param and replace all occurrences by the its associated value
      */
     abstract void post(String uri, Map<String, String> data);
@@ -59,7 +59,7 @@ public abstract class ApiCall {
      * Send a POST request to the specified URL using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
-     * @param data hashmap containing the data to post.
+     * @param data map containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
     abstract void post(String uri, Map<String, String> data, ApiResponseCallbacks response);
@@ -68,7 +68,7 @@ public abstract class ApiCall {
      * Send a PUT request to the specified URL using the data
      *
      * @param uri the uri (without the protocol nor the domain) to GET
-     * @param data hashmap containing the data to inject in the uri. The method will look for
+     * @param data map containing the data to inject in the uri. The method will look for
      *             the data keys in the uri param and replace all occurrences by the its associated value
      */
     abstract void put(String uri, Map<String, String> data);
@@ -77,7 +77,7 @@ public abstract class ApiCall {
      * Send a PUT request to the specified URL using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
-     * @param data hashmap containing the data to post.
+     * @param data map containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
     abstract void put(String uri, Map<String, String> data, ApiResponseCallbacks response);
