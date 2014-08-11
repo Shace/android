@@ -28,7 +28,7 @@ public class Add extends Task {
         mListener = listener;
         setGenericListener(listener);
 
-        setAllowedCodes(new int[] {400, 403});
+        setAllowedCodes(new int[] {400, 401, 403}); // todo remove 401 when the beta is over
     }
 
     @Override

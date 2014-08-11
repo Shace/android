@@ -91,8 +91,6 @@ abstract public class Task implements ApiResponseCallbacks {
      * @return instance of T
      */
     protected <T> T jsonObjectToObject(JSONObject json, Class<T> type) {
-        Log.i(TAG, json.toString());
-
         Gson gson = new Gson();
         return gson.fromJson(json.toString(), type);
     }
@@ -104,7 +102,6 @@ abstract public class Task implements ApiResponseCallbacks {
      * @return an object representing the error or null
      */
     protected ApiError getError(JSONObject response) {
-        Log.i(TAG, "CALLED");
         ApiError error = null;
 
         try {

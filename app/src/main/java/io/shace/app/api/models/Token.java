@@ -2,7 +2,6 @@ package io.shace.app.api.models;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -98,8 +97,6 @@ public class Token extends Model {
         if (json == null) {
             return null;
         }
-
-        Log.i("FOOBAR", json);
 
         // TODO move into a utility file
         Gson gson = new Gson();

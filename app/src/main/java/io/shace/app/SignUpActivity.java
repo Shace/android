@@ -1,5 +1,7 @@
 package io.shace.app;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -32,6 +34,7 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
 
     @ViewById(R.id.icon_loader) protected ProgressBar mIconLoader;
     @ViewById(R.id.sign_up_form) View mFormView;
+    @ViewById(R.id.beta_view) View mBetaView;
 
     @ViewById(R.id.first_name) protected AutoCompleteTextView mFirstNameView;
     @ViewById(R.id.last_name) protected AutoCompleteTextView mLastNameView;
@@ -42,6 +45,16 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     @AfterViews
     protected void init() {
         mPasswordView.setOnEditorActionListener(this);
+        displayCorrectPage();
+    }
+
+    private void displayCorrectPage() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+
+        if (pref.getBoolean("beta.status", false)) {
+            mBetaView.setVisibility(View.VISIBLE);
+            mFormView.setVisibility(View.GONE);
+        }
     }
 
     @Click(R.id.signUpButton)
@@ -65,18 +78,30 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
 
     @Override
     public void onUserCreated(User user) {
-
+        setBetaInfo();
     }
 
     @Override
     public void onUserCreatedFail(ApiError error) {
-        HashMap<String, TextView> fields = new HashMap<String, TextView>();
-        fields.put("firstName", mFirstNameView);
-        fields.put("lastName", mLastNameView);
-        fields.put("email", mEmailView);
-        fields.put("password", mPasswordView);
+        if (error.is(ApiError.PARAMETERS_ERROR)) {
+            HashMap<String, TextView> fields = new HashMap<String, TextView>();
+            fields.put("firstName", mFirstNameView);
+            fields.put("lastName", mLastNameView);
+            fields.put("email", mEmailView);
+            fields.put("password", mPasswordView);
 
-        checkFormError(error, fields);
+            checkFormError(error, fields);
+        } else if (error.is(ApiError.BETA_PROCESSING)) {
+            setBetaInfo();
+        }
+    }
+
+    private void setBetaInfo() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("beta.status", true);
+        editor.apply();
+        displayCorrectPage();
     }
 
     @Override
@@ -88,7 +113,11 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     @Override
     public void onPostExecute() {
         mIconLoader.setVisibility(View.GONE);
-        mFormView.setVisibility(View.VISIBLE);
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        if (pref.getBoolean("beta.status", false) == false) {
+            mFormView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

@@ -3,7 +3,6 @@ package io.shace.app.api;
 import android.util.Log;
 
 import com.android.volley.Request;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
@@ -23,9 +22,7 @@ import io.shace.app.tools.ToastTools;
 public class AsyncApiCall extends ApiCall {
     private static final String TAG = "AsyncApiCall";
 
-    public AsyncApiCall() {
-        VolleyLog.setTag(TAG);
-    }
+    public AsyncApiCall() {}
 
     /*
      * POST
