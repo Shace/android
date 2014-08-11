@@ -1,7 +1,12 @@
 package io.shace.app.api.models;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import java.util.Date;
 
+import io.shace.app.App;
+import io.shace.app.SplashScreenActivity_;
 import io.shace.app.api.models.listeners.UserListener;
 import io.shace.app.api.models.tasks.Task;
 import io.shace.app.api.models.tasks.userTasks.Add;
@@ -91,8 +96,14 @@ public class User extends Model {
         return Token.get() != null;
     }
 
+    // todo use type (user/guest)
     public static boolean isLogged() {
         return Token.get().getUserId() > -1;
+    }
+
+    // todo use type (user/guest)
+    public static boolean isNotLogged() {
+        return Token.get().getUserId() == -1;
     }
 
     /**
@@ -101,12 +112,25 @@ public class User extends Model {
      * @param listener
      */
     public void save(UserListener listener) {
-        if (id == -1) {
+        //if (isNotLogged()) {
             Task task = new Add(listener);
             task.exec(this);
-        } else {
-            // todo update the current user
-        }
+        //} else {
+        //    Log.e("toto", "what ?" + Token.get().getUserId());
+        //}
+    }
+
+    /**
+     * Sign out the update a user
+     */
+    public static void signOut() {
+        Token.remove();
+        // Todo Move to an Utility class
+        Activity activity = App.getCurrentActivity();
+        Intent intent = new Intent(activity, SplashScreenActivity_.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     /**

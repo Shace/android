@@ -1,18 +1,24 @@
 package io.shace.app.api.models.tasks;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import io.shace.app.App;
+import io.shace.app.R;
+import io.shace.app.api.ApiError;
 import io.shace.app.api.ApiResponseCallbacks;
 import io.shace.app.api.models.Model;
+import io.shace.app.api.models.User;
 import io.shace.app.api.models.listeners.Listener;
+import io.shace.app.tools.ToastTools;
 
 /**
  * Created by melvin on 8/7/14.
@@ -21,8 +27,17 @@ abstract public class Task implements ApiResponseCallbacks {
     private static final String TAG = Task.class.getSimpleName();
     protected static Context sContext = App.getContext();
 
-    // Find way to get ride of this without breaking the two callback
+    /**
+     * Generic Listener for all the basic actions
+     *
+     * Todo: Find way not to duplicate the listener in the children
+     */
     protected Listener mGenericListener;
+
+    /**
+     * Contains the data provided by exec(Model) or exec(Map)
+     */
+    protected Map<String, String> mData = new HashMap<String, String>();
 
     /*
     * HTTP codes allowed in the error callback
@@ -41,19 +56,19 @@ abstract public class Task implements ApiResponseCallbacks {
     }
 
     /**
-     * Execute the query without any data
+     * Execute the query
      */
-    public void exec() {
-        HashMap<String, String> data = new HashMap<String, String>();
-        exec(data);
-    }
+    public abstract void exec();
 
     /**
-     * Execute the query with the given data
+     * Execute the query using the given data
      *
      * @param data Data to use for the query
      */
-    public abstract void exec(Map<String, String> data);
+    public void exec(Map<String, String> data) {
+        mData = data;
+        exec();
+    }
 
     /**
      * Execute the query with the given model
@@ -61,25 +76,46 @@ abstract public class Task implements ApiResponseCallbacks {
      * @param model Model to use for the query
      */
     public void exec(Model model) {
-        exec(model.mapData());
+        mData = model.mapData();
+        exec();
     }
 
 
     /**
-     * Transform a JSONObject into a model
-     * Example: {@code User user = jsonObjectToModel(json, User.class)}
+     * Transform a JSONObject into an object
+     * Example: {@code User user = jsonObjectToObject(json, User.class)}
      *
      * @param json
      * @param type Type of the class you want
-     * @param <T> class that extends model
      *
      * @return instance of T
      */
-    protected <T extends Model> T jsonObjectToModel(JSONObject json, Class<T> type) {
+    protected <T> T jsonObjectToObject(JSONObject json, Class<T> type) {
         Gson gson = new Gson();
         return gson.fromJson(json.toString(), type);
     }
 
+    /**
+     * Create an error object.
+     *
+     * @param response
+     * @return an object representing the error or null
+     */
+    protected ApiError getError(JSONObject response) {
+        ApiError error = null;
+
+        try {
+            error = jsonObjectToObject(response.getJSONObject("error"), ApiError.class);
+            if (error.is(ApiError.TOKEN_NOT_FOUND)) {
+               User.signOut();
+            }
+        } catch (JSONException e) {
+            error = null;
+            Log.e(TAG, "No 'error' key found in " + response.toString());
+            ToastTools.use().longToast(R.string.internal_error);
+        }
+        return error;
+    }
 
     @Override
     public void alwaysBefore() {
@@ -91,4 +127,9 @@ abstract public class Task implements ApiResponseCallbacks {
         mGenericListener.onPostExecute();
     }
 
+    @Override
+    public void onError(int code, String response) {
+        Log.v(TAG, response);
+        ToastTools.use().longToast(response);
+    }
 }

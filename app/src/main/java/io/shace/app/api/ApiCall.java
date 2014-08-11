@@ -98,7 +98,7 @@ public abstract class ApiCall {
                 int[] codes = userResponse.getAllowedCodes();
                 int currentErrorCode = 0;
 
-                if (error.networkResponse != null) { // Server down
+                if (error.networkResponse != null) { // Server not down
                     currentErrorCode = error.networkResponse.statusCode;
 
                     for (int code : codes) {

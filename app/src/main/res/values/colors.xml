@@ -5,4 +5,5 @@
     <color name="white">#FFFFFF</color>
     <color name="grey">#b2b2b2</color>
     <color name="inset_grey">#AAA</color>
+    <color name="global_text">#333</color>
 </resources>

@@ -1,5 +1,6 @@
 package io.shace.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -8,6 +9,7 @@ import android.content.Context;
  */
 public class App extends Application {
     private static Context mContext;
+    private static Activity sCurrentActivity = null;
 
     @Override
     public void onCreate() {
@@ -17,5 +19,13 @@ public class App extends Application {
 
     public static Context getContext(){
         return mContext;
+    }
+
+
+    public static Activity getCurrentActivity() {
+        return sCurrentActivity;
+    }
+    public static void setCurrentActivity(Activity currentActivity) {
+        sCurrentActivity = currentActivity;
     }
 }
