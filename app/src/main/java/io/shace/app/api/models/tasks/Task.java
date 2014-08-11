@@ -106,7 +106,7 @@ abstract public class Task implements ApiResponseCallbacks {
 
         try {
             error = jsonObjectToObject(response.getJSONObject("error"), ApiError.class);
-            if (error.is(ApiError.ACCESS_TOKEN_REQUIRED)) {
+            if (error.is(ApiError.TOKEN_NOT_FOUND)) {
                User.signOut();
             }
         } catch (JSONException e) {
