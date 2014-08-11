@@ -14,6 +14,9 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.WindowFeature;
 
+import java.util.Date;
+import java.util.HashMap;
+
 import io.shace.app.api.ApiError;
 import io.shace.app.api.models.User;
 import io.shace.app.api.models.listeners.UserListener;
@@ -46,7 +49,7 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        User user = new User(email, password, firstName, lastName, null);
+        User user = new User(email, password, firstName, lastName, new Date());
         user.save(this);
     }
 
@@ -75,6 +78,13 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
 
     @Override
     public void onUserCreatedFail(ApiError error) {
+        HashMap<String, TextView> fields = new HashMap<String, TextView>();
+        fields.put("firstName", mFirstNameView);
+        fields.put("lastName", mLastNameView);
+        fields.put("email", mEmailView);
+        fields.put("password", mPasswordView);
+
+        checkFormError(error, fields);
     }
 
     @Override
