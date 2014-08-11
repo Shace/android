@@ -1,6 +1,5 @@
 package io.shace.app;
 
-import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
@@ -24,7 +23,9 @@ import io.shace.app.api.models.listeners.UserListener;
         Window.FEATURE_INDETERMINATE_PROGRESS
 })
 @EActivity(R.layout.activity_sign_up)
-public class SignUpActivity extends Activity implements TextView.OnEditorActionListener, UserListener {
+public class SignUpActivity extends BaseActivity implements TextView.OnEditorActionListener, UserListener {
+    public static final String TAG = SignUpActivity.class.getSimpleName();
+
     @ViewById(R.id.icon_loader) protected ProgressBar mIconLoader;
 
     @ViewById(R.id.first_name) protected AutoCompleteTextView mFirstNameView;

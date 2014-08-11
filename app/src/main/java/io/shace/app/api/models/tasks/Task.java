@@ -16,6 +16,7 @@ import io.shace.app.R;
 import io.shace.app.api.ApiError;
 import io.shace.app.api.ApiResponseCallbacks;
 import io.shace.app.api.models.Model;
+import io.shace.app.api.models.User;
 import io.shace.app.api.models.listeners.Listener;
 import io.shace.app.tools.ToastTools;
 
@@ -66,6 +67,7 @@ abstract public class Task implements ApiResponseCallbacks {
      */
     public void exec(Map<String, String> data) {
         mData = data;
+        exec();
     }
 
     /**
@@ -75,6 +77,7 @@ abstract public class Task implements ApiResponseCallbacks {
      */
     public void exec(Model model) {
         mData = model.mapData();
+        exec();
     }
 
 
@@ -88,6 +91,8 @@ abstract public class Task implements ApiResponseCallbacks {
      * @return instance of T
      */
     protected <T> T jsonObjectToObject(JSONObject json, Class<T> type) {
+        Log.i(TAG, json.toString());
+
         Gson gson = new Gson();
         return gson.fromJson(json.toString(), type);
     }
@@ -99,10 +104,14 @@ abstract public class Task implements ApiResponseCallbacks {
      * @return an object representing the error or null
      */
     protected ApiError getError(JSONObject response) {
+        Log.i(TAG, "CALLED");
         ApiError error = null;
 
         try {
             error = jsonObjectToObject(response.getJSONObject("error"), ApiError.class);
+            if (error.is(ApiError.ACCESS_TOKEN_REQUIRED)) {
+               User.signOut();
+            }
         } catch (JSONException e) {
             error = null;
             Log.e(TAG, "No 'error' key found in " + response.toString());

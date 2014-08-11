@@ -1,7 +1,7 @@
 package io.shace.app.api;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by melvin on 8/10/14.
@@ -10,7 +10,7 @@ public class ApiError {
     private int code;
     private String type;
     private Return returns;
-    private List<Parameter> parameters = new ArrayList<Parameter>();
+    private Map<String, String> parameters = new HashMap<String, String>();
 
     public static final int JSON_REQUIRED = 100;
     public static final int PARAMETERS_ERROR = 101;
@@ -42,6 +42,10 @@ public class ApiError {
     public static final int USER_FORBIDDEN = 413;
     public static final int USER_NOT_FOUND = 500;
 
+    public static final String PARAM_REQUIRED = "required";
+    public static final String PARAM_DUPLICATE = "duplicate";
+    public static final String PARAM_FORMAT = "format";
+
     public enum Return {
         BAD_REQUEST,
         NOT_FOUND,
@@ -65,7 +69,7 @@ public class ApiError {
         return returns;
     }
 
-    public List<Parameter> getParameters() {
+    public Map<String, String> getParameters() {
         return parameters;
     }
 
@@ -81,34 +85,7 @@ public class ApiError {
         this.returns = returns;
     }
 
-    public void setParameters(List<Parameter> parameters) {
+    public void setParameters(Map<String, String> parameters) {
         this.parameters = parameters;
-    }
-
-    protected static class Parameter {
-        public enum Type {
-            REQUIRED,
-            DUPLICATE,
-            FORMAT
-        }
-
-        public Type type;
-        public String field;
-
-        public Type getType() {
-            return type;
-        }
-
-        public void setType(Type type) {
-            this.type = type;
-        }
-
-        public String getField() {
-            return field;
-        }
-
-        public void setField(String field) {
-            this.field = field;
-        }
     }
 }
