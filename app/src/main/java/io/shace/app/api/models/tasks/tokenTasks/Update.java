@@ -6,8 +6,6 @@ import com.google.gson.JsonParseException;
 
 import org.json.JSONObject;
 
-import java.util.Map;
-
 import io.shace.app.R;
 import io.shace.app.api.AsyncApiCall;
 import io.shace.app.api.Routes;
@@ -30,8 +28,8 @@ public class Update extends Task {
         setAllowedCodes(new int[] {401});
     }
 
-    public void exec(Map<String, String> postData) {
-        new AsyncApiCall().put(Routes.ACCESS_TOKEN, postData, this);
+    public void exec() {
+        new AsyncApiCall().put(Routes.ACCESS_TOKEN, mData, this);
     }
 
     @Override

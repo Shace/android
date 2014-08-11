@@ -26,8 +26,17 @@ abstract public class Task implements ApiResponseCallbacks {
     private static final String TAG = Task.class.getSimpleName();
     protected static Context sContext = App.getContext();
 
-    // Find way to get ride of this without breaking the two callback
+    /**
+     * Generic Listener for all the basic actions
+     *
+     * Todo: Find way not to duplicate the listener in the children
+     */
     protected Listener mGenericListener;
+
+    /**
+     * Contains the data provided by exec(Model) or exec(Map)
+     */
+    protected Map<String, String> mData = new HashMap<String, String>();
 
     /*
     * HTTP codes allowed in the error callback
@@ -46,19 +55,18 @@ abstract public class Task implements ApiResponseCallbacks {
     }
 
     /**
-     * Execute the query without any data
+     * Execute the query
      */
-    public void exec() {
-        HashMap<String, String> data = new HashMap<String, String>();
-        exec(data);
-    }
+    public abstract void exec();
 
     /**
-     * Execute the query with the given data
+     * Execute the query using the given data
      *
      * @param data Data to use for the query
      */
-    public abstract void exec(Map<String, String> data);
+    public void exec(Map<String, String> data) {
+        mData = data;
+    }
 
     /**
      * Execute the query with the given model
@@ -66,7 +74,7 @@ abstract public class Task implements ApiResponseCallbacks {
      * @param model Model to use for the query
      */
     public void exec(Model model) {
-        exec(model.mapData());
+        mData = model.mapData();
     }
 
 
@@ -85,10 +93,10 @@ abstract public class Task implements ApiResponseCallbacks {
     }
 
     /**
-     * Create an error object
+     * Create an error object.
      *
      * @param response
-     * @return an object representing the error
+     * @return an object representing the error or null
      */
     protected ApiError getError(JSONObject response) {
         ApiError error = null;
@@ -113,12 +121,9 @@ abstract public class Task implements ApiResponseCallbacks {
         mGenericListener.onPostExecute();
     }
 
-
-
     @Override
     public void onError(int code, String response) {
         Log.v(TAG, response);
         ToastTools.use().longToast(response);
     }
-
 }

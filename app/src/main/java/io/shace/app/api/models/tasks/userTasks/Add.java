@@ -6,8 +6,6 @@ import com.google.gson.JsonParseException;
 
 import org.json.JSONObject;
 
-import java.util.Map;
-
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
 import io.shace.app.api.AsyncApiCall;
@@ -34,8 +32,8 @@ public class Add extends Task {
     }
 
     @Override
-    public void exec(Map<String, String> data) {
-        new AsyncApiCall().post(Routes.USERS, data, this);
+    public void exec() {
+        new AsyncApiCall().post(Routes.USERS, mData, this);
     }
 
     @Override
