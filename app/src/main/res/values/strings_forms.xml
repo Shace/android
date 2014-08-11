@@ -16,11 +16,9 @@
     <!-- Errors -->
 
     <!-- Fields -->
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_field_duplicate">Already taken</string>
+    <string name="error_field_format">The format is not valid</string>
 
     <!-- Forms -->
     <string name="error_sign_in">Cannot sign in</string>
