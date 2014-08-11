@@ -15,13 +15,12 @@
 
     <!-- Errors -->
 
-    <!-- Fields -->
+    <!-- Type -->
     <string name="error_field_required">This field is required</string>
     <string name="error_field_duplicate">Already taken</string>
     <string name="error_field_format">The format is not valid</string>
 
     <!-- Forms -->
     <string name="error_sign_in">Cannot sign in</string>
-    <string name="error_sign_up">Cannot sign up</string>
 
 </resources>

@@ -108,7 +108,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Request sent"
+                android:text="@string/beta_request_sent_title"
                 android:textSize="32dp"
                 android:textColor="@color/green"
                 android:layout_gravity="center"/>
@@ -118,7 +118,7 @@
                 android:layout_marginTop="100dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your request has been successfully sent. You should receive an email in the coming days!"
+                android:text="@string/beta_request_sent_message"
                 android:textSize="20dp"
                 android:textColor="@color/global_text"/>
         </LinearLayout>

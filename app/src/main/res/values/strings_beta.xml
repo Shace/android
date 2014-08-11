@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="beta_request_sent_title">Request sent</string>
+    <string name="beta_request_sent_message">Your request has been successfully sent. You should receive an email in the coming days!</string>
+</resources>

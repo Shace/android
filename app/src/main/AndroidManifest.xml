@@ -40,20 +40,17 @@
                 android:value=".MainActivity_" />
         </activity>
         <activity
-            android:name=".SignUpActivity_"
-            android:label="@string/title_activity_sign_up" >
+            android:name=".SignUpActivity_" >
         </activity>
         <activity
             android:name=".TourActivity"
             android:label="@string/title_activity_tour" >
         </activity>
         <activity
-            android:name=".WelcomeActivity_"
-            android:label="@string/title_activity_welcome" >
+            android:name=".WelcomeActivity_" >
         </activity>
         <activity
-            android:name=".SignInActivity_"
-            android:label="@string/title_activity_sign_in" >
+            android:name=".SignInActivity_" >
         </activity>
     </application>
 

@@ -1,40 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Shace</string>
-    <string name="todo">Action not yet available</string>
+    <string name="app_name" translatable="false">Shace</string>
+
+    <!-- Actionbar -->
     <string name="action_settings">Settings</string>
-    <string name="action_search">Search</string>
     <string name="action_search_hint">Enter your token</string>
+    <string name="action_search">Search</string>
     <string name="action_sign_out">Sign out</string>
-    <string name="search_event_logo">Event logo</string>
-    <string name="search_event_create">Create</string>
-    <string name="search_event_access">access</string>
-    <string name="photo">Photo</string>
-    <string name="title_activity_menu">menu</string>
+
+
+    <!-- Navigation -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
-    <string name="title_activity_photo">photo</string>
-    <string name="title_activity_testtab">testtab</string>
-    <string name="title_activity_pictures">Pictures</string>
-    <string name="title_activity_left_menu">leftMenu</string>
-    <string name="drawer_open">Slider Menu Opened</string>
-    <string name="drawer_close">Slider Menu Closed</string>
 
-    <!-- Content Description -->
-    <string name="desc_list_item_icon">Item Icon</string>
-    <string name="title_activity_photos">photos</string>
-    <string name="title_activity_search">SearchActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_sign_up">Sign up for Shace</string>
-    <string name="title_activity_tour">TourActivity</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
-    <string name="welcome_sign_in_text">Already have an account? ›</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    <string name="title_activity_sign_in">SignInActivity</string>
-
-
-    <!--<string name="welcome_sign_up_button">Sign up for Shace</string>-->
-    <string name="welcome_sign_up_button">Join the beta</string>
+    <!-- Default strings for new activity -->
+    <string name="hello_world">Hello world</string>
 </resources>

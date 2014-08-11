@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_search">SearchActivity</string>
+
+    <string name="search_event_logo">Event logo</string>
+    <string name="search_event_create">Create</string>
+    <string name="search_event_access">access</string>
+
+</resources>
