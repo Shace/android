@@ -1,6 +1,7 @@
 package io.shace.app;
 
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
@@ -30,6 +31,7 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     public static final String TAG = SignUpActivity.class.getSimpleName();
 
     @ViewById(R.id.icon_loader) protected ProgressBar mIconLoader;
+    @ViewById(R.id.sign_up_form) View mFormView;
 
     @ViewById(R.id.first_name) protected AutoCompleteTextView mFirstNameView;
     @ViewById(R.id.last_name) protected AutoCompleteTextView mLastNameView;
@@ -67,16 +69,6 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     }
 
     @Override
-    public void onUserUpdated(User user) {
-
-    }
-
-    @Override
-    public void onUserDeleted() {
-
-    }
-
-    @Override
     public void onUserCreatedFail(ApiError error) {
         HashMap<String, TextView> fields = new HashMap<String, TextView>();
         fields.put("firstName", mFirstNameView);
@@ -88,22 +80,26 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     }
 
     @Override
-    public void onUserUpdatedFail(ApiError error) {
-
-    }
-
-    @Override
-    public void onUserDeletedFail(ApiError error) {
-
-    }
-
-    @Override
     public void onPreExecute() {
-
+        mFormView.setVisibility(View.GONE);
+        mIconLoader.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onPostExecute() {
-
+        mIconLoader.setVisibility(View.GONE);
+        mFormView.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void onUserUpdated(User user) {}
+
+    @Override
+    public void onUserDeleted() {}
+
+    @Override
+    public void onUserUpdatedFail(ApiError error) {}
+
+    @Override
+    public void onUserDeletedFail(ApiError error) {}
 }
