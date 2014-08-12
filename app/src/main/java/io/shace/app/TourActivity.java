@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TourActivity extends Activity {
+public class TourActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

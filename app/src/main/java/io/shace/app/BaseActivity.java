@@ -15,7 +15,7 @@ import io.shace.app.api.ApiError;
 public class BaseActivity extends Activity {
     private static final String TAG = BaseActivity.class.getSimpleName();
 
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 

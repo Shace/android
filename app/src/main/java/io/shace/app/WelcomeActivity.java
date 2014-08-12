@@ -9,7 +9,7 @@ import org.androidannotations.annotations.EActivity;
 
 
 @EActivity(R.layout.activity_welcome)
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,5 @@
 package io.shace.app;
 
-import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,7 +20,7 @@ import io.shace.app.api.models.listeners.TokenListener;
 
 
 @EActivity(R.layout.activity_sign_in)
-public class SignInActivity extends Activity implements TextView.OnEditorActionListener, TokenListener {
+public class SignInActivity extends BaseActivity implements TextView.OnEditorActionListener, TokenListener {
     @ViewById(R.id.icon_loader) protected ProgressBar mIconLoader;
     @ViewById(R.id.sign_in_form) View mFormView;
 

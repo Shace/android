@@ -12,7 +12,7 @@ import io.shace.app.api.models.listeners.TokenListener;
 
 
 @EActivity(R.layout.activity_splash_screen)
-public class SplashScreenActivity extends Activity implements TokenListener {
+public class SplashScreenActivity extends BaseActivity implements TokenListener {
     private static String TAG = SplashScreenActivity.class.getSimpleName();
 
     @AfterViews

@@ -1,7 +1,6 @@
 package io.shace.app;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -18,7 +17,7 @@ import io.shace.app.tools.ToastTools;
 
 // TODO: Remove the sign out button when user not logged
 @EActivity(R.layout.activity_main)
-public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends BaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private static final String TAG = "MainActivity";
 

@@ -1,7 +1,6 @@
 package io.shace.app;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +17,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.HashMap;
 
 @EActivity(R.layout.activity_search)
-public class SearchActivity extends Activity implements SearchView.OnQueryTextListener {
+public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener {
     private static final String TAG = "SearchActivity";
 
     @ViewById(R.id.existingEvent) LinearLayout mExistingEvent;
