@@ -29,8 +29,12 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
         if (User.isLogged()) {
             intent = new Intent(this, MainActivity_.class);
         } else {
-            // If first launch then the tour should be started
-            intent = new Intent(this, WelcomeActivity_.class);
+            if (App.isFirstLaunch()) {
+                //intent = new Intent(this, TourActivity_.class);
+                intent = new Intent(this, WelcomeActivity_.class);
+            } else {
+                intent = new Intent(this, WelcomeActivity_.class);
+            }
         }
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
