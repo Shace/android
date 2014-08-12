@@ -35,6 +35,7 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+        overridePendingTransition(0, 0);
         finish();
     }
 
