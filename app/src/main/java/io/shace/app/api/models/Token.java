@@ -1,19 +1,16 @@
 package io.shace.app.api.models;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
-import io.shace.app.App;
 import io.shace.app.api.Model;
-import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.Task;
+import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.tasks.tokenTasks.Generate;
 import io.shace.app.api.tasks.tokenTasks.Update;
+import io.shace.app.tools.PreferenceTools;
 
 /**
  * Created by melvin on 8/7/14.
@@ -26,9 +23,6 @@ public class Token extends Model {
     private long creation;
     private String type;
     @SerializedName("user_id") private int userId;
-
-    // todo move into its own file
-    private static transient final String TOKEN_KEY = "token";
 
     public static transient final String TYPE_USER = "user";
     public static transient final String TYPE_GUEST = "guest";
@@ -91,8 +85,7 @@ public class Token extends Model {
     }
 
     public static Token get() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-        String json = pref.getString(TOKEN_KEY, null);
+        String json = PreferenceTools.getKey(PreferenceTools.KEY_TOKEN, null);
 
         if (json == null) {
             return null;
@@ -104,12 +97,8 @@ public class Token extends Model {
     }
 
     public void save() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-        SharedPreferences.Editor editor = pref.edit();
-
         Gson gson = new Gson();
-        editor.putString(TOKEN_KEY, gson.toJson(this));
-        editor.apply();
+        PreferenceTools.putKey(PreferenceTools.KEY_TOKEN, gson.toJson(this));
     }
 
     /**
@@ -128,7 +117,8 @@ public class Token extends Model {
      * @param listener instance of TokenListener
      */
     public static void update(TokenListener listener, Map<String, String> postData) {
-        postData.put(TOKEN_KEY, Token.get().getToken());
+        // todo set the string "token" into Route
+        postData.put("token", Token.get().getToken());
         Task task = new Update(listener);
         task.exec(postData);
     }
@@ -138,9 +128,6 @@ public class Token extends Model {
     }
 
     public static void remove() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-        SharedPreferences.Editor editor = pref.edit();
-        editor.remove(TOKEN_KEY);
-        editor.apply();
+        PreferenceTools.removeKey(PreferenceTools.KEY_TOKEN);
     }
 }

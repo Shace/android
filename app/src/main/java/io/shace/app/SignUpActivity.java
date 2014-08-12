@@ -1,7 +1,5 @@
 package io.shace.app;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -19,8 +17,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 import io.shace.app.api.ApiError;
-import io.shace.app.api.models.User;
 import io.shace.app.api.listeners.UserListener;
+import io.shace.app.api.models.User;
+import io.shace.app.tools.PreferenceTools;
 
 
 @EActivity(R.layout.activity_sign_up)
@@ -44,9 +43,7 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     }
 
     private void displayCorrectPage() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-
-        if (pref.getBoolean("beta.status", false)) {
+        if (PreferenceTools.getKey(PreferenceTools.KEY_BETA_STATUS, false)) {
             mBetaView.setVisibility(View.VISIBLE);
             mFormView.setVisibility(View.GONE);
         }
@@ -92,10 +89,7 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     }
 
     private void setBetaInfo() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean("beta.status", true);
-        editor.apply();
+        PreferenceTools.putKey(PreferenceTools.KEY_BETA_STATUS, true);
         displayCorrectPage();
     }
 
@@ -109,8 +103,7 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     public void onPostExecute() {
         mIconLoader.setVisibility(View.GONE);
 
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(App.getContext());
-        if (pref.getBoolean("beta.status", false) == false) {
+        if (PreferenceTools.getKey(PreferenceTools.KEY_BETA_STATUS, false) == false) {
             mFormView.setVisibility(View.VISIBLE);
         }
     }

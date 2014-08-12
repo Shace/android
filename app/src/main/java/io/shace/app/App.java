@@ -3,8 +3,8 @@ package io.shace.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+
+import io.shace.app.tools.PreferenceTools;
 
 /**
  * Created by melvin on 8/6/14.
@@ -14,11 +14,10 @@ public class App extends Application {
     private static Activity sCurrentActivity = null;
 
     public static boolean isFirstLaunch() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        boolean firstLaunch = pref.getBoolean("app.first_launch", true);
+        boolean firstLaunch = PreferenceTools.getKey(PreferenceTools.KEY_FIRST_LAUNCH, true);
 
         if (firstLaunch) {
-            pref.edit().putBoolean("app.first_launch", false).apply();
+            PreferenceTools.putKey(PreferenceTools.KEY_FIRST_LAUNCH, false);
         }
 
         return firstLaunch;
