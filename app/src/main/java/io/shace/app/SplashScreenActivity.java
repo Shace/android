@@ -1,6 +1,5 @@
 package io.shace.app;
 
-import android.app.Activity;
 import android.content.Intent;
 
 import org.androidannotations.annotations.AfterViews;
@@ -8,7 +7,7 @@ import org.androidannotations.annotations.EActivity;
 
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
-import io.shace.app.api.models.listeners.TokenListener;
+import io.shace.app.api.listeners.TokenListener;
 
 
 @EActivity(R.layout.activity_splash_screen)

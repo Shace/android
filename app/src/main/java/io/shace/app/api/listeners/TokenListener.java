@@ -1,5 +1,6 @@
-package io.shace.app.api.models.listeners;
+package io.shace.app.api.listeners;
 
+import io.shace.app.api.Listener;
 import io.shace.app.api.models.Token;
 
 /**

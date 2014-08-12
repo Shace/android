@@ -1,4 +1,4 @@
-package io.shace.app.api.models.tasks.userTasks;
+package io.shace.app.api.tasks.userTasks;
 
 import android.util.Log;
 
@@ -8,13 +8,13 @@ import org.json.JSONObject;
 
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
-import io.shace.app.api.AsyncApiCall;
+import io.shace.app.api.network.AsyncApiCall;
 import io.shace.app.api.Routes;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
-import io.shace.app.api.models.listeners.UserListener;
-import io.shace.app.api.models.tasks.Task;
-import io.shace.app.api.models.tasks.tokenTasks.Generate;
+import io.shace.app.api.listeners.UserListener;
+import io.shace.app.api.Task;
+import io.shace.app.api.tasks.tokenTasks.Generate;
 import io.shace.app.tools.ToastTools;
 
 /**

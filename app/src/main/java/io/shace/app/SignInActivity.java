@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.shace.app.api.models.Token;
-import io.shace.app.api.models.listeners.TokenListener;
+import io.shace.app.api.listeners.TokenListener;
 
 
 @EActivity(R.layout.activity_sign_in)

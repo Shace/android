@@ -20,7 +20,7 @@ import java.util.HashMap;
 
 import io.shace.app.api.ApiError;
 import io.shace.app.api.models.User;
-import io.shace.app.api.models.listeners.UserListener;
+import io.shace.app.api.listeners.UserListener;
 
 
 @EActivity(R.layout.activity_sign_up)

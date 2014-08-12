@@ -7,9 +7,10 @@ import java.util.Date;
 
 import io.shace.app.App;
 import io.shace.app.SplashScreenActivity_;
-import io.shace.app.api.models.listeners.UserListener;
-import io.shace.app.api.models.tasks.Task;
-import io.shace.app.api.models.tasks.userTasks.Add;
+import io.shace.app.api.Model;
+import io.shace.app.api.listeners.UserListener;
+import io.shace.app.api.Task;
+import io.shace.app.api.tasks.userTasks.Add;
 
 /**
  * Created by melvin on 7/15/14.

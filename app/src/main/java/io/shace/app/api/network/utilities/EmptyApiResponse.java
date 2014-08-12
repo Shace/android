@@ -1,8 +1,8 @@
-package io.shace.app.api;
+package io.shace.app.api.network.utilities;
 
 import org.json.JSONObject;
 
-import io.shace.app.api.ApiResponseCallbacks;
+import io.shace.app.api.network.ApiResponseCallbacks;
 
 /**
  * Created by melvin on 8/8/14.

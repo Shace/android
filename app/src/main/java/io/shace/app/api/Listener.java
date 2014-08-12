@@ -1,4 +1,4 @@
-package io.shace.app.api.models.listeners;
+package io.shace.app.api;
 
 /**
  * Created by melvin on 8/7/14.

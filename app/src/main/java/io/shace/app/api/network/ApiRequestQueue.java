@@ -1,4 +1,4 @@
-package io.shace.app.api;
+package io.shace.app.api.network;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

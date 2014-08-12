@@ -1,4 +1,4 @@
-package io.shace.app.api;
+package io.shace.app.api.network;
 
 import android.util.Log;
 
@@ -11,6 +11,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import io.shace.app.R;
+import io.shace.app.api.Routes;
+import io.shace.app.api.network.utilities.EmptyApiResponse;
 import io.shace.app.api.models.Token;
 import io.shace.app.tools.NetworkTools;
 import io.shace.app.tools.ToastTools;

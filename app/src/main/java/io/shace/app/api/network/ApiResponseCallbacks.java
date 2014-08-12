@@ -1,4 +1,4 @@
-package io.shace.app.api;
+package io.shace.app.api.network;
 
 import org.json.JSONObject;
 
@@ -24,7 +24,7 @@ public interface ApiResponseCallbacks {
     public void onSuccess(JSONObject response);
 
     /**
-     * Callback called when the request has failed, and when the returned HTTP code match {@link io.shace.app.api.models.tasks.Task#mAllowedCodes}
+     * Callback called when the request has failed, and when the returned HTTP code match {@link io.shace.app.api.Task#mAllowedCodes}
      *
      * @param code HTTP code return by the server
      * @param response return by the API

@@ -16,7 +16,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.HashMap;
 
 import io.shace.app.api.models.Token;
-import io.shace.app.api.models.listeners.TokenListener;
+import io.shace.app.api.listeners.TokenListener;
 
 // todo move signup form
 @EFragment(R.layout.fragment_sign_in)

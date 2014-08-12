@@ -1,4 +1,4 @@
-package io.shace.app.api.models;
+package io.shace.app.api;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

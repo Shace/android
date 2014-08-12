@@ -1,4 +1,4 @@
-package io.shace.app.api.models.tasks;
+package io.shace.app.api;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,11 +13,8 @@ import java.util.Map;
 
 import io.shace.app.App;
 import io.shace.app.R;
-import io.shace.app.api.ApiError;
-import io.shace.app.api.ApiResponseCallbacks;
-import io.shace.app.api.models.Model;
+import io.shace.app.api.network.ApiResponseCallbacks;
 import io.shace.app.api.models.User;
-import io.shace.app.api.models.listeners.Listener;
 import io.shace.app.tools.ToastTools;
 
 /**

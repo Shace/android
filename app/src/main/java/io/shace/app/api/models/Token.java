@@ -9,10 +9,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Map;
 
 import io.shace.app.App;
-import io.shace.app.api.models.listeners.TokenListener;
-import io.shace.app.api.models.tasks.Task;
-import io.shace.app.api.models.tasks.tokenTasks.Generate;
-import io.shace.app.api.models.tasks.tokenTasks.Update;
+import io.shace.app.api.Model;
+import io.shace.app.api.listeners.TokenListener;
+import io.shace.app.api.Task;
+import io.shace.app.api.tasks.tokenTasks.Generate;
+import io.shace.app.api.tasks.tokenTasks.Update;
 
 /**
  * Created by melvin on 8/7/14.
