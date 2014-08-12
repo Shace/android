@@ -98,11 +98,20 @@ public class User extends Model {
     }
 
     public static boolean isLogged() {
-        return Token.get().getType().equals(Token.TYPE_USER);
+        try {
+            return Token.get().getType().equals(Token.TYPE_USER);
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
     public static boolean isNotLogged() {
-        return Token.get().getType().equals(Token.TYPE_GUEST);
+        try {
+            return Token.get().getType().equals(Token.TYPE_GUEST);
+        } catch (NullPointerException e) {
+            return true;
+        }
+
     }
 
     /**
