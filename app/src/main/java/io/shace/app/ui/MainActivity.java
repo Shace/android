@@ -1,4 +1,4 @@
-package io.shace.app;
+package io.shace.app.ui;
 
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -12,7 +12,11 @@ import android.view.MenuItem;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
+import io.shace.app.BaseActivity;
+import io.shace.app.R;
 import io.shace.app.tools.ToastTools;
+import io.shace.app.ui.boot.WelcomeActivity_;
+import io.shace.app.ui.event.SearchActivity_;
 
 
 // TODO: Remove the sign out button when user not logged
@@ -62,11 +66,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
         switch (position) {
             case 0:
-//                if (User.isLogged()) {
-//                    fragment = new HomepageFragment_();
-//                } else {
-                    fragment = new SignInFragment_();
-                //}
+                fragment = new HomepageFragment_();
                 break;
             case 3:
                 fragment = new ProfileFragment_();

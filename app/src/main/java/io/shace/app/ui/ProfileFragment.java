@@ -1,10 +1,12 @@
-package io.shace.app;
+package io.shace.app.ui;
 
 
 
 import android.app.Fragment;
 
 import org.androidannotations.annotations.EFragment;
+
+import io.shace.app.R;
 
 @EFragment(R.layout.fragment_profile)
 public class ProfileFragment extends Fragment {

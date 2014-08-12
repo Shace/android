@@ -1,11 +1,13 @@
-package io.shace.app;
+package io.shace.app.ui.boot;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import io.shace.app.BaseActivity;
+import io.shace.app.R;
 
 public class TourActivity extends BaseActivity {
 

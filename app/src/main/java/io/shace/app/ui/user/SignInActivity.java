@@ -1,4 +1,4 @@
-package io.shace.app;
+package io.shace.app.ui.user;
 
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,6 +15,8 @@ import org.androidannotations.annotations.ViewById;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.shace.app.BaseActivity;
+import io.shace.app.R;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.listeners.TokenListener;
 

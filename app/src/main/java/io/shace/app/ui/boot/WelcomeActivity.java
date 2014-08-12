@@ -1,11 +1,15 @@
-package io.shace.app;
+package io.shace.app.ui.boot;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+
+import io.shace.app.BaseActivity;
+import io.shace.app.R;
+import io.shace.app.ui.user.SignInActivity_;
+import io.shace.app.ui.user.SignUpActivity_;
 
 
 @EActivity(R.layout.activity_welcome)

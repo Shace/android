@@ -1,4 +1,4 @@
-package io.shace.app;
+package io.shace.app.ui.event;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -15,6 +15,9 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.HashMap;
+
+import io.shace.app.BaseActivity;
+import io.shace.app.R;
 
 @EActivity(R.layout.activity_search)
 public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener {

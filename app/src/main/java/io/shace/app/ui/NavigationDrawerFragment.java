@@ -1,4 +1,4 @@
-package io.shace.app;
+package io.shace.app.ui;
 
 
 import android.app.ActionBar;
@@ -20,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import io.shace.app.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.

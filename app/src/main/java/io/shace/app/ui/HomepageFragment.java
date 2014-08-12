@@ -1,7 +1,9 @@
-package io.shace.app;
+package io.shace.app.ui;
 
 import android.app.Fragment;
 import org.androidannotations.annotations.EFragment;
+
+import io.shace.app.R;
 
 
 /**

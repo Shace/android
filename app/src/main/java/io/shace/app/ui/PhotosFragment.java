@@ -1,4 +1,4 @@
-package io.shace.app;
+package io.shace.app.ui;
 
 
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.androidannotations.annotations.EFragment;
+
+import io.shace.app.R;
 
 @EFragment(R.layout.fragment_photos)
 public class PhotosFragment extends Fragment {

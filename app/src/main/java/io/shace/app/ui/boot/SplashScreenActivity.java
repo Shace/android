@@ -1,13 +1,17 @@
-package io.shace.app;
+package io.shace.app.ui.boot;
 
 import android.content.Intent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
+import io.shace.app.App;
+import io.shace.app.BaseActivity;
+import io.shace.app.R;
+import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
-import io.shace.app.api.listeners.TokenListener;
+import io.shace.app.ui.MainActivity_;
 
 
 @EActivity(R.layout.activity_splash_screen)
