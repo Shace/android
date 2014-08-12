@@ -28,12 +28,11 @@ public class Token extends Model {
     @SerializedName("user_id") private int userId;
 
     // todo move into its own file
-    private static final String TOKEN_KEY = "token";
+    private static transient final String TOKEN_KEY = "token";
 
-    private enum Type {
-        GUEST,
-        USER
-    }
+    public static transient final String TYPE_USER = "user";
+    public static transient final String TYPE_GUEST = "guest";
+
 
     public String getToken() {
         return token;

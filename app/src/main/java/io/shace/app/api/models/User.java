@@ -8,8 +8,8 @@ import java.util.Date;
 import io.shace.app.App;
 import io.shace.app.SplashScreenActivity_;
 import io.shace.app.api.Model;
-import io.shace.app.api.listeners.UserListener;
 import io.shace.app.api.Task;
+import io.shace.app.api.listeners.UserListener;
 import io.shace.app.api.tasks.userTasks.Add;
 
 /**
@@ -97,14 +97,12 @@ public class User extends Model {
         return Token.get() != null;
     }
 
-    // todo use type (user/guest)
     public static boolean isLogged() {
-        return Token.get().getUserId() > -1;
+        return Token.get().getType().equals(Token.TYPE_USER);
     }
 
-    // todo use type (user/guest)
     public static boolean isNotLogged() {
-        return Token.get().getUserId() == -1;
+        return Token.get().getType().equals(Token.TYPE_GUEST);
     }
 
     /**
@@ -113,12 +111,12 @@ public class User extends Model {
      * @param listener
      */
     public void save(UserListener listener) {
-        //if (isNotLogged()) {
+        if (isNotLogged()) {
             Task task = new Add(listener);
             task.exec(this);
-        //} else {
-        //    Log.e("toto", "what ?" + Token.get().getUserId());
-        //}
+        } else {
+            // update
+        }
     }
 
     /**
