@@ -30,7 +30,7 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
             intent = new Intent(this, MainActivity_.class);
         } else {
             if (App.isFirstLaunch()) {
-                //intent = new Intent(this, TourActivity_.class);
+                //intent = new Intent(this, TourActivity.class);
                 intent = new Intent(this, WelcomeActivity_.class);
             } else {
                 intent = new Intent(this, WelcomeActivity_.class);
