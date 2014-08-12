@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
-import io.shace.app.api.network.AsyncApiCall;
+import io.shace.app.api.network.ApiCall;
 import io.shace.app.api.Routes;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
@@ -33,7 +33,7 @@ public class Add extends Task {
 
     @Override
     public void exec() {
-        new AsyncApiCall().post(Routes.USERS, mData, this);
+        new ApiCall().post(Routes.USERS, mData, this);
     }
 
     @Override

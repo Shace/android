@@ -7,7 +7,7 @@ import com.google.gson.JsonParseException;
 import org.json.JSONObject;
 
 import io.shace.app.R;
-import io.shace.app.api.network.AsyncApiCall;
+import io.shace.app.api.network.ApiCall;
 import io.shace.app.api.Routes;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.listeners.TokenListener;
@@ -29,7 +29,7 @@ public class Update extends Task {
     }
 
     public void exec() {
-        new AsyncApiCall().put(Routes.ACCESS_TOKEN, mData, this);
+        new ApiCall().put(Routes.ACCESS_TOKEN, mData, this);
     }
 
     @Override
