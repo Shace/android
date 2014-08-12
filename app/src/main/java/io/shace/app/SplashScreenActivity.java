@@ -2,20 +2,15 @@ package io.shace.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Window;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.WindowFeature;
 
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
 import io.shace.app.api.models.listeners.TokenListener;
 
-@WindowFeature({
-        Window.FEATURE_NO_TITLE,
-        Window.FEATURE_INDETERMINATE_PROGRESS
-})
+
 @EActivity(R.layout.activity_splash_screen)
 public class SplashScreenActivity extends Activity implements TokenListener {
     private static String TAG = SplashScreenActivity.class.getSimpleName();

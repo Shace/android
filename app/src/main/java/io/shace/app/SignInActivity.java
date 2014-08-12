@@ -3,7 +3,6 @@ package io.shace.app;
 import android.app.Activity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.WindowFeature;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +19,7 @@ import java.util.Map;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.listeners.TokenListener;
 
-@WindowFeature({
-        Window.FEATURE_NO_TITLE,
-        Window.FEATURE_INDETERMINATE_PROGRESS
-})
+
 @EActivity(R.layout.activity_sign_in)
 public class SignInActivity extends Activity implements TextView.OnEditorActionListener, TokenListener {
     @ViewById(R.id.icon_loader) protected ProgressBar mIconLoader;

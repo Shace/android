@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -15,7 +14,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.WindowFeature;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -24,10 +22,7 @@ import io.shace.app.api.ApiError;
 import io.shace.app.api.models.User;
 import io.shace.app.api.models.listeners.UserListener;
 
-@WindowFeature({
-        Window.FEATURE_NO_TITLE,
-        Window.FEATURE_INDETERMINATE_PROGRESS
-})
+
 @EActivity(R.layout.activity_sign_up)
 public class SignUpActivity extends BaseActivity implements TextView.OnEditorActionListener, UserListener {
     public static final String TAG = SignUpActivity.class.getSimpleName();

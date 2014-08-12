@@ -3,16 +3,11 @@ package io.shace.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.WindowFeature;
 
-@WindowFeature({
-        Window.FEATURE_NO_TITLE,
-        Window.FEATURE_INDETERMINATE_PROGRESS
-})
+
 @EActivity(R.layout.activity_welcome)
 public class WelcomeActivity extends Activity {
 
