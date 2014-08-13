@@ -11,5 +11,5 @@ import io.shace.app.R;
  */
 @EFragment(R.layout.fragment_homepage)
 public class HomepageFragment extends Fragment {
-    private static final String TAG = "Homepage";
+    private static final String TAG = HomepageFragment.class.getSimpleName();
 }

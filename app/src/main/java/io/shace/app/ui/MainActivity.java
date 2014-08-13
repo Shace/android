@@ -22,7 +22,7 @@ import io.shace.app.ui.event.SearchActivity_;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
