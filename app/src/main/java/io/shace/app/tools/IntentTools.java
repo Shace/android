@@ -66,6 +66,7 @@ public class IntentTools {
         activity.startActivity(intent);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.overridePendingTransition(0, 0);
-        activity.finish();
+        activity.finishAffinity();
+
     }
 }
