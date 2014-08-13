@@ -54,7 +54,6 @@ public class IntentTools {
         newFullIntent(activity, cls);
     }
 
-
     /**
      * Start a new intent as there was no other before
      *
