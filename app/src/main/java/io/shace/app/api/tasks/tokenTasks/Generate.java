@@ -7,6 +7,7 @@ import com.google.gson.JsonParseException;
 import org.json.JSONObject;
 
 import io.shace.app.R;
+import io.shace.app.api.ApiError;
 import io.shace.app.api.network.ApiCall;
 import io.shace.app.api.Routes;
 import io.shace.app.api.models.Token;
@@ -38,9 +39,6 @@ public class Generate extends Task {
             Token token = jsonObjectToObject(response, Token.class);
             token.save();
             mListener.onTokenCreated(token);
-
-            // Todo move to the caller
-                //redirectToHomepage();
         } catch (JsonParseException e) {
             Log.e(TAG, e.getMessage());
             ToastTools.use().longToast(R.string.internal_error);
@@ -49,13 +47,9 @@ public class Generate extends Task {
 
     @Override
     public void onError(int code, JSONObject response) {
-        Log.v(TAG, response.toString());
-        ToastTools.use().longToast(R.string.error_sign_in);
-    }
-
-    @Override
-    public void onError(int code, String response) {
-        Log.v(TAG, response);
-        ToastTools.use().longToast(response);
+        ApiError error = getError(response);
+        if (error != null) {
+            mListener.onTokenCreatedFail(error);
+        }
     }
 }
