@@ -1,15 +1,12 @@
 package io.shace.app.api.models;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import java.util.Date;
 
-import io.shace.app.App;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.listeners.UserListener;
 import io.shace.app.api.tasks.userTasks.Add;
+import io.shace.app.tools.IntentTools;
 import io.shace.app.ui.boot.SplashScreenActivity_;
 
 /**
@@ -133,13 +130,7 @@ public class User extends Model {
      */
     public static void signOut() {
         Token.remove();
-        // Todo Move to an Utility class
-        Activity activity = App.getCurrentActivity();
-        Intent intent = new Intent(activity, SplashScreenActivity_.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        activity.startActivity(intent);
-        activity.overridePendingTransition(0, 0);
-        activity.finish();
+        IntentTools.newFullIntent(SplashScreenActivity_.class);
     }
 
     /**

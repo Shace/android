@@ -1,6 +1,5 @@
 package io.shace.app.ui.boot;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import org.androidannotations.annotations.Click;
@@ -8,6 +7,7 @@ import org.androidannotations.annotations.EActivity;
 
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
+import io.shace.app.tools.IntentTools;
 import io.shace.app.ui.user.SignInActivity_;
 import io.shace.app.ui.user.SignUpActivity_;
 
@@ -22,13 +22,11 @@ public class WelcomeActivity extends BaseActivity {
 
     @Click(R.id.signInText)
     protected void signIn() {
-        Intent intent = new Intent(this, SignInActivity_.class);
-        startActivity(intent);
+        IntentTools.newBasicIntent(SignInActivity_.class);
     }
 
     @Click(R.id.signUpButton)
     protected void signUp() {
-        Intent intent = new Intent(this, SignUpActivity_.class);
-        startActivity(intent);
+        IntentTools.newBasicIntent(SignUpActivity_.class);
     }
 }

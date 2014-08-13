@@ -1,7 +1,5 @@
 package io.shace.app.ui.boot;
 
-import android.content.Intent;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
@@ -11,6 +9,7 @@ import io.shace.app.R;
 import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
+import io.shace.app.tools.IntentTools;
 import io.shace.app.ui.MainActivity_;
 
 
@@ -28,23 +27,20 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
     }
 
     private void startApp() {
-        Intent intent = null;
+        Class<?> cls = null;
 
         if (User.isLogged()) {
-            intent = new Intent(this, MainActivity_.class);
+            cls = MainActivity_.class;
         } else {
             if (App.isFirstLaunch()) {
-                //intent = new Intent(this, TourActivity.class);
-                intent = new Intent(this, WelcomeActivity_.class);
+                // cls = TourActivity.class;
+                cls = WelcomeActivity_.class;
             } else {
-                intent = new Intent(this, WelcomeActivity_.class);
+                cls = WelcomeActivity_.class;
             }
         }
 
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-        overridePendingTransition(0, 0);
-        finish();
+        IntentTools.newFullIntent(this, cls);
     }
 
     @Override
@@ -54,7 +50,7 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
 
     @Override
     public void onTokenCreatedFail() {
-
+        // Todo
     }
 
     @Override
