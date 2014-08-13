@@ -6,6 +6,7 @@ import org.androidannotations.annotations.EActivity;
 import io.shace.app.App;
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
+import io.shace.app.api.ApiError;
 import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
@@ -49,15 +50,15 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
     }
 
     @Override
-    public void onTokenCreatedFail() {
-        // Todo
+    public void onTokenCreatedFail(ApiError error) {
+        // Todo retry x times then display the appropriate errors + play with onResume/onPause to reload
     }
 
     @Override
     public void onTokenUpdated(Token token) {}
 
     @Override
-    public void onTokenUpdatedFail() {}
+    public void onTokenUpdatedFail(ApiError error) {}
 
     @Override
     public void onPreExecute() {}

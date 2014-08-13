@@ -15,7 +15,6 @@ import org.androidannotations.annotations.EActivity;
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
 import io.shace.app.tools.ToastTools;
-import io.shace.app.ui.boot.WelcomeActivity_;
 import io.shace.app.ui.event.SearchActivity_;
 
 
@@ -37,14 +36,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     @AfterViews
     void init() {
-//        if (User.isAuthenticated() == false) {
-//            User.connectAsGuest(null);
-//        }
-
-        Intent intent = new Intent(this, WelcomeActivity_.class);
-        startActivity(intent);
-        finish();
-
         _init();
     }
 

@@ -7,6 +7,7 @@ import com.google.gson.JsonParseException;
 import org.json.JSONObject;
 
 import io.shace.app.R;
+import io.shace.app.api.ApiError;
 import io.shace.app.api.network.ApiCall;
 import io.shace.app.api.Routes;
 import io.shace.app.api.models.Token;
@@ -25,7 +26,7 @@ public class Update extends Task {
         mListener = listener;
         setGenericListener(listener);
 
-        setAllowedCodes(new int[] {401});
+        setAllowedCodes(new int[] {401, 404});
     }
 
     public void exec() {
@@ -38,11 +39,7 @@ public class Update extends Task {
             Token token = jsonObjectToObject(response, Token.class);
             token.save();
             mListener.onTokenUpdated(token);
-
-            // Todo move to the caller
-                //redirectToHomepage();
         } catch (JsonParseException e) {
-            mListener.onTokenUpdatedFail();
             Log.e(TAG, e.getMessage());
             ToastTools.use().longToast(R.string.internal_error);
         }
@@ -50,17 +47,9 @@ public class Update extends Task {
 
     @Override
     public void onError(int code, JSONObject response) {
-        Log.v(TAG, response.toString());
-        ToastTools.use().longToast(R.string.error_sign_in);
-
-        mListener.onTokenUpdatedFail();
-    }
-
-    @Override
-    public void onError(int code, String response) {
-        Log.v(TAG, response);
-        ToastTools.use().longToast(response);
-
-        mListener.onTokenUpdatedFail();
+        ApiError error = getError(response);
+        if (error != null) {
+            mListener.onTokenUpdatedFail(error);
+        }
     }
 }

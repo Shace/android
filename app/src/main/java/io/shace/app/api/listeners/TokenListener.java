@@ -1,5 +1,6 @@
 package io.shace.app.api.listeners;
 
+import io.shace.app.api.ApiError;
 import io.shace.app.api.Listener;
 import io.shace.app.api.models.Token;
 
@@ -20,10 +21,10 @@ public interface TokenListener extends Listener {
     /**
      * Callback called when the creation of the token has failed
      */
-    public void onTokenCreatedFail();
+    public void onTokenCreatedFail(ApiError error);
 
     /**
      * Callback called when the update of the token has failed
      */
-    public void onTokenUpdatedFail();
+    public void onTokenUpdatedFail(ApiError error);
 }

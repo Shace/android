@@ -1,5 +1,6 @@
 package io.shace.app.ui.user;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -17,12 +18,18 @@ import java.util.Map;
 
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
-import io.shace.app.api.models.Token;
+import io.shace.app.api.ApiError;
 import io.shace.app.api.listeners.TokenListener;
+import io.shace.app.api.models.Token;
+import io.shace.app.tools.IntentTools;
+import io.shace.app.tools.ToastTools;
+import io.shace.app.ui.MainActivity_;
 
 
 @EActivity(R.layout.activity_sign_in)
 public class SignInActivity extends BaseActivity implements TextView.OnEditorActionListener, TokenListener {
+    private static final String TAG = SignInActivity.class.getSimpleName();
+
     @ViewById(R.id.icon_loader) protected ProgressBar mIconLoader;
     @ViewById(R.id.sign_in_form) View mFormView;
 
@@ -62,22 +69,24 @@ public class SignInActivity extends BaseActivity implements TextView.OnEditorAct
     }
 
     @Override
-    public void onTokenCreated(Token token) {
-
-    }
-
-    @Override
     public void onTokenUpdated(Token token) {
-
+        IntentTools.newFullIntent(MainActivity_.class);
     }
 
     @Override
-    public void onTokenCreatedFail() {
-
+    public void onTokenUpdatedFail(ApiError error) {
+        if (error.is(ApiError.INVALID_IDS)) {
+            ToastTools.use().longToast(R.string.error_credentials);
+        } else if (error.is(ApiError.BETA_PROCESSING)) {
+            ToastTools.use().longToast(R.string.beta_processing);
+        } else {
+            Log.e(TAG, "Unknown error " + Integer.toString(error.getCode()));
+        }
     }
 
     @Override
-    public void onTokenUpdatedFail() {
+    public void onTokenCreatedFail(ApiError error) {}
 
-    }
+    @Override
+    public void onTokenCreated(Token token) {}
 }

@@ -103,12 +103,12 @@ abstract public class Task implements ApiResponseCallbacks {
 
         try {
             error = jsonObjectToObject(response.getJSONObject("error"), ApiError.class);
+
             if (error.is(ApiError.TOKEN_NOT_FOUND)) {
                User.signOut();
             }
         } catch (JSONException e) {
             error = null;
-            Log.e(TAG, "No 'error' key found in " + response.toString());
             ToastTools.use().longToast(R.string.internal_error);
         }
         return error;

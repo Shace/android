@@ -24,6 +24,8 @@ public class Token extends Model {
     private String type;
     @SerializedName("user_id") private int userId;
 
+    private static transient final String TAG = Token.class.getSimpleName();
+
     public static transient final String TYPE_USER = "user";
     public static transient final String TYPE_GUEST = "guest";
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Main fields -->
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
@@ -12,7 +11,6 @@
     <!--<string name="action_sign_up">Sign up</string>-->
     <string name="action_sign_up">Request an access</string>
 
-
     <!-- Errors -->
 
     <!-- Type -->
@@ -22,5 +20,6 @@
 
     <!-- Forms -->
     <string name="error_sign_in">Cannot sign in</string>
-
+    <string name="error_credentials">Wrong credentials</string>
+    <string name="beta_processing">Your account has not been activated yet</string>
 </resources>
