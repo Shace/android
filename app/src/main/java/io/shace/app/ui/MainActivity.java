@@ -14,6 +14,7 @@ import org.androidannotations.annotations.EActivity;
 
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
+import io.shace.app.api.models.User;
 import io.shace.app.tools.ToastTools;
 import io.shace.app.ui.event.SearchActivity_;
 
@@ -110,8 +111,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         } else if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_sign_out) {
-//            User.signOut(this);
-//            User.connectAsGuest(null);
+            User.signOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
