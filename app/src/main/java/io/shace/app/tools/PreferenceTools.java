@@ -54,19 +54,19 @@ public class PreferenceTools {
     }
 
     public static void putKey(String key, String value) {
-        getEditor().putString(key, value);
+        getEditor().putString(key, value).apply();
     }
 
     public static void putKey(String key, boolean value) {
-        getEditor().putBoolean(key, value);
+        getEditor().putBoolean(key, value).apply();
     }
 
     public static void putKey(String key, long value) {
-        getEditor().putLong(key, value);
+        getEditor().putLong(key, value).apply();
     }
 
     public static void putKey(String key, float value) {
-        getEditor().putFloat(key, value);
+        getEditor().putFloat(key, value).apply();
     }
 
     public static void removeKey(String key) {
