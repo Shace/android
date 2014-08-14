@@ -18,6 +18,6 @@ public class HomepageFragment extends Fragment {
     @AfterViews
     protected void init() {
         mActivity = (MainActivity_) getActivity();
-        mActivity.setActionBarTitle(getString(R.string.title_homepage));
+        mActivity.setActionBarTitle(R.string.title_homepage);
     }
 }

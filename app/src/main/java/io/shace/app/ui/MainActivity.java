@@ -31,17 +31,15 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      */
     private CharSequence mTitle;
 
-    public void setActionBarTitle(String title) {
-        mTitle = title;
+
+
+    public void setActionBarTitle(int resource) {
+        mTitle = getString(resource);
         getActionBar().setTitle(mTitle);
     }
 
     @AfterViews
     void init() {
-        _init();
-    }
-
-    private void _init() {
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
