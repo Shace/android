@@ -103,9 +103,8 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{
-                        getString(R.string.title_home),
+                        getString(R.string.title_homepage),
                         getString(R.string.title_create_private_event),
-                        getString(R.string.title_my_events),
                         getString(R.string.title_profile),
                 }));
 

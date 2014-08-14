@@ -1,49 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout">
-
-    <ImageView
+    <TextView android:id="@+id/empty_list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/logo_shace"
-        android:layout_marginTop="55dp"
-        android:layout_marginBottom="55dp"
-        android:layout_gravity="center" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Hello"
-            android:id="@+id/helloUser"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:textColor="#555"
-            />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Find an event using the search menu"
-        android:id="@+id/helpSearchEventText"
-        android:layout_below="@+id/linearLayout"
-        android:layout_marginTop="90dp"
-        android:gravity="center_horizontal"
-        android:textColor="#555"
+        android:layout_height="fill_parent"
+        android:text="No event found"
+        android:textSize="30dp"
+        android:textColor="#ddd"
+        android:gravity="center"
         />
-
-
-</RelativeLayout>
+</LinearLayout>

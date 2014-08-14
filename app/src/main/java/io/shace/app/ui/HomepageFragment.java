@@ -1,6 +1,8 @@
 package io.shace.app.ui;
 
 import android.app.Fragment;
+
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 
 import io.shace.app.R;
@@ -11,5 +13,11 @@ import io.shace.app.R;
  */
 @EFragment(R.layout.fragment_homepage)
 public class HomepageFragment extends Fragment {
-    private static final String TAG = HomepageFragment.class.getSimpleName();
+    MainActivity_ mActivity;
+
+    @AfterViews
+    protected void init() {
+        mActivity = (MainActivity_) getActivity();
+        mActivity.setActionBarTitle(getString(R.string.title_homepage));
+    }
 }

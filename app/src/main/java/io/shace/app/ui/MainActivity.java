@@ -19,21 +19,22 @@ import io.shace.app.tools.ToastTools;
 import io.shace.app.ui.event.SearchActivity_;
 
 
-// TODO: Remove the sign out button when user not logged
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    public void setActionBarTitle(String title) {
+        mTitle = title;
+        getActionBar().setTitle(mTitle);
+    }
 
     @AfterViews
     void init() {
@@ -45,7 +46,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
 
-        // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));

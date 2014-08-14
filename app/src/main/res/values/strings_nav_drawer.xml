@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_home">Home</string>
+    <string name="title_homepage">My events</string>
     <string name="title_create_private_event">Create private event</string>
-    <string name="title_my_events">My events</string>
     <string name="title_profile">Profile</string>
 </resources>
