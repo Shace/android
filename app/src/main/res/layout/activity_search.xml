@@ -1,94 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="io.shace.app.ui.event.SearchActivity"
-    android:padding="5dp"
-    >
+    tools:context="com.example.android.sunshine.app.ForecastFragment">
 
-    <LinearLayout
-        android:id="@+id/existingEvent"
-        android:layout_height="300dp"
-        android:layout_width="fill_parent"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:background="#0a8f08"
-        android:layout_marginBottom="5dp"
-        >
+    <ListView
+        android:id="@+id/listview_event"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/ic_launcher"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/search_event_logo"/>
-
-        <TextView
-            android:id="@+id/joinEventName"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:text="Android Developers"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:textColor="#555"
-            />
-
-        <Button
-            android:id="@+id/accessEvent"
-            style="@style/formButtonHalf"
-            android:layout_gravity="center_vertical"
-            android:textSize="15sp"
-            android:text="Create"
-            android:background="@drawable/button"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/unknownEvent"
-        android:layout_height="300dp"
-        android:layout_width="fill_parent"
-        android:orientation="vertical"
-        android:background="#056f00"
-        android:layout_marginBottom="5dp"
-        android:visibility="visible"
-        >
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/ic_launcher"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@string/search_event_logo"/>
-
-        <TextView
-            android:id="@+id/createEventName"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="15dp"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:text="Android Developers"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:textColor="#fff"
-            />
-
-        <Button
-            android:id="@+id/createEvent"
-            style="@style/formButtonHalf"
-            android:textSize="15sp"
-            android:layout_gravity="center_vertical"
-            android:text="@string/search_event_create"
-            android:background="@drawable/button"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            />
-
-    </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

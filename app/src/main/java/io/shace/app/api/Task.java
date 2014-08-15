@@ -11,13 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.shace.app.App;
 import io.shace.app.R;
+import io.shace.app.api.models.Event;
 import io.shace.app.api.models.User;
 import io.shace.app.api.network.ApiResponseCallbacks;
 import io.shace.app.tools.ToastTools;
@@ -101,13 +101,15 @@ abstract public class Task implements ApiResponseCallbacks {
      * Transform a JSONObject into a list of object
      * Example: {@code List<User> users = jsonObjectToList(json)}
      *
+     * TODO: Fix hard code of Event
+     *
      * @param json
      *
      * @return list of T
      */
-    protected <T> List<T> jsonArrayToList(JSONArray json) {
+    protected List<Event> jsonArrayToList(JSONArray json) {
         Gson gson = new Gson();
-        Type listType = new TypeToken<ArrayList<T>>() {}.getType();
+        Type listType = new TypeToken<List<Event>>() {}.getType();
 
         return gson.fromJson(json.toString(), listType);
     }

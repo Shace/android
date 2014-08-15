@@ -4,30 +4,28 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
+import io.shace.app.api.listeners.EventListener;
+import io.shace.app.api.models.Event;
+import io.shace.app.ui.EventAdapter;
 
 @EActivity(R.layout.activity_search)
-public class SearchActivity extends BaseActivity implements SearchView.OnQueryTextListener {
+public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener {
     private static final String TAG = "SearchActivity";
 
-    @ViewById(R.id.existingEvent) LinearLayout mExistingEvent;
-    @ViewById(R.id.unknownEvent) LinearLayout mUnknownEvent;
-
-    @ViewById(R.id.createEventName) TextView mCreateEventName;
-    @ViewById(R.id.joinEventName) TextView mJoinEventName;
+    @ViewById(R.id.listview_event) ListView mListViewEvent;
 
     SearchView mSearchView;
     private CharSequence mTitle;
@@ -35,6 +33,9 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     @AfterViews
     void init() {
         mTitle = getTitle();
+
+        EventAdapter adapter = new EventAdapter(this, R.layout.event_list_item, new ArrayList<Event>());
+        mListViewEvent.setAdapter(adapter);
     }
 
     public void restoreActionBar() {
@@ -74,34 +75,7 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     @Override
     public boolean onQueryTextChange(final String newText) {
         if (newText.length() > 0) {
-            HashMap<String, String> data = new HashMap<String, String>();
-            data.put("token", newText);
-
-//            new AsyncApiCall().get(Routes.EVENT_ACCESS, data,
-//                    new ApiResponseCallbacks(new int[]{404,403}) {
-//                        @Override
-//                        public void onSuccess(JSONObject response) {
-//                            mExistingEvent.setVisibility(View.VISIBLE);
-//                            mUnknownEvent.setVisibility(View.GONE);
-//
-//                            try {
-//                                mJoinEventName.setText(response.getString("name"));
-//                            } catch (JSONException e) {
-//                                ToastTools.use().longToast(R.string.internal_error);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(int code, String response) {
-//                            mExistingEvent.setVisibility(View.GONE);
-//                            mUnknownEvent.setVisibility(View.VISIBLE);
-//                            mCreateEventName.setText(newText);
-//                        }
-//                    }
-//            );
-        } else {
-            mExistingEvent.setVisibility(View.GONE);
-            mUnknownEvent.setVisibility(View.GONE);
+            Event.search(this, newText);
         }
         return false;
     }
@@ -109,5 +83,26 @@ public class SearchActivity extends BaseActivity implements SearchView.OnQueryTe
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
+    }
+
+    @Override
+    public void onEventsFound(List<Event> events) {
+        EventAdapter adapter = (EventAdapter) mListViewEvent.getAdapter();
+        adapter.clear();
+        adapter.addAll(events);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onEventFound(Event event) {}
+
+    @Override
+    public void onPreExecute() {
+
+    }
+
+    @Override
+    public void onPostExecute() {
+
     }
 }

@@ -19,7 +19,6 @@ import io.shace.app.api.network.ApiCall;
  */
 public class Search extends Task {
     private static final String TAG = Search.class.getSimpleName();
-
     private EventListener mListener;
 
     public Search(EventListener listener) {
