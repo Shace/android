@@ -4,17 +4,22 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.shace.app.App;
 import io.shace.app.R;
-import io.shace.app.api.network.ApiResponseCallbacks;
 import io.shace.app.api.models.User;
+import io.shace.app.api.network.ApiResponseCallbacks;
 import io.shace.app.tools.ToastTools;
 
 /**
@@ -90,6 +95,21 @@ abstract public class Task implements ApiResponseCallbacks {
     protected <T> T jsonObjectToObject(JSONObject json, Class<T> type) {
         Gson gson = new Gson();
         return gson.fromJson(json.toString(), type);
+    }
+
+    /**
+     * Transform a JSONObject into a list of object
+     * Example: {@code List<User> users = jsonObjectToList(json)}
+     *
+     * @param json
+     *
+     * @return list of T
+     */
+    protected <T> List<T> jsonArrayToList(JSONArray json) {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<ArrayList<T>>() {}.getType();
+
+        return gson.fromJson(json.toString(), listType);
     }
 
     /**
