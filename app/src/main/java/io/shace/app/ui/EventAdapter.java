@@ -2,7 +2,6 @@ package io.shace.app.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +84,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
         int idx = mRandom.nextInt(COLORS.length);
         int color = COLORS[idx];
 
-        Log.i(TAG, "DEFAULT COLOR: " + viewHolder.card.backgroun);
         viewHolder.card.setBackgroundColor(color);
         viewHolder.token.setText(item.getToken());
         viewHolder.title.setText(item.getName());
