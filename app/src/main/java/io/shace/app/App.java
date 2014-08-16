@@ -1,15 +1,16 @@
 package io.shace.app;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
+
+import com.orm.SugarApp;
 
 import io.shace.app.tools.PreferenceTools;
 
 /**
  * Created by melvin on 8/6/14.
  */
-public class App extends Application {
+public class App extends SugarApp {
     private static Context mContext;
     private static Activity sCurrentActivity = null;
 
