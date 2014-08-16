@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by melvin on 8/15/14.
  *
- * TODO: Replace token by eventId when we'll have int and if it's a int
+ * TODO: Replace token by eventId when we'll have one and if it's a int
  */
 public class EventColor extends SugarRecord<EventColor> {
     private String token; // TODO set eventId as unique (sugarORM 1.4)
