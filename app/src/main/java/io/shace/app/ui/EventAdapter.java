@@ -44,7 +44,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
             res.getColor(R.color.card_orange),
             res.getColor(R.color.card_pink),
             res.getColor(R.color.card_purple),
-            res.getColor(R.color.card_red),
+            res.getColor(R.color.card_teal),
         };
     }
 
@@ -66,7 +66,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
     // Todo set main image
     // Todo Replace the description by the dates (beginning/end) + display some data on the image
-    // Todo Set the color into a DB so we get the same color
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
 
@@ -81,10 +80,13 @@ public class EventAdapter extends ArrayAdapter<Event> {
         }
 
         Event item = getItem(position);
-        int idx = mRandom.nextInt(COLORS.length);
-        int color = COLORS[idx];
 
-        viewHolder.card.setBackgroundColor(color);
+        if (item.hasColor() == false) {
+            int idx = mRandom.nextInt(COLORS.length);
+            item.setColor(COLORS[idx]);
+        }
+
+        viewHolder.card.setBackgroundColor(item.getColor());
         viewHolder.token.setText(item.getToken());
         viewHolder.title.setText(item.getName());
         viewHolder.description.setText(item.getDescription());
