@@ -1,23 +1,16 @@
 package io.shace.app.api;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import io.shace.app.App;
 import io.shace.app.R;
-import io.shace.app.api.models.Event;
 import io.shace.app.api.models.User;
 import io.shace.app.api.network.ApiResponseCallbacks;
 import io.shace.app.tools.ToastTools;
@@ -27,7 +20,6 @@ import io.shace.app.tools.ToastTools;
  */
 abstract public class Task implements ApiResponseCallbacks {
     private static final String TAG = Task.class.getSimpleName();
-    protected static Context sContext = App.getContext();
 
     /**
      * Generic Listener for all the basic actions
@@ -92,26 +84,9 @@ abstract public class Task implements ApiResponseCallbacks {
      *
      * @return instance of T
      */
-    protected <T> T jsonObjectToObject(JSONObject json, Class<T> type) {
+    protected <T> T jsonObjectToSimpleObject(JSONObject json, Class<T> type) {
         Gson gson = new Gson();
         return gson.fromJson(json.toString(), type);
-    }
-
-    /**
-     * Transform a JSONObject into a list of object
-     * Example: {@code List<User> users = jsonObjectToList(json)}
-     *
-     * TODO: Fix hard code of Event
-     *
-     * @param json
-     *
-     * @return list of T
-     */
-    protected List<Event> jsonArrayToList(JSONArray json) {
-        Gson gson = new Gson();
-        Type listType = new TypeToken<List<Event>>() {}.getType();
-
-        return gson.fromJson(json.toString(), listType);
     }
 
     /**
@@ -124,7 +99,7 @@ abstract public class Task implements ApiResponseCallbacks {
         ApiError error = null;
 
         try {
-            error = jsonObjectToObject(response.getJSONObject("error"), ApiError.class);
+            error = jsonObjectToSimpleObject(response.getJSONObject("error"), ApiError.class);
 
             if (error.is(ApiError.TOKEN_NOT_FOUND)) {
                User.signOut();

@@ -1,7 +1,12 @@
 package io.shace.app.api.models;
 
-import java.util.Date;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.Date;
+import java.util.List;
+
+import io.shace.app.api.DeserializerBuilder;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.listeners.UserListener;
@@ -141,5 +146,19 @@ public class User extends Model {
      */
     public void findById(int id) {
 
+    }
+
+    public static User fromJson(JSONObject response) {
+        DeserializerBuilder<User> builder = new DeserializerBuilder<User>();
+        builder.setMainType(DeserializerBuilder.Type.USER);
+        builder.handleUser();
+        return builder.buildFromJson(response.toString());
+    }
+
+    public static List<User> fromJson(JSONArray response) {
+        DeserializerBuilder<List<User>> builder = new DeserializerBuilder<List<User>>();
+        builder.setMainType(DeserializerBuilder.Type.USER_LIST);
+        builder.handleUserList();
+        return builder.buildFromJson(response.toString());
     }
 }

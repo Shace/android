@@ -36,7 +36,7 @@ public class Update extends Task {
     @Override
     public void onSuccess(JSONObject response) {
         try {
-            Token token = jsonObjectToObject(response, Token.class);
+            Token token = Token.fromJson(response);
             token.save();
             mListener.onTokenUpdated(token);
         } catch (JsonParseException e) {

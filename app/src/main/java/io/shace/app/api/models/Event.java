@@ -3,10 +3,15 @@ package io.shace.app.api.models;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.shace.app.api.DeserializerBuilder;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.cache.models.EventColor;
@@ -25,11 +30,19 @@ public class Event extends Model {
     private String readingPassword;
     private String writingPassword;
     private String creation;
-    // private List<Media> medias;
-    // private User owner;
-    private transient int mColor = 0;
+    private List<Media> medias = new ArrayList<Media>();
+    //private User owner;
 
+    /**
+     * External vars
+     */
+
+    private transient int mColor = 0;
     private static transient final String TAG = Event.class.getSimpleName();
+
+    /**
+     * Getters/Setters
+     */
 
     public String getToken() {
         return token;
@@ -95,18 +108,6 @@ public class Event extends Model {
         this.creation = creation;
     }
 
-    protected EventColor getEventColor() {
-        //if (getId() > 0) {
-            List<EventColor> eventColorList = EventColor.find(EventColor.class, "token = ?", getToken());
-
-            int length = eventColorList.size();
-            if (length > 0) {
-                return eventColorList.get(0);
-            }
-        //}
-        return null;
-    }
-
     public boolean hasColor() {
         return getColor() != 0;
     }
@@ -127,6 +128,22 @@ public class Event extends Model {
 
     }
 
+    /**
+     * Cache methods
+     */
+
+    protected EventColor getEventColor() {
+        //if (getId() > 0) {
+        List<EventColor> eventColorList = EventColor.find(EventColor.class, "token = ?", getToken());
+
+        int length = eventColorList.size();
+        if (length > 0) {
+            return eventColorList.get(0);
+        }
+        //}
+        return null;
+    }
+
     private void saveColor(int color) {
         //if (getId() > 0) {
             EventColor eventColor = getEventColor();
@@ -142,6 +159,24 @@ public class Event extends Model {
         //    Log.i(TAG, "Event id: " + Integer.toString(getId()));
         //}
     }
+
+    public static List<Event> fromJson(JSONArray response) {
+        DeserializerBuilder<List<Event>> builder = new DeserializerBuilder<List<Event>>();
+        builder.setMainType(DeserializerBuilder.Type.EVENT_LIST);
+        builder.handleEventList();
+        return builder.buildFromJson(response.toString());
+    }
+
+    public static Event fromJson(JSONObject response) {
+        DeserializerBuilder<Event> builder = new DeserializerBuilder<Event>();
+        builder.setMainType(DeserializerBuilder.Type.EVENT);
+        builder.handleEvent();
+        return builder.buildFromJson(response.toString());
+    }
+
+    /**
+     * Task Launchers
+     */
 
     public static void search(EventListener listener, String query) {
         Map<String, String> data = new HashMap<String, String>();

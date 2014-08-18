@@ -39,7 +39,7 @@ public class Add extends Task {
     @Override
     public void onSuccess(JSONObject response) {
         try {
-            User user = jsonObjectToObject(response, User.class);
+            User user = User.fromJson(response);
 
             Token token = Token.get();
             token.setUserId(user.getId());

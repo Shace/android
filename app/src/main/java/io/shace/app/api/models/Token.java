@@ -3,8 +3,11 @@ package io.shace.app.api.models;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONObject;
+
 import java.util.Map;
 
+import io.shace.app.api.DeserializerBuilder;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.listeners.TokenListener;
@@ -84,6 +87,13 @@ public class Token extends Model {
 
     public void setLang(String lang) {
         this.lang = lang;
+    }
+
+    public static Token fromJson(JSONObject response) {
+        DeserializerBuilder<Token> builder = new DeserializerBuilder<Token>();
+        builder.setMainType(DeserializerBuilder.Type.TOKEN);
+        builder.handleToken();
+        return builder.buildFromJson(response.toString());
     }
 
     public static Token get() {

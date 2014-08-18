@@ -8,11 +8,11 @@ import org.json.JSONObject;
 
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
-import io.shace.app.api.network.ApiCall;
 import io.shace.app.api.Routes;
-import io.shace.app.api.models.Token;
-import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.Task;
+import io.shace.app.api.listeners.TokenListener;
+import io.shace.app.api.models.Token;
+import io.shace.app.api.network.ApiCall;
 import io.shace.app.tools.ToastTools;
 
 /**
@@ -36,7 +36,7 @@ public class Generate extends Task {
     @Override
     public void onSuccess(JSONObject response) {
         try {
-            Token token = jsonObjectToObject(response, Token.class);
+            Token token = Token.fromJson(response);
             token.save();
             mListener.onTokenCreated(token);
         } catch (JsonParseException e) {

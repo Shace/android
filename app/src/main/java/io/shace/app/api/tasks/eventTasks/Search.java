@@ -36,12 +36,11 @@ public class Search extends Task {
     public void onSuccess(JSONObject response) {
         try {
             JSONArray jsonEvents = response.getJSONArray("events");
-            List<Event> events = jsonArrayToList(jsonEvents);
+            List<Event> events = Event.fromJson(jsonEvents);
             mListener.onEventsFound(events);
         } catch (JSONException e) {
             Log.e(TAG, "No event key found: " + response.toString());
         }
-
     }
 
     @Override
