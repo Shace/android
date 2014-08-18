@@ -108,6 +108,14 @@ public class Event extends Model {
         this.creation = creation;
     }
 
+    public List<Media> getMedias() {
+        return medias;
+    }
+
+    public void setMedias(List<Media> medias) {
+        this.medias = medias;
+    }
+
     public boolean hasColor() {
         return getColor() != 0;
     }

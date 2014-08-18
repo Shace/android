@@ -20,6 +20,7 @@ public class MediaDeserializer implements JsonDeserializer<Media> {
     @Override
     public Media deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         builder.setMainType(DeserializerBuilder.Type.MEDIA);
+        builder.handleImage();
         return builder.buildFromJson(json);
     }
 }

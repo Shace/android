@@ -14,12 +14,14 @@ import java.util.Map;
 
 import io.shace.app.api.deserializers.EventDeserializer;
 import io.shace.app.api.deserializers.EventListDeserializer;
-import io.shace.app.api.deserializers.MediaListDeserializer;
-import io.shace.app.api.deserializers.UserListDeserializer;
+import io.shace.app.api.deserializers.ImageDeserializer;
 import io.shace.app.api.deserializers.MediaDeserializer;
+import io.shace.app.api.deserializers.MediaListDeserializer;
 import io.shace.app.api.deserializers.TokenDeserializer;
 import io.shace.app.api.deserializers.UserDeserializer;
+import io.shace.app.api.deserializers.UserListDeserializer;
 import io.shace.app.api.models.Event;
+import io.shace.app.api.models.Image;
 import io.shace.app.api.models.Media;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
@@ -56,6 +58,7 @@ public class DeserializerBuilder<T> {
         TOKEN,
         USER,
         USER_LIST,
+        IMAGE,
     }
 
     private void setDeserializers() {
@@ -66,6 +69,7 @@ public class DeserializerBuilder<T> {
         mTypeToDeserializer.put(Type.TOKEN, TokenDeserializer.class);
         mTypeToDeserializer.put(Type.USER, UserDeserializer.class);
         mTypeToDeserializer.put(Type.USER_LIST, UserListDeserializer.class);
+        mTypeToDeserializer.put(Type.IMAGE, ImageDeserializer.class);
     }
 
     private void setJavaTypes() {
@@ -76,6 +80,7 @@ public class DeserializerBuilder<T> {
         mTypeToJavaType.put(Type.TOKEN, Token.class);
         mTypeToJavaType.put(Type.USER, User.class);
         mTypeToJavaType.put(Type.USER_LIST, new TypeToken<List<User>>() {}.getType());
+        mTypeToJavaType.put(Type.IMAGE, Image.class);
     }
 
     protected void handle(Type type) {
@@ -191,5 +196,12 @@ public class DeserializerBuilder<T> {
      */
     public void handleUserList() {
         handle(Type.USER_LIST);
+    }
+
+    /**
+     * Add support for Image
+     */
+    public void handleImage() {
+        handle(Type.IMAGE);
     }
 }
