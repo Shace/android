@@ -10,12 +10,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import io.shace.app.App;
 import io.shace.app.R;
 import io.shace.app.api.models.Event;
+import io.shace.app.api.models.Media;
 
 /**
  * Created by melvin on 8/14/14.
@@ -64,7 +68,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
         }
     }
 
-    // Todo set main image
     // Todo Replace the description by the dates (beginning/end) + display some data on the image
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
@@ -84,6 +87,18 @@ public class EventAdapter extends ArrayAdapter<Event> {
         if (item.hasColor() == false) {
             int idx = mRandom.nextInt(COLORS.length);
             item.setColor(COLORS[idx]);
+        }
+
+        List<Media> medias = item.getMedias();
+
+        if (medias != null && medias.size() > 0) {
+            Media firstPicture = medias.get(0);
+            String url = firstPicture.getImage().getSmall();
+
+
+            Picasso picasso = Picasso.with(mContext);
+            picasso.setIndicatorsEnabled(true);
+            picasso.load(url).skipMemoryCache().into(viewHolder.mainPicture);
         }
 
         viewHolder.card.setBackgroundColor(item.getColor());
