@@ -75,7 +75,13 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
     @Override
     public boolean onQueryTextChange(final String newText) {
         if (newText.length() > 0) {
-            Event.search(this, newText);
+            if (newText.matches("[a-zA-Z0-9|-]+")) {
+                Event.search(this, newText);
+            } else {
+                // todo display invalid token
+            }
+        } else {
+            // todo display no result found
         }
         return false;
     }
