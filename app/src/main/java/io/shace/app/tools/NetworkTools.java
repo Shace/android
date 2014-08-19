@@ -35,11 +35,19 @@ public class NetworkTools {
     }
 
     /**
-     * Display a Toast display the "Server Error" message
+     * Display a Toast containing the "Server Error" message
      */
     static public void sendServerError() {
 
         ToastTools.use().longToast(R.string.server_error);
+    }
+
+    /**
+     * Display a Toast containing the "Server cannot be reached" message
+     */
+    static public void sendTimeOutError() {
+
+        ToastTools.use().longToast(R.string.server_timeout);
     }
 
 

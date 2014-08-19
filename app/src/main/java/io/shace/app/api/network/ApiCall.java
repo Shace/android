@@ -2,8 +2,10 @@ package io.shace.app.api.network;
 
 import android.util.Log;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -16,8 +18,8 @@ import java.util.Map;
 
 import io.shace.app.R;
 import io.shace.app.api.Routes;
-import io.shace.app.api.network.utilities.EmptyApiResponse;
 import io.shace.app.api.models.Token;
+import io.shace.app.api.network.utilities.EmptyApiResponse;
 import io.shace.app.tools.NetworkTools;
 import io.shace.app.tools.ToastTools;
 
@@ -257,8 +259,13 @@ public class ApiCall {
                         Log.e(TAG, e.getMessage());
                     }
                 } else if (error.networkResponse == null) {
-                    NetworkTools.sendServerError();
-                    Log.e(TAG, "Volley networkResponse is null. Error was: " + error.toString());
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        NetworkTools.sendTimeOutError();
+                    } else {
+                        NetworkTools.sendServerError();
+                        Log.e(TAG, "Volley networkResponse is null. Error was: " + error.toString());
+                    }
+
                 } else {
                     NetworkTools.sendServerError();
                     Log.e(TAG, error.toString());
