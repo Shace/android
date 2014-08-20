@@ -63,10 +63,21 @@ public class ApiCall {
         _post(uri, data, null);
     }
 
-
-    // TODO Allow GET data too (ex. to POST on /event/:eventId/)
     private void _post(String url, Map<String, String> data, ApiResponseCallbacks response) {
-        // We removed the optional variables that have not been given
+        if (data != null) {
+            Iterator<Map.Entry<String,String>> iterator = data.entrySet().iterator();
+
+            while (iterator.hasNext()) {
+                String oldUrl = url;
+                Map.Entry<String,String> entry = iterator.next();
+                url = url.replaceAll("::?" + entry.getKey(), entry.getValue());
+
+                if(url.equals(oldUrl) == false){
+                    iterator.remove();
+                }
+            }
+        }
+
         url = url.replaceAll(Routes.VARIABLES_REGEX, "");
 
         makeRequest(Request.Method.POST, url, new JSONObject(data), response);
