@@ -29,8 +29,13 @@ import io.shace.app.tools.ToastTools;
 
 public class ApiCall {
     private static final String TAG = ApiCall.class.getSimpleName();
+    private Object mRequestTag = null;
 
     public ApiCall() {}
+
+    public void setTag(Object tag) {
+        mRequestTag = tag;
+    }
 
     /*
      * POST
@@ -187,7 +192,8 @@ public class ApiCall {
         String methodName = (method == Request.Method.GET) ? "GET" : "POST";
         Log.i(TAG, methodName + " " + url);
         JsonObjectRequest req = new JsonObjectRequest(method, url, data, _success(response), _error(response));
-        ApiRequestQueue.getInstance().add(req, TAG);
+        Object tag = (mRequestTag != null) ? mRequestTag : TAG;
+        RequestQueue.getInstance().add(req, tag);
         response.alwaysBefore();
     }
 

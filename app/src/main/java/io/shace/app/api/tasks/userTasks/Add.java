@@ -14,6 +14,7 @@ import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
 import io.shace.app.api.listeners.UserListener;
 import io.shace.app.api.Task;
+import io.shace.app.api.network.RequestQueue;
 import io.shace.app.api.tasks.tokenTasks.Generate;
 import io.shace.app.tools.ToastTools;
 
@@ -33,6 +34,7 @@ public class Add extends Task {
 
     @Override
     public void exec() {
+        cancel();
         new ApiCall().post(Routes.USERS, mData, this);
     }
 
@@ -58,5 +60,13 @@ public class Add extends Task {
         if (error != null) {
             mListener.onUserCreatedFail(error);
         }
+    }
+    public static void cancel() {
+        RequestQueue.getInstance().cancelPendingRequests(TAG);
+    }
+
+    @Override
+    public void public_static_void_cancel() {
+        cancel();
     }
 }

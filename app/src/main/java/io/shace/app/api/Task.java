@@ -111,6 +111,20 @@ abstract public class Task implements ApiResponseCallbacks {
         return error;
     }
 
+    /**
+     * Cancel a request
+     */
+    public static void cancel() { Log.e(TAG, "CANCEL NOT IMPLEMENTED FOR THIS TASK"); }
+
+    /**
+     * Dummy method not to forget to create the following method
+     *
+     * public static void cancel()
+     *
+     * Because java sucks
+     */
+    public abstract void public_static_void_cancel();
+
     @Override
     public void alwaysBefore() {
         mGenericListener.onPreExecute();

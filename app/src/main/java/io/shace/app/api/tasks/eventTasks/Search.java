@@ -13,6 +13,7 @@ import io.shace.app.api.Task;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.api.network.ApiCall;
+import io.shace.app.api.network.RequestQueue;
 
 /**
  * Created by melvin on 8/14/14.
@@ -29,6 +30,7 @@ public class Search extends Task {
 
     @Override
     public void exec() {
+        cancel();
         new ApiCall().get(Routes.EVENT_SEARCH, mData, this);
     }
 
@@ -46,5 +48,14 @@ public class Search extends Task {
     @Override
     public void onError(int code, JSONObject response) {
         getError(response);
+    }
+
+    public static void cancel() {
+        RequestQueue.getInstance().cancelPendingRequests(TAG);
+    }
+
+    @Override
+    public void public_static_void_cancel() {
+        cancel();
     }
 }

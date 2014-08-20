@@ -13,6 +13,7 @@ import io.shace.app.api.Routes;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.Task;
+import io.shace.app.api.network.RequestQueue;
 import io.shace.app.tools.ToastTools;
 
 /**
@@ -30,7 +31,17 @@ public class Update extends Task {
     }
 
     public void exec() {
+        cancel();
         new ApiCall().put(Routes.ACCESS_TOKEN, mData, this);
+    }
+
+    public static void cancel() {
+        RequestQueue.getInstance().cancelPendingRequests(TAG);
+    }
+
+    @Override
+    public void public_static_void_cancel() {
+        cancel();
     }
 
     @Override

@@ -13,6 +13,7 @@ import io.shace.app.api.Task;
 import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.network.ApiCall;
+import io.shace.app.api.network.RequestQueue;
 import io.shace.app.tools.ToastTools;
 
 /**
@@ -30,6 +31,7 @@ public class Generate extends Task {
     }
 
     public void exec() {
+        cancel();
         new ApiCall().post(Routes.ACCESS_TOKEN, this.mData, this);
     }
 
@@ -51,5 +53,14 @@ public class Generate extends Task {
         if (error != null) {
             mListener.onTokenCreatedFail(error);
         }
+    }
+
+    public static void cancel() {
+        RequestQueue.getInstance().cancelPendingRequests(TAG);
+    }
+
+    @Override
+    public void public_static_void_cancel() {
+        cancel();
     }
 }
