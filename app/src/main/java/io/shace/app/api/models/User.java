@@ -1,9 +1,10 @@
 package io.shace.app.api.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.List;
 
 import io.shace.app.api.DeserializerBuilder;
@@ -20,21 +21,23 @@ import io.shace.app.ui.boot.SplashScreenActivity_;
 public class User extends Model {
     private String email;
     private String password = null;
-    private String firstName;
-    private String lastName;
-    private Date birthDate;
-    private Date inscriptionDate = null;
-    private boolean isAdmin = false;
+    @SerializedName("first_name") private String firstName;
+    @SerializedName("last_name") private String lastName;
+    private long birthDate;
+    private long inscriptionDate;
+    @SerializedName("is_admin") private boolean isAdmin = false;
 
-    public User(String email, String password, String firstName, String lastName, Date birthDate) {
+    public User(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDate = birthDate;
     }
 
-    // Getter and setter, the cool stuff are in the bottom.
+
+    /**
+     * Getter and Setters
+     */
 
     public String getEmail() {
         return email;
@@ -68,19 +71,19 @@ public class User extends Model {
         this.lastName = lastName;
     }
 
-    public Date getBirthDate() {
+    public long getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(long birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Date getInscriptionDate() {
+    public long getInscriptionDate() {
         return inscriptionDate;
     }
 
-    public void setInscriptionDate(Date inscriptionDate) {
+    public void setInscriptionDate(long inscriptionDate) {
         this.inscriptionDate = inscriptionDate;
     }
 
@@ -92,8 +95,9 @@ public class User extends Model {
         this.isAdmin = isAdmin;
     }
 
-
-    // Actions, the cool stuffs
+    /**
+     * Extra methods
+     */
 
     public static boolean isAuthenticated() {
         return Token.get() != null;
@@ -117,20 +121,6 @@ public class User extends Model {
     }
 
     /**
-     * Save or update a user
-     *
-     * @param listener
-     */
-    public void save(UserListener listener) {
-        if (isNotLogged()) {
-            Task task = new Add(listener);
-            task.exec(this);
-        } else {
-            // update
-        }
-    }
-
-    /**
      * Sign out the update a user
      */
     public static void signOut() {
@@ -148,6 +138,10 @@ public class User extends Model {
 
     }
 
+    /**
+     * Json parsing
+     */
+
     public static User fromJson(JSONObject response) {
         DeserializerBuilder<User> builder = new DeserializerBuilder<User>();
         builder.setMainType(DeserializerBuilder.Type.USER);
@@ -160,5 +154,23 @@ public class User extends Model {
         builder.setMainType(DeserializerBuilder.Type.USER_LIST);
         builder.handleUserList();
         return builder.buildFromJson(response.toString());
+    }
+
+    /**
+     * Task Launchers
+     */
+
+    /**
+     * Save or update a user
+     *
+     * @param listener
+     */
+    public void save(UserListener listener) {
+        if (isNotLogged()) {
+            Task task = new Add(listener);
+            task.exec(this);
+        } else {
+            // update
+        }
     }
 }

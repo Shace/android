@@ -31,10 +31,9 @@ public class Event extends Model {
     private String writingPassword;
     private String creation;
     private List<Media> medias = new ArrayList<Media>();
-    //private User owner;
 
     /**
-     * External vars
+     * in-class vars
      */
 
     private transient int mColor = 0;
@@ -168,6 +167,11 @@ public class Event extends Model {
         //}
     }
 
+
+    /**
+     * Json parsing
+     */
+
     public static List<Event> fromJson(JSONArray response) {
         DeserializerBuilder<List<Event>> builder = new DeserializerBuilder<List<Event>>();
         builder.setMainType(DeserializerBuilder.Type.EVENT_LIST);
@@ -186,6 +190,12 @@ public class Event extends Model {
      * Task Launchers
      */
 
+    /**
+     * Search for an event
+     *
+     * @param listener
+     * @param query token to lookup
+     */
     public static void search(EventListener listener, String query) {
         Map<String, String> data = new HashMap<String, String>();
         data.put("query", query);

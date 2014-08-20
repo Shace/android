@@ -13,7 +13,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Date;
 import java.util.HashMap;
 
 import io.shace.app.BaseActivity;
@@ -58,7 +57,7 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        User user = new User(email, password, firstName, lastName, new Date());
+        User user = new User(email, password, firstName, lastName);
         user.save(this);
     }
 
@@ -79,8 +78,8 @@ public class SignUpActivity extends BaseActivity implements TextView.OnEditorAct
     public void onUserCreatedFail(ApiError error) {
         if (error.is(ApiError.PARAMETERS_ERROR)) {
             HashMap<String, TextView> fields = new HashMap<String, TextView>();
-            fields.put("firstName", mFirstNameView);
-            fields.put("lastName", mLastNameView);
+            fields.put("first_name", mFirstNameView);
+            fields.put("last_name", mLastNameView);
             fields.put("email", mEmailView);
             fields.put("password", mPasswordView);
 

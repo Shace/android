@@ -21,16 +21,24 @@ import io.shace.app.tools.PreferenceTools;
 public class Token extends Model {
     private String token;
     private boolean autoRenew;
-    private String lang;
     private long expiration;
     private long creation;
     private String type;
     @SerializedName("user_id") private int userId;
 
+    /**
+     * In-class attributes
+     */
+
     private static transient final String TAG = Token.class.getSimpleName();
 
     public static transient final String TYPE_USER = "user";
     public static transient final String TYPE_GUEST = "guest";
+
+
+    /**
+     * Getter and Setters
+     */
 
 
     public String getToken() {
@@ -81,13 +89,9 @@ public class Token extends Model {
         this.userId = userId;
     }
 
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
+    /**
+     * Json parsing
+     */
 
     public static Token fromJson(JSONObject response) {
         DeserializerBuilder<Token> builder = new DeserializerBuilder<Token>();
@@ -96,6 +100,36 @@ public class Token extends Model {
         return builder.buildFromJson(response.toString());
     }
 
+    public static Token fromJson(String response) {
+        DeserializerBuilder<Token> builder = new DeserializerBuilder<Token>();
+        builder.setMainType(DeserializerBuilder.Type.TOKEN);
+        builder.handleToken();
+        return builder.buildFromJson(response);
+    }
+
+
+    /**
+     * Extra methods
+     */
+
+    public void save() {
+        Gson gson = new Gson();
+        PreferenceTools.putKey(PreferenceTools.KEY_TOKEN, gson.toJson(this));
+    }
+
+    public void delete() {
+        remove();
+    }
+
+    public static void remove() {
+        PreferenceTools.removeKey(PreferenceTools.KEY_TOKEN);
+    }
+
+
+    /**
+     * Task Launchers
+     */
+
     public static Token get() {
         String json = PreferenceTools.getKey(PreferenceTools.KEY_TOKEN, null);
 
@@ -103,14 +137,7 @@ public class Token extends Model {
             return null;
         }
 
-        // TODO move into a utility file
-        Gson gson = new Gson();
-        return gson.fromJson(json, Token.class);
-    }
-
-    public void save() {
-        Gson gson = new Gson();
-        PreferenceTools.putKey(PreferenceTools.KEY_TOKEN, gson.toJson(this));
+        return Token.fromJson(json);
     }
 
     /**
@@ -133,13 +160,5 @@ public class Token extends Model {
         postData.put("token", Token.get().getToken());
         Task task = new Update(listener);
         task.exec(postData);
-    }
-
-    public void delete() {
-        remove();
-    }
-
-    public static void remove() {
-        PreferenceTools.removeKey(PreferenceTools.KEY_TOKEN);
     }
 }

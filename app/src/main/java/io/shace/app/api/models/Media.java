@@ -20,11 +20,15 @@ public class Media {
     private String creation;
     @SerializedName("owner") private int ownerId;
     @SerializedName("event") private String eventToken;
-    //private List<Tag> tags;
+    private List<Tag> tags;
     private Image image;
-    private String original;
-    //private List<Comment> comments;
+    private long original;
+    private List<Comment> comments;
 
+
+    /**
+     * Getter and Setters
+     */
 
     public String getType() {
         return type;
@@ -82,12 +86,12 @@ public class Media {
         this.eventToken = eventToken;
     }
 
-    public String getOriginal() {
-        return original;
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    public void setOriginal(String original) {
-        this.original = original;
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     public Image getImage() {
@@ -97,6 +101,27 @@ public class Media {
     public void setImage(Image image) {
         this.image = image;
     }
+
+    public long getOriginal() {
+        return original;
+    }
+
+    public void setOriginal(long original) {
+        this.original = original;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    /**
+     * Json parsing
+     */
+
 
     public static List<Media> fromJson(JSONArray response) {
         DeserializerBuilder<List<Media>> builder = new DeserializerBuilder<List<Media>>();
@@ -111,4 +136,9 @@ public class Media {
         builder.handleMedia();
         return builder.buildFromJson(response.toString());
     }
+
+    /**
+     * Task Launchers
+     */
+
 }

@@ -12,17 +12,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.shace.app.api.deserializers.CommentDeserializer;
+import io.shace.app.api.deserializers.CommentListDeserializer;
 import io.shace.app.api.deserializers.EventDeserializer;
 import io.shace.app.api.deserializers.EventListDeserializer;
 import io.shace.app.api.deserializers.ImageDeserializer;
 import io.shace.app.api.deserializers.MediaDeserializer;
 import io.shace.app.api.deserializers.MediaListDeserializer;
+import io.shace.app.api.deserializers.TagDeserializer;
+import io.shace.app.api.deserializers.TagListDeserializer;
 import io.shace.app.api.deserializers.TokenDeserializer;
 import io.shace.app.api.deserializers.UserDeserializer;
 import io.shace.app.api.deserializers.UserListDeserializer;
+import io.shace.app.api.models.Comment;
 import io.shace.app.api.models.Event;
 import io.shace.app.api.models.Image;
 import io.shace.app.api.models.Media;
+import io.shace.app.api.models.Tag;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
 
@@ -58,6 +64,10 @@ public class DeserializerBuilder<T> {
         TOKEN,
         USER,
         USER_LIST,
+        COMMENT,
+        COMMENT_LIST,
+        TAG,
+        TAG_LIST,
         IMAGE,
     }
 
@@ -69,6 +79,10 @@ public class DeserializerBuilder<T> {
         mTypeToDeserializer.put(Type.TOKEN, TokenDeserializer.class);
         mTypeToDeserializer.put(Type.USER, UserDeserializer.class);
         mTypeToDeserializer.put(Type.USER_LIST, UserListDeserializer.class);
+        mTypeToDeserializer.put(Type.COMMENT, CommentDeserializer.class);
+        mTypeToDeserializer.put(Type.COMMENT_LIST, CommentListDeserializer.class);
+        mTypeToDeserializer.put(Type.TAG, TagDeserializer.class);
+        mTypeToDeserializer.put(Type.TAG_LIST, TagListDeserializer.class);
         mTypeToDeserializer.put(Type.IMAGE, ImageDeserializer.class);
     }
 
@@ -80,6 +94,10 @@ public class DeserializerBuilder<T> {
         mTypeToJavaType.put(Type.TOKEN, Token.class);
         mTypeToJavaType.put(Type.USER, User.class);
         mTypeToJavaType.put(Type.USER_LIST, new TypeToken<List<User>>() {}.getType());
+        mTypeToJavaType.put(Type.COMMENT, Comment.class);
+        mTypeToJavaType.put(Type.COMMENT_LIST, new TypeToken<List<Comment>>() {}.getType());
+        mTypeToJavaType.put(Type.TAG, Tag.class);
+        mTypeToJavaType.put(Type.TAG_LIST, new TypeToken<List<Tag>>() {}.getType());
         mTypeToJavaType.put(Type.IMAGE, Image.class);
     }
 
@@ -196,6 +214,34 @@ public class DeserializerBuilder<T> {
      */
     public void handleUserList() {
         handle(Type.USER_LIST);
+    }
+
+    /**
+     * Add support for Comment
+     */
+    public void handleComment() {
+        handle(Type.COMMENT);
+    }
+
+    /**
+     * Add support for List<Comment>
+     */
+    public void handleCommentList() {
+        handle(Type.COMMENT_LIST);
+    }
+
+    /**
+     * Add support for Tag
+     */
+    public void handleTag() {
+        handle(Type.TAG);
+    }
+
+    /**
+     * Add support for List<Tag>
+     */
+    public void handleTagList() {
+        handle(Type.TAG_LIST);
     }
 
     /**
