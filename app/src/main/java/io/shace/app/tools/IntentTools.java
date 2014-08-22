@@ -40,6 +40,37 @@ public class IntentTools {
     }
 
     /**
+     * Start a new intent using the specified activity
+     *
+     * @param activity activity to use (should probably be this)
+     * @param cls class to use
+     * @param extra key of the extra value
+     * @param value value of the extra
+     */
+    public static void newBasicIntentWithExtraString(Activity activity, Class<?> cls, String extra, String value) {
+        Intent intent = new Intent(activity, cls);
+        intent.putExtra(extra, value);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * Start a new intent using the current activity
+     *
+     * @param cls class to use
+     * @param extra key of the extra value
+     * @param value value of the extra
+     */
+    public static void newBasicIntentWithExtraString(Class<?> cls, String extra, String value) {
+        Activity activity = App.getCurrentActivity();
+
+        if (activity == null) {
+            Log.e(TAG, ERROR);
+        }
+
+        newBasicIntentWithExtraString(activity, cls, extra, value);
+    }
+
+    /**
      * Start a new intent as there was no other before
      *
      * @param cls class to use
@@ -66,6 +97,5 @@ public class IntentTools {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.overridePendingTransition(0, 0);
         activity.finishAffinity();
-
     }
 }

@@ -2,6 +2,7 @@ package io.shace.app.ui.event;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -19,16 +21,17 @@ import io.shace.app.BaseActivity;
 import io.shace.app.R;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
+import io.shace.app.tools.IntentTools;
 import io.shace.app.ui.EventAdapter;
 
 @EActivity(R.layout.activity_search)
 public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener {
     private static final String TAG = "SearchActivity";
-
-    @ViewById(R.id.listview_event) ListView mListViewEvent;
-
+    private String mToken = null;
     SearchView mSearchView;
     private CharSequence mTitle;
+
+    @ViewById(R.id.listview_event) ListView mListViewEvent;
 
     @AfterViews
     void init() {
@@ -76,6 +79,7 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
     public boolean onQueryTextChange(final String newText) {
         if (newText.length() > 0) {
             if (newText.matches("[a-zA-Z0-9|-]+")) {
+                mToken = newText;
                 Event.search(this, newText);
             } else {
                 // todo display invalid token
@@ -99,16 +103,19 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
         adapter.notifyDataSetChanged();
     }
 
+    @Click
+    protected void createEvent() {
+        if (mToken != null && mToken.length() > 0) {
+            IntentTools.newBasicIntentWithExtraString(this, CreateEventActivity_.class, Intent.EXTRA_TEXT, mToken);
+        }
+    }
+
     @Override
     public void onEventFound(Event event) {}
 
     @Override
-    public void onPreExecute() {
-
-    }
+    public void onPreExecute() {}
 
     @Override
-    public void onPostExecute() {
-
-    }
+    public void onPostExecute() {}
 }

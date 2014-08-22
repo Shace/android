@@ -8,9 +8,10 @@
     <string name="action_search_hint">Enter your token</string>
     <string name="action_search">Search</string>
     <string name="action_sign_out">Sign out</string>
-
     <string name="loading">Loading</string>
 
     <!-- Default strings for new activity -->
     <string name="hello_world">Hello world</string>
+    <string name="title_activity_create_event">CreateEventActivity</string>
+
 </resources>
