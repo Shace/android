@@ -14,7 +14,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
@@ -36,7 +35,6 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
     private CharSequence mTitle;
 
     @ViewById(R.id.listview_event) ListView mListViewEvent;
-    //@ViewById(R.id.create_event_text) TextView mCreateEventView;
     TextView mCreateEventView;
 
     @AfterViews
@@ -139,10 +137,9 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
         }
     }
 
-    @Click(R.id.create_event_text)
-    protected void createEvent() {
+    public void createEvent(View v) {
         if (mToken != null && mToken.length() > 0) {
-            IntentTools.newBasicIntentWithExtraString(this, CreateEventActivity_.class, Intent.EXTRA_TEXT, mToken);
+            IntentTools.newBasicIntentWithExtraString(CreateEventActivity_.class, Intent.EXTRA_TEXT, mToken);
         }
     }
 

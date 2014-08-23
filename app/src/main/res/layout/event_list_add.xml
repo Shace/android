@@ -18,6 +18,8 @@
         android:text="@string/search_event_create"
         android:gravity="center"
         android:visibility="gone"
+        android:onClick="createEvent"
+        android:clickable="true"
         />
 
 </FrameLayout>
