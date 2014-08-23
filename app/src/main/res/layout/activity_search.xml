@@ -1,32 +1,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.android.sunshine.app.ForecastFragment">
+    android:layout_height="match_parent">
 
     <ListView
         android:id="@+id/listview_event"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
+        android:paddingBottom="5dp"
+        android:clipToPadding="false"
         android:visibility="visible"/>
-
-    <TextView
-        android:id="@+id/create_event"
-        android:layout_height="100dp"
-        android:layout_width="match_parent"
-        android:background="#0a8f08"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="#fff"
-        android:visibility="visible"
-        android:text="@string/search_event_create"
-        android:gravity="center"
-        android:onClick="createEvent"
-        />
 
 
 </FrameLayout>

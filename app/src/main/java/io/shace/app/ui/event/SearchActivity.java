@@ -3,11 +3,15 @@ package io.shace.app.ui.event;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -32,12 +36,19 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
     private CharSequence mTitle;
 
     @ViewById(R.id.listview_event) ListView mListViewEvent;
+    //@ViewById(R.id.create_event_text) TextView mCreateEventView;
+    TextView mCreateEventView;
 
     @AfterViews
     void init() {
         mTitle = getTitle();
 
+        LayoutInflater inflater = getLayoutInflater();
+        View header = inflater.inflate(R.layout.event_list_add, null);
+        mCreateEventView = (TextView) header.findViewById(R.id.create_event_text);
+
         EventAdapter adapter = new EventAdapter(this, R.layout.event_list_item, new ArrayList<Event>());
+        mListViewEvent.addHeaderView(header);
         mListViewEvent.setAdapter(adapter);
     }
 
@@ -82,9 +93,13 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
                 mToken = newText;
                 Event.search(this, newText);
             } else {
+                mListViewEvent.setVisibility(View.GONE);
+                mCreateEventView.setVisibility(View.GONE);
                 // todo display invalid token
             }
         } else {
+            mListViewEvent.setVisibility(View.GONE);
+            mCreateEventView.setVisibility(View.GONE);
             // todo display no result found
         }
         return false;
@@ -97,13 +112,34 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public void onEventsFound(List<Event> events) {
-        EventAdapter adapter = (EventAdapter) mListViewEvent.getAdapter();
+        displayCreateButton(events);
+
+        HeaderViewListAdapter headerViewListAdapter = (HeaderViewListAdapter) mListViewEvent.getAdapter();
+        EventAdapter adapter = (EventAdapter) headerViewListAdapter.getWrappedAdapter();
         adapter.clear();
         adapter.addAll(events);
         adapter.notifyDataSetChanged();
+        mListViewEvent.setVisibility(View.VISIBLE);
     }
 
-    @Click
+    private void displayCreateButton(List<Event> events) {
+        if (events != null && events.size() > 0) {
+            Event firstEvent = events.get(0);
+
+            if (firstEvent.getToken().equals(mToken)) {
+                mCreateEventView.setVisibility(View.GONE);
+            } else {
+                mCreateEventView.setVisibility(View.VISIBLE);
+            }
+
+        } else if (events != null || mToken.length() > 0) {
+            mCreateEventView.setVisibility(View.VISIBLE);
+        } else {
+            mCreateEventView.setVisibility(View.GONE);
+        }
+    }
+
+    @Click(R.id.create_event_text)
     protected void createEvent() {
         if (mToken != null && mToken.length() > 0) {
             IntentTools.newBasicIntentWithExtraString(this, CreateEventActivity_.class, Intent.EXTRA_TEXT, mToken);
