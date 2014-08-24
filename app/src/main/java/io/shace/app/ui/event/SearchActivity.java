@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
+import io.shace.app.api.filters.TokenFilter;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.tools.IntentTools;
@@ -77,24 +79,24 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setQueryHint(getString(R.string.action_search_hint));
-
+        setTokenFilter();
         mSearchView.setFocusable(true);
         mSearchView.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
+    private void setTokenFilter() {
+        int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText editText = (EditText) mSearchView.findViewById(id);
+        editText.setFilters(new TokenFilter[]{ new TokenFilter() });
+    }
+
     @Override
     public boolean onQueryTextChange(final String newText) {
         if (newText.length() > 0) {
-            if (newText.matches("[a-zA-Z0-9|-]+")) {
-                mToken = newText;
-                Event.search(this, newText);
-            } else {
-                mListViewEvent.setVisibility(View.GONE);
-                mCreateEventView.setVisibility(View.GONE);
-                // todo display invalid token
-            }
+            mToken = newText;
+            Event.search(this, newText);
         } else {
             mListViewEvent.setVisibility(View.GONE);
             mCreateEventView.setVisibility(View.GONE);
