@@ -23,6 +23,7 @@ import java.util.List;
 
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
+import io.shace.app.api.ApiError;
 import io.shace.app.api.filters.TokenFilter;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
@@ -147,6 +148,12 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public void onEventFound(Event event) {}
+
+    @Override
+    public void onEventCreated(Event event) {}
+
+    @Override
+    public void onEventCreatedFail(ApiError error) {}
 
     @Override
     public void onPreExecute() {}
