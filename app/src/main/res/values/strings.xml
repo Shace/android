@@ -12,6 +12,4 @@
 
     <!-- Default strings for new activity -->
     <string name="hello_world">Hello world</string>
-    <string name="title_activity_create_event">CreateEventActivity</string>
-
 </resources>

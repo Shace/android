@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_search">Search an event</string>
 
     <string name="search_event_logo">Event logo</string>
     <string name="search_event_create">Create this event</string>
 
     <string name="token">Token</string>
+    <string name="create">Create</string>
+    <string name="event_name">Name</string>
+    <string name="event_description">Description</string>
+
+
+
+    <string name="title_activity_create_event">Create an event</string>
+
+    <string-array name="privacy_items">
+        <item>Public</item>
+        <item>Protected</item>
+        <item>Private</item>
+    </string-array>
+
+    <!-- Warning: The order is linked to privacy_items -->
+    <string-array translatable="false" name="privacy_values">
+        <item>@string/privacy_public</item>
+        <item>@string/privacy_protected</item>
+        <item>@string/privacy_private</item>
+    </string-array>
+
+    <string name="privacy_public">public</string>
+    <string name="privacy_protected">protected</string>
+    <string name="privacy_private">private</string>
 </resources>
