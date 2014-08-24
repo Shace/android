@@ -4,4 +4,6 @@
 
     <string name="search_event_logo">Event logo</string>
     <string name="search_event_create">Create this event</string>
+
+    <string name="token">Token</string>
 </resources>
