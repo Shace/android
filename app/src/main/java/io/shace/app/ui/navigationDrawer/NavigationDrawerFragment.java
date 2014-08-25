@@ -1,4 +1,4 @@
-package io.shace.app.ui;
+package io.shace.app.ui.navigationDrawer;
 
 
 import android.app.ActionBar;
@@ -16,22 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import io.shace.app.R;
 
 
 public class NavigationDrawerFragment extends Fragment {
-
-        public static final int ITEM_HOME = 0;
-        public static final int ITEM_NEARBY = 10;
-        public static final int ITEM_NEW_EVENT = 20;
-
-        public static final int ITEM_SETTINGS = 100;
-        public static final int ITEM_SIGN_OUT = 110;
-        public static final int ITEM_HELP = 120;
-        public static final int ITEM_ABOUT = 130;
 
     /**
      * Remember the position of the selected item.
@@ -77,25 +67,19 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate(
-                R.layout.fragment_navigation_drawer, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_homepage),
-                        getString(R.string.title_create_private_event),
-                        getString(R.string.title_profile),
-                }));
+
+        NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(this.getActivity());
+
+        mDrawerListView.setAdapter(adapter);
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;

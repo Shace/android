@@ -17,6 +17,8 @@ import io.shace.app.api.models.User;
 import io.shace.app.tools.IntentTools;
 import io.shace.app.tools.ToastTools;
 import io.shace.app.ui.event.SearchActivity_;
+import io.shace.app.ui.navigationDrawer.NavigationDrawer;
+import io.shace.app.ui.navigationDrawer.NavigationDrawerFragment;
 
 
 @EActivity(R.layout.activity_main)
@@ -54,18 +56,13 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment = null;
 
-        switch (position) {
-            case 0:
-                fragment = new HomepageFragment_();
-                break;
-            case 3:
-                fragment = new ProfileFragment_();
-                break;
-            default:
-                ToastTools.use().longToast(R.string.todo);
-                Log.e(TAG, "Fragment " + position + " not available");
-                break;
+        if (position == NavigationDrawer.ITEM_HOME) {
+            fragment = new HomepageFragment_();
+        } else {
+            ToastTools.use().longToast(R.string.todo);
+            Log.e(TAG, "Fragment " + position + " not available");
         }
+
 
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();

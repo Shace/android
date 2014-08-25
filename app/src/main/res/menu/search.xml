@@ -8,6 +8,5 @@
         android:title="@string/action_search"
         android:showAsAction="always"
         android:actionViewClass="android.widget.SearchView"
-        app:iconifiedByDefault="false"
-        />
+        app:iconifiedByDefault="false" />
 </menu>
