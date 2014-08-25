@@ -1,4 +1,4 @@
-package io.shace.app.ui;
+package io.shace.app.api.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;

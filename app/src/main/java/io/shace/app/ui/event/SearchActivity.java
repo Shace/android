@@ -28,7 +28,7 @@ import io.shace.app.api.filters.TokenFilter;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.tools.IntentTools;
-import io.shace.app.ui.EventAdapter;
+import io.shace.app.api.adapters.EventAdapter;
 
 @EActivity(R.layout.activity_search)
 public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener {
