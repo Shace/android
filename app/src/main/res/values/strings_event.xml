@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Search -->
     <string name="title_activity_search">Search an event</string>
+    <string name="title_activity_create_event">Create an event</string>
+    <string name="title_activity_event">EventActivity</string>
 
     <string name="search_event_logo">Event logo</string>
     <string name="search_event_create">Create this event</string>
+
 
     <string name="token">Token</string>
     <string name="create">Create</string>
     <string name="event_name">Name</string>
     <string name="event_description">Description</string>
-
-
-
-    <string name="title_activity_create_event">Create an event</string>
 
     <string-array name="privacy_items">
         <item>Public</item>

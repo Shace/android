@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name" translatable="false">Shace</string>
+
+    <string name="todo">Action not yet available</string>
 
     <!-- Actionbar -->
     <string name="action_settings">Settings</string>
@@ -12,6 +13,4 @@
 
     <!-- Default strings for new activity -->
     <string name="hello_world">Hello world</string>
-    <string name="title_activity_event">EventActivity</string>
-
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_field_duplicate">Already taken</string>
+    <string name="error_field_format">The format is not valid</string>
+</resources>
