@@ -3,6 +3,8 @@ package io.shace.app.api.models;
 
 import android.util.Log;
 
+import com.google.gson.annotations.Expose;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,19 +18,19 @@ import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.cache.models.EventColor;
 import io.shace.app.api.listeners.EventListener;
+import io.shace.app.api.tasks.eventTasks.Create;
 import io.shace.app.api.tasks.eventTasks.Search;
 
 /**
  * Created by melvin on 8/14/14.
  */
 public class Event extends Model {
-    private String token;
-    private String name;
-    private String description;
-    private String readingPrivacy;
-    private String writingPrivacy;
-    private String readingPassword;
-    private String writingPassword;
+    @Expose private String token;
+    @Expose private String name;
+    @Expose private String description;
+    @Expose private String privacy;
+    @Expose private String password;
+
     private String creation;
     private List<Media> medias = new ArrayList<Media>();
 
@@ -67,36 +69,20 @@ public class Event extends Model {
         this.description = description;
     }
 
-    public String getReadingPrivacy() {
-        return readingPrivacy;
+    public String getPrivacy() {
+        return privacy;
     }
 
-    public void setReadingPrivacy(String readingPrivacy) {
-        this.readingPrivacy = readingPrivacy;
+    public void setPrivacy(String privacy) {
+        this.privacy = privacy;
     }
 
-    public String getWritingPrivacy() {
-        return writingPrivacy;
+    public String getPassword() {
+        return password;
     }
 
-    public void setWritingPrivacy(String writingPrivacy) {
-        this.writingPrivacy = writingPrivacy;
-    }
-
-    public String getReadingPassword() {
-        return readingPassword;
-    }
-
-    public void setReadingPassword(String readingPassword) {
-        this.readingPassword = readingPassword;
-    }
-
-    public String getWritingPassword() {
-        return writingPassword;
-    }
-
-    public void setWritingPassword(String writingPassword) {
-        this.writingPassword = writingPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCreation() {
@@ -202,5 +188,19 @@ public class Event extends Model {
 
         Task task = new Search(listener);
         task.exec(data);
+    }
+
+    /**
+     * Save or update an event
+     *
+     * @param listener
+     */
+    public void save(EventListener listener) {
+        //if (isNotLogged()) {
+            Task task = new Create(listener);
+            task.exec(this);
+        //} else {
+            // update
+        //}
     }
 }
