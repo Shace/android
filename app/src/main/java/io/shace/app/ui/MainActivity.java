@@ -56,13 +56,16 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment = null;
 
+
+
         if (position == NavigationDrawer.ITEM_HOME) {
             fragment = new HomepageFragment_();
+        } else if (position == NavigationDrawer.ITEM_SIGN_OUT) {
+            User.signOut();
         } else {
             ToastTools.use().longToast(R.string.todo);
             Log.e(TAG, "Fragment " + position + " not available");
         }
-
 
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
@@ -96,11 +99,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         int id = item.getItemId();
         if (id == R.id.action_search) {
             openSearch();
-            return true;
-        } else if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_sign_out) {
-            User.signOut();
             return true;
         }
         return super.onOptionsItemSelected(item);
