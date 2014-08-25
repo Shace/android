@@ -1,5 +1,6 @@
 package io.shace.app.api.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONArray;
@@ -19,11 +20,12 @@ import io.shace.app.ui.boot.SplashScreenActivity_;
  * Created by melvin on 7/15/14.
  */
 public class User extends Model {
-    private String email;
-    private String password = null;
-    @SerializedName("first_name") private String firstName;
-    @SerializedName("last_name") private String lastName;
-    private long birthDate;
+    @Expose private String email;
+    @Expose private String password = null;
+    @Expose @SerializedName("first_name") private String firstName;
+    @Expose @SerializedName("last_name") private String lastName;
+    @Expose private long birthDate;
+    
     private long inscriptionDate;
     @SerializedName("is_admin") private boolean isAdmin = false;
 
