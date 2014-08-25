@@ -42,7 +42,7 @@ public class NavigationDrawerAdapter extends ArrayAdapter<Integer> {
         ViewHolder viewHolder = null;
         Integer item = getItem(position);
 
-        int layout = (item < 100) ? (mLayoutResourceId) : (mSmallLayoutResourceId);
+        int layout = (item < NavigationDrawer.SEPARATOR) ? (mLayoutResourceId) : (mSmallLayoutResourceId);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -12,16 +12,17 @@ import io.shace.app.R;
  * Created by melvin on 8/25/14.
  */
 public class NavigationDrawer {
-    // < 100 = Main layout
-    public static final int ITEM_HOME = 0;
-    public static final int ITEM_NEARBY = 10;
-    public static final int ITEM_NEW_EVENT = 20;
 
-    // >= 100 = small layout
-    public static final int ITEM_SETTINGS = 100;
-    public static final int ITEM_SIGN_OUT = 110;
-    public static final int ITEM_HELP = 120;
-    public static final int ITEM_ABOUT = 130;
+    public static final int ITEM_HOME = 0;
+    public static final int ITEM_NEARBY = 1;
+    public static final int ITEM_NEW_EVENT = 2;
+
+    public static final int SEPARATOR = 3; // used by the adapter
+
+    public static final int ITEM_SETTINGS = SEPARATOR;
+    public static final int ITEM_SIGN_OUT = SEPARATOR + 1;
+    public static final int ITEM_HELP = SEPARATOR + 2;
+    public static final int ITEM_ABOUT = SEPARATOR + 3;
 
     private static final ArrayList<Integer> mItemList = populateItemList();
     private static final SparseIntArray mItemToName = populateItemToName();
