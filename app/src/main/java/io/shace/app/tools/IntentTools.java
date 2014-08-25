@@ -11,7 +11,7 @@ import io.shace.app.App;
  */
 public class IntentTools {
     private static final String TAG = IntentTools.class.getSimpleName();
-    private static final String ERROR = "Activity is null, try to give 'this' as first parameter, or call the method after onResume()";
+    private static final String ACTIVITY_ERROR = "Activity is null, try to give 'this' as first parameter, or call the method after onResume()";
 
     /**
      * Start a new intent using the current activity
@@ -22,7 +22,7 @@ public class IntentTools {
         Activity activity = App.getCurrentActivity();
 
         if (activity == null) {
-            Log.e(TAG, ERROR);
+            Log.e(TAG, ACTIVITY_ERROR);
         }
 
         newBasicIntent(activity, cls);
@@ -64,7 +64,7 @@ public class IntentTools {
         Activity activity = App.getCurrentActivity();
 
         if (activity == null) {
-            Log.e(TAG, ERROR);
+            Log.e(TAG, ACTIVITY_ERROR);
         }
 
         newBasicIntentWithExtraString(activity, cls, extra, value);
@@ -79,7 +79,7 @@ public class IntentTools {
         Activity activity = App.getCurrentActivity();
 
         if (activity == null) {
-            Log.e(TAG, ERROR);
+            Log.e(TAG, ACTIVITY_ERROR);
         }
 
         newFullIntent(activity, cls);
@@ -97,5 +97,34 @@ public class IntentTools {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.overridePendingTransition(0, 0);
         activity.finishAffinity();
+    }
+
+
+
+    /**
+     * Replace the current activity by a new one
+     *
+     * @param cls class to use
+     */
+    public static void newReplacingIntent(Class<?> cls) {
+        Activity activity = App.getCurrentActivity();
+
+        if (activity == null) {
+            Log.e(TAG, ACTIVITY_ERROR);
+        }
+
+        newReplacingIntent(activity, cls);
+    }
+
+    /**
+     * Replace the current activity by a new one
+     *
+     * @param activity activity to use (should probably be this)
+     * @param cls class to use
+     */
+    public static void newReplacingIntent(Activity activity, Class<?> cls) {
+        Intent intent = new Intent(activity, cls);
+        activity.startActivity(intent);
+        activity.finish();
     }
 }
