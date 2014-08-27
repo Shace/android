@@ -126,19 +126,19 @@ public class Event extends Model {
      */
 
     protected EventColor getEventColor() {
-        //if (getId() > 0) {
-        List<EventColor> eventColorList = EventColor.find(EventColor.class, "token = ?", getToken());
+        if (getId() > 0) {
+            List<EventColor> eventColorList = EventColor.find(EventColor.class, "token = ?", getToken());
 
-        int length = eventColorList.size();
-        if (length > 0) {
-            return eventColorList.get(0);
+            int length = eventColorList.size();
+            if (length > 0) {
+                return eventColorList.get(0);
+            }
         }
-        //}
         return null;
     }
 
     private void saveColor(int color) {
-        //if (getId() > 0) {
+        if (getId() > 0) {
             EventColor eventColor = getEventColor();
 
             if (eventColor != null) {
@@ -148,9 +148,9 @@ public class Event extends Model {
             }
             eventColor.save();
             Log.i(TAG, Long.toString(eventColor.getId()));
-        //} else {
-        //    Log.i(TAG, "Event id: " + Integer.toString(getId()));
-        //}
+        } else {
+            Log.i(TAG, "Event id: " + Integer.toString(getId()));
+        }
     }
 
 
@@ -196,11 +196,11 @@ public class Event extends Model {
      * @param listener
      */
     public void save(EventListener listener) {
-        //if (isNotLogged()) {
+        if (getId() == -1) {
             Task task = new Create(listener);
             task.exec(this);
-        //} else {
+        } else {
             // update
-        //}
+        }
     }
 }
