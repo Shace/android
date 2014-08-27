@@ -11,16 +11,6 @@ import java.util.Map;
  * Created by melvin on 8/6/14.
  */
 abstract public class Model {
-    protected int id = -1;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Map<String,String> mapData() {
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(this);
