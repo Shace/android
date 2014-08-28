@@ -1,6 +1,7 @@
 package io.shace.app.api.models;
 
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.google.gson.annotations.Expose;
@@ -13,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.shace.app.App;
+import io.shace.app.R;
 import io.shace.app.api.DeserializerBuilder;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
@@ -41,11 +44,11 @@ public class Event extends Model {
 
     private transient int mColor = 0;
     private static transient final String TAG = Event.class.getSimpleName();
+    public static transient final String[] COLORS = App.getContext().getResources().getStringArray(R.array.card_colors);
 
     /**
      * Getters/Setters
      */
-
 
     public String getId() {
         return id;
@@ -125,10 +128,19 @@ public class Event extends Model {
         return mColor;
     }
 
-    public void setColor(int color) {
-        mColor = color;
-        saveColor(color);
+    public int getColorUsableColor() {
+        if (mColor == 0) {
+            EventColor eventColor = getEventColor();
+            if (eventColor != null) {
+                mColor = eventColor.getColor();
+            }
+        }
+        return Color.parseColor(COLORS[mColor]);
+    }
 
+    public void setColor() {
+        mColor = App.getRandom().nextInt(Event.COLORS.length);
+        saveColor();
     }
 
     /**
@@ -147,14 +159,14 @@ public class Event extends Model {
         return null;
     }
 
-    private void saveColor(int color) {
+    private void saveColor() {
         if (getId() != null) {
             EventColor eventColor = getEventColor();
 
             if (eventColor != null) {
-                eventColor.setColor(color);
+                eventColor.setColor(mColor);
             } else {
-                eventColor = new EventColor(getToken(), color);
+                eventColor = new EventColor(getToken(), mColor);
             }
             eventColor.save();
             Log.i(TAG, Long.toString(eventColor.getId()));

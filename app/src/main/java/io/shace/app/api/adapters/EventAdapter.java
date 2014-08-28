@@ -1,7 +1,6 @@
 package io.shace.app.api.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import io.shace.app.App;
 import io.shace.app.R;
 import io.shace.app.api.models.Event;
 import io.shace.app.api.models.Media;
@@ -28,8 +25,6 @@ import io.shace.app.api.models.Media;
  */
 public class EventAdapter extends ArrayAdapter<Event> {
     private static final String TAG = EventAdapter.class.getSimpleName();
-    private final int[] COLORS = getColors();
-    private Random mRandom = new Random();
 
     Context mContext;
     int mLayoutResourceId;
@@ -38,20 +33,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
         super(context, layoutResourceId, items);
         mContext = context;
         mLayoutResourceId = layoutResourceId;
-    }
-
-    private int[] getColors() {
-        Resources res = App.getContext().getResources();
-
-        return new int[] {
-            res.getColor(R.color.card_green),
-            res.getColor(R.color.card_blue),
-            res.getColor(R.color.card_blue_grey),
-            res.getColor(R.color.card_orange),
-            res.getColor(R.color.card_pink),
-            res.getColor(R.color.card_purple),
-            res.getColor(R.color.card_teal),
-        };
     }
 
     public static class ViewHolder {
@@ -87,15 +68,14 @@ public class EventAdapter extends ArrayAdapter<Event> {
         Event item = getItem(position);
 
         if (item.hasColor() == false) {
-            int idx = mRandom.nextInt(COLORS.length);
-            item.setColor(COLORS[idx]);
+            item.setColor();
         }
 
         List<Media> medias = item.getMedias();
 
         if (medias != null && medias.size() > 0) {
             Media firstPicture = medias.get(0);
-            String url = firstPicture.getImage().getSmall();
+            String url = firstPicture.getImage().getMedium();
 
             Picasso picasso = Picasso.with(mContext);
             picasso.setLoggingEnabled(true);
@@ -112,7 +92,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
             });
         }
 
-        viewHolder.card.setBackgroundColor(item.getColor());
+        viewHolder.card.setBackgroundColor(item.getColorUsableColor());
         viewHolder.token.setText(item.getToken());
         viewHolder.title.setText(item.getName());
         viewHolder.description.setText(item.getDescription());

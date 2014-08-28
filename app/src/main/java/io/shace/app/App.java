@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.orm.SugarApp;
 
+import java.util.Random;
+
 import io.shace.app.tools.PreferenceTools;
 
 /**
@@ -13,6 +15,7 @@ import io.shace.app.tools.PreferenceTools;
 public class App extends SugarApp {
     private static Context mContext;
     private static Activity sCurrentActivity = null;
+    private static final Random mRandom = new Random();
 
     public static boolean isFirstLaunch() {
         boolean firstLaunch = PreferenceTools.getKey(PreferenceTools.KEY_FIRST_LAUNCH, true);
@@ -40,5 +43,9 @@ public class App extends SugarApp {
     }
     public static void setCurrentActivity(Activity currentActivity) {
         sCurrentActivity = currentActivity;
+    }
+
+    public static Random getRandom() {
+        return mRandom;
     }
 }

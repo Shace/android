@@ -7,12 +7,33 @@
     <color name="inset_grey">#AAA</color>
     <color name="global_text">#333</color>
 
+    <!-- The indexes are important, you should always add at the end -->
+    <string-array translatable="false" name="card_colors">
+        <item name="card_maroon">#831e49</item>
+        <item name="card_brown_orange">#914a12</item>
+        <item name="card_red">#983d1b</item>
+        <item name="card_green">#476a2d</item>
+        <item name="card_green2">#056e44</item>
+        <item name="card_brown">#62473e</item>
+        <item name="card_blue">#2d592b</item>
+        <item name="card_blue2">#046d98</item>
+        <item name="card_blue_grey">#374a87</item>
+        <item name="card_navy_blue">#374a87</item>
+        <item name="card_teal">#006b63</item>
+    </string-array>
 
-    <color name="card_green">#056f00</color>
-    <color name="card_pink">#c2185b</color>
-    <color name="card_teal">#00796b</color>
-    <color name="card_purple">#7b1fa2</color>
-    <color name="card_blue">#303f9f</color>
-    <color name="card_orange">#700</color>
-    <color name="card_blue_grey">#455a64</color>
+    <!-- the order must match card_colors -->
+    <string-array translatable="false" name="card_colors_light">
+        <item name="card_maroon">#831e49</item>
+        <item name="card_brown_orange">#914a12</item>
+        <item name="card_red">#983d1b</item>
+        <item name="card_green">#476a2d</item>
+        <item name="card_green2">#056e44</item>
+        <item name="card_brown">#62473e</item>
+        <item name="card_blue">#2d592b</item>
+        <item name="card_blue2">#046d98</item>
+        <item name="card_blue_grey">#374a87</item>
+        <item name="card_navy_blue">#374a87</item>
+        <item name="card_teal">#006b63</item>
+    </string-array>
 </resources>
