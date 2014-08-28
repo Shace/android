@@ -25,6 +25,7 @@ import io.shace.app.api.tasks.eventTasks.Search;
  * Created by melvin on 8/14/14.
  */
 public class Event extends Model {
+    private String id = "";
     @Expose private String token;
     @Expose private String name;
     @Expose private String description;
@@ -44,6 +45,15 @@ public class Event extends Model {
     /**
      * Getters/Setters
      */
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getToken() {
         return token;

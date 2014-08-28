@@ -2,6 +2,7 @@ package io.shace.app.api.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -95,10 +97,19 @@ public class EventAdapter extends ArrayAdapter<Event> {
             Media firstPicture = medias.get(0);
             String url = firstPicture.getImage().getSmall();
 
-
             Picasso picasso = Picasso.with(mContext);
-            picasso.setIndicatorsEnabled(true);
-            picasso.load(url).skipMemoryCache().into(viewHolder.mainPicture);
+            picasso.setLoggingEnabled(true);
+            picasso.load(url).into(viewHolder.mainPicture, new Callback() {
+                @Override
+                public void onSuccess() {
+                    Log.i(TAG, "PICASSO OK");
+                }
+
+                @Override
+                public void onError() {
+                    Log.i(TAG, "PICASSO KO");
+                }
+            });
         }
 
         viewHolder.card.setBackgroundColor(item.getColor());

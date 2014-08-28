@@ -20,6 +20,7 @@ import io.shace.app.ui.boot.SplashScreenActivity_;
  * Created by melvin on 7/15/14.
  */
 public class User extends Model {
+    protected int id = -1;
     @Expose private String email;
     @Expose private String password = null;
     @Expose @SerializedName("first_name") private String firstName;
@@ -40,6 +41,14 @@ public class User extends Model {
     /**
      * Getter and Setters
      */
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
