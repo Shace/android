@@ -68,7 +68,7 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        if (bundle != null){
+        if (bundle != null) {
             String token = bundle.getString(Intent.EXTRA_TEXT);
             mToken.setText(token);
             mToken.setEnabled(false);
@@ -114,7 +114,7 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
 
     @Override
     public void onEventCreated(Event event) {
-        IntentTools.newReplacingIntent(this, EventActivity.class);
+        IntentTools.newReplacingIntentWithExtraString(this, EventActivity.class, Intent.EXTRA_TEXT, event.getToken());
     }
 
     @Override

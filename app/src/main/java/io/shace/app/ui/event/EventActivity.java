@@ -20,7 +20,7 @@ public class EventActivity extends Activity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        if (bundle != null){
+        if (bundle != null) {
             String token = bundle.getString(Intent.EXTRA_TEXT);
             Log.d(TAG, token);
         }
