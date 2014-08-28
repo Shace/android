@@ -65,8 +65,7 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
     private void initToken() {
         mToken.setFilters(new TokenFilter[]{ new TokenFilter() });
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        Bundle bundle = getIntent().getExtras();
 
         if (bundle != null) {
             String token = bundle.getString(Intent.EXTRA_TEXT);
@@ -74,6 +73,12 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
             mToken.setEnabled(false);
         }
     }
+
+    @Override
+    public Intent getParentActivityIntent() {
+        return customUpNavigation();
+    }
+
 
     @Click
     protected void createEvent() {

@@ -36,6 +36,7 @@ public class IntentTools {
      */
     public static void newBasicIntent(Activity activity, Class<?> cls) {
         Intent intent = new Intent(activity, cls);
+        intent.putExtra("caller", activity.getClass().getName());
         activity.startActivity(intent);
     }
 
@@ -49,6 +50,7 @@ public class IntentTools {
      */
     public static void newBasicIntentWithExtraString(Activity activity, Class<?> cls, String extra, String value) {
         Intent intent = new Intent(activity, cls);
+        intent.putExtra("caller", activity.getClass().getName());
         intent.putExtra(extra, value);
         activity.startActivity(intent);
     }

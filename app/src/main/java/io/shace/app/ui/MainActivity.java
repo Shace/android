@@ -16,6 +16,7 @@ import io.shace.app.R;
 import io.shace.app.api.models.User;
 import io.shace.app.tools.IntentTools;
 import io.shace.app.tools.ToastTools;
+import io.shace.app.ui.event.CreateEventActivity_;
 import io.shace.app.ui.event.SearchActivity_;
 import io.shace.app.ui.navigationDrawer.NavigationDrawer;
 import io.shace.app.ui.navigationDrawer.NavigationDrawerFragment;
@@ -56,10 +57,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment = null;
 
-
-
         if (position == NavigationDrawer.ITEM_HOME) {
             fragment = new HomepageFragment_();
+        } else if (position == NavigationDrawer.ITEM_NEW_EVENT) {
+            IntentTools.newBasicIntent(this, CreateEventActivity_.class);
         } else if (position == NavigationDrawer.ITEM_SIGN_OUT) {
             User.signOut();
         } else {

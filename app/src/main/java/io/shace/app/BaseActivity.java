@@ -1,6 +1,7 @@
 package io.shace.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -65,5 +66,23 @@ public class BaseActivity extends Activity {
             return true;
         }
         return false;
+    }
+
+    protected Intent customUpNavigation() {
+        String activityName = getIntent().getStringExtra("caller");
+
+        if (activityName != null) {
+            try {
+                Class cls = Class.forName(activityName);
+                Log.d(TAG, "Class '" + activityName + "' FOUND");
+                Intent intent = new Intent();
+                intent.setClass(this, cls);
+                return intent;
+            } catch (ClassNotFoundException e) {
+                Log.e(TAG, "Class '" + activityName + "' not found");
+            }
+        }
+
+        return super.getParentActivityIntent();
     }
 }

@@ -168,6 +168,6 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextView tokenView = (TextView) view.findViewById(R.id.token);
         String token = tokenView.getText().toString();
-        IntentTools.newReplacingIntentWithExtraString(this, EventActivity.class, Intent.EXTRA_TEXT, token);
+        IntentTools.newBasicIntentWithExtraString(this, EventActivity.class, Intent.EXTRA_TEXT, token);
     }
 }

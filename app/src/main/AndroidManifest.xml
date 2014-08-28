@@ -82,7 +82,11 @@
         </activity>
         <activity
             android:name=".ui.event.EventActivity"
-            android:label="@string/title_activity_event" >
+            android:label="@string/title_activity_event"
+            android:parentActivityName=".ui.event.SearchActivity_" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.shace.app.ui.event.SearchActivity_" />
         </activity>
     </application>
 

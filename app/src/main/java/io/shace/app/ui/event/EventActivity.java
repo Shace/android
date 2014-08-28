@@ -1,6 +1,5 @@
 package io.shace.app.ui.event;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.shace.app.BaseActivity;
 import io.shace.app.R;
 
-public class EventActivity extends Activity {
+public class EventActivity extends BaseActivity {
     private static final String TAG = EventActivity.class.getSimpleName();
 
     private void init() {
@@ -23,7 +23,20 @@ public class EventActivity extends Activity {
         if (bundle != null) {
             String token = bundle.getString(Intent.EXTRA_TEXT);
             Log.d(TAG, token);
+
+            String activityName = bundle.getString("caller");
+            if (activityName != null) {
+                Log.d(TAG, activityName);
+            } else {
+                Log.d(TAG, "Activity name is NULL");
+            }
         }
+    }
+
+
+    @Override
+    public Intent getParentActivityIntent() {
+        return customUpNavigation();
     }
 
     @Override
