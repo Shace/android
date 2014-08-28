@@ -25,7 +25,7 @@ import io.shace.app.api.tasks.eventTasks.Search;
  * Created by melvin on 8/14/14.
  */
 public class Event extends Model {
-    private String id = "";
+    private String id = null;
     @Expose private String token;
     @Expose private String name;
     @Expose private String description;
@@ -136,7 +136,7 @@ public class Event extends Model {
      */
 
     protected EventColor getEventColor() {
-        if (getId() > 0) {
+        if (getId() != null) {
             List<EventColor> eventColorList = EventColor.find(EventColor.class, "token = ?", getToken());
 
             int length = eventColorList.size();
@@ -148,7 +148,7 @@ public class Event extends Model {
     }
 
     private void saveColor(int color) {
-        if (getId() > 0) {
+        if (getId() != null) {
             EventColor eventColor = getEventColor();
 
             if (eventColor != null) {
@@ -159,7 +159,7 @@ public class Event extends Model {
             eventColor.save();
             Log.i(TAG, Long.toString(eventColor.getId()));
         } else {
-            Log.i(TAG, "Event id: " + Integer.toString(getId()));
+            Log.i(TAG, "Event id: " + getId());
         }
     }
 
@@ -206,7 +206,7 @@ public class Event extends Model {
      * @param listener
      */
     public void save(EventListener listener) {
-        if (getId() == -1) {
+        if (getId() == null) {
             Task task = new Create(listener);
             task.exec(this);
         } else {
