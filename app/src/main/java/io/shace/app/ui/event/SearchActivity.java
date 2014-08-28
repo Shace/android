@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
@@ -31,7 +32,7 @@ import io.shace.app.tools.IntentTools;
 import io.shace.app.api.adapters.EventAdapter;
 
 @EActivity(R.layout.activity_search)
-public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener {
+public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
     private static final String TAG = "SearchActivity";
     private String mToken = null;
     SearchView mSearchView;
@@ -51,6 +52,8 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
         EventAdapter adapter = new EventAdapter(this, R.layout.event_list_item, new ArrayList<Event>());
         mListViewEvent.addHeaderView(header);
         mListViewEvent.setAdapter(adapter);
+
+        mListViewEvent.setOnItemClickListener(this);
     }
 
     public void restoreActionBar() {
@@ -160,4 +163,11 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public void onPostExecute() {}
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        TextView tokenView = (TextView) view.findViewById(R.id.token);
+        String token = tokenView.getText().toString();
+        IntentTools.newReplacingIntentWithExtraString(this, EventActivity.class, Intent.EXTRA_TEXT, token);
+    }
 }

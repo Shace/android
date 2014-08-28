@@ -99,8 +99,6 @@ public class IntentTools {
         activity.finishAffinity();
     }
 
-
-
     /**
      * Replace the current activity by a new one
      *
@@ -124,6 +122,36 @@ public class IntentTools {
      */
     public static void newReplacingIntent(Activity activity, Class<?> cls) {
         Intent intent = new Intent(activity, cls);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
+
+
+    /**
+     * Replace the current activity by a new one, with an extra string
+     *
+     * @param cls class to use
+     */
+    public static void newReplacingIntentWithExtraString(Class<?> cls, String extra, String value) {
+        Activity activity = App.getCurrentActivity();
+
+        if (activity == null) {
+            Log.e(TAG, ACTIVITY_ERROR);
+        }
+
+        newReplacingIntentWithExtraString(activity, cls, extra, value);
+    }
+
+    /**
+     * Replace the current activity by a new one, with an extra string
+     *
+     * @param activity activity to use (should probably be this)
+     * @param cls class to use
+     */
+    public static void newReplacingIntentWithExtraString(Activity activity, Class<?> cls, String extra, String value) {
+        Intent intent = new Intent(activity, cls);
+        intent.putExtra(extra, value);
         activity.startActivity(intent);
         activity.finish();
     }

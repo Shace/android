@@ -2,7 +2,9 @@ package io.shace.app.ui.event;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +14,17 @@ import android.view.ViewGroup;
 import io.shace.app.R;
 
 public class EventActivity extends Activity {
+    private static final String TAG = EventActivity.class.getSimpleName();
+
+    private void init() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if (bundle != null){
+            String token = bundle.getString(Intent.EXTRA_TEXT);
+            Log.d(TAG, token);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +35,8 @@ public class EventActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
+        init();
     }
 
 
