@@ -28,9 +28,9 @@ import io.shace.app.tools.NetworkTools;
 public class EventFragment extends Fragment implements EventListener {
     private static final String TAG = EventFragment.class.getSimpleName();
 
-    @ViewById(R.id.header) LinearLayout header;
-    @ViewById(R.id.main_picture) NetworkImageView mainPicture;
-    @ViewById(R.id.title) TextView eventTitle;
+    @ViewById(R.id.header) LinearLayout mHeader;
+    @ViewById(R.id.main_picture) NetworkImageView mCover;
+    @ViewById(R.id.title) TextView mEventTitle;
 
     @AfterViews
     protected void init() {
@@ -47,15 +47,15 @@ public class EventFragment extends Fragment implements EventListener {
     public void onEventRetrieved(Event event) {
         Log.d(TAG, event.getName());
 
-        eventTitle.setText(event.getName());
-        header.setBackgroundColor(event.getColorUsableLightColor());
+        mEventTitle.setText(event.getName());
+        mHeader.setBackgroundColor(event.getColorUsableLightColor());
 
         List<Media> medias = event.getMedias();
 
         if (medias != null && medias.size() > 0) {
             Media firstPicture = medias.get(0);
             String url = firstPicture.getImage().getMedium();
-            NetworkTools.attachImage(url, mainPicture);
+            NetworkTools.attachImage(url, mCover);
         }
     }
 
