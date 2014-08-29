@@ -81,8 +81,9 @@
                 android:value="io.shace.app.ui.event.SearchActivity_" />
         </activity>
         <activity
-            android:name=".ui.event.EventActivity"
+            android:name=".ui.event.EventActivity_"
             android:label="@string/title_activity_event"
+            android:theme="@style/Theme.OverlayActionBar"
             android:parentActivityName=".ui.event.SearchActivity_" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
