@@ -119,7 +119,7 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
 
     @Override
     public void onEventCreated(Event event) {
-        IntentTools.newReplacingIntentWithExtraString(this, EventActivity.class, Intent.EXTRA_TEXT, event.getToken());
+        IntentTools.newReplacingIntentWithExtraString(this, EventActivity_.class, Intent.EXTRA_TEXT, event.getToken());
     }
 
     @Override
@@ -155,5 +155,11 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
     public void onEventsFound(List<Event> events) {}
 
     @Override
-    public void onEventFound(Event event) {}
+    public void onEventRetrieved(Event event) {}
+
+    @Override
+    public void onEventRetrievedFailed(ApiError error) {}
+
+    @Override
+    public void onEventNeedPassword() {}
 }

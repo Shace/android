@@ -5,7 +5,7 @@
     <string name="title_activity_create_event">Create an event</string>
     <string name="title_activity_event">EventActivity</string>
 
-    <string name="search_event_logo">Event logo</string>
+    <string name="event_logo">Event logo</string>
     <string name="search_event_create">Create this event</string>
 
 

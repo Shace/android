@@ -22,6 +22,7 @@ import io.shace.app.api.Task;
 import io.shace.app.api.cache.models.EventColor;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.tasks.eventTasks.Create;
+import io.shace.app.api.tasks.eventTasks.Get;
 import io.shace.app.api.tasks.eventTasks.Search;
 
 /**
@@ -224,5 +225,19 @@ public class Event extends Model {
         } else {
             // update
         }
+    }
+
+    /**
+     * Get an event
+     *
+     * @param listener
+     * @param token
+     */
+    public static void getByToken(EventListener listener, String token) {
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("event_token", token);
+
+        Task task = new Get(listener);
+        task.exec(data);
     }
 }

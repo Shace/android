@@ -1,13 +1,8 @@
 package io.shace.app.api.tasks.eventTasks;
 
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
+import io.shace.app.api.ApiError;
 import io.shace.app.api.Routes;
 import io.shace.app.api.Task;
 import io.shace.app.api.listeners.EventListener;
@@ -18,36 +13,37 @@ import io.shace.app.api.network.RequestQueue;
 /**
  * Created by melvin on 8/14/14.
  */
-public class Search extends Task {
-    private static final String TAG = Search.class.getSimpleName();
+public class Get extends Task {
+    private static final String TAG = Get.class.getSimpleName();
     private EventListener mListener;
 
-    public Search(EventListener listener) {
+    public Get(EventListener listener) {
         mListener = listener;
         setGenericListener(listener);
-        setAllowedCodes(new int[] {404});
+        setAllowedCodes(new int[] {403, 404});
     }
 
     @Override
     public void exec() {
         cancel();
-        new ApiCall().get(Routes.EVENT_SEARCH, mData, this);
+        new ApiCall().get(Routes.EVENTS, mData, this);
     }
 
     @Override
     public void onSuccess(JSONObject response) {
-        try {
-            JSONArray jsonEvents = response.getJSONArray("events");
-            List<Event> events = Event.fromJson(jsonEvents);
-            mListener.onEventsFound(events);
-        } catch (JSONException e) {
-            Log.e(TAG, "No 'events' key found: " + response.toString());
-        }
+        Event event = Event.fromJson(response);
+        mListener.onEventRetrieved(event);
     }
 
     @Override
     public void onError(int code, JSONObject response) {
-        getError(response);
+        ApiError error = getError(response);
+
+        if (error.is(ApiError.NEED_PASSWORD)) {
+            mListener.onEventNeedPassword();
+        } else {
+            mListener.onEventRetrievedFailed(error);
+        }
     }
 
     public static void cancel() {
