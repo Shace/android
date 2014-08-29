@@ -4,8 +4,11 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.android.volley.toolbox.NetworkImageView;
+
 import io.shace.app.App;
 import io.shace.app.R;
+import io.shace.app.api.network.ApiImageLoader;
 
 /**
  * Created by melvin on 4/30/14.
@@ -39,5 +42,15 @@ public class NetworkTools {
      */
     static public void sendTimeOutError() {
         ToastTools.use().longToast(R.string.server_timeout);
+    }
+
+    /**
+     * Download, cache, and display an image
+     *
+     * @param url
+     * @param view
+     */
+    static public void attachImage(String url, NetworkImageView view) {
+        view.setImageUrl(url, ApiImageLoader.get());
     }
 }

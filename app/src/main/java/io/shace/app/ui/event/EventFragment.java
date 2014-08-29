@@ -3,11 +3,10 @@ package io.shace.app.ui.event;
 import android.app.Fragment;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.android.volley.toolbox.NetworkImageView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -15,12 +14,12 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-import io.shace.app.App;
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.api.models.Media;
+import io.shace.app.tools.NetworkTools;
 
 /**
  * Created by melvin on 8/28/14.
@@ -30,7 +29,7 @@ public class EventFragment extends Fragment implements EventListener {
     private static final String TAG = EventFragment.class.getSimpleName();
 
     @ViewById(R.id.header) LinearLayout header;
-    @ViewById(R.id.main_picture) ImageView mainPicture;
+    @ViewById(R.id.main_picture) NetworkImageView mainPicture;
     @ViewById(R.id.title) TextView eventTitle;
 
     @AfterViews
@@ -56,9 +55,7 @@ public class EventFragment extends Fragment implements EventListener {
         if (medias != null && medias.size() > 0) {
             Media firstPicture = medias.get(0);
             String url = firstPicture.getImage().getMedium();
-
-            Picasso picasso = Picasso.with(App.getContext());
-            picasso.load(url).into(mainPicture);
+            NetworkTools.attachImage(url, mainPicture);
         }
     }
 

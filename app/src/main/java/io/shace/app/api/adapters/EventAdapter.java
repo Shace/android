@@ -1,17 +1,14 @@
 package io.shace.app.api.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +16,7 @@ import java.util.List;
 import io.shace.app.R;
 import io.shace.app.api.models.Event;
 import io.shace.app.api.models.Media;
+import io.shace.app.tools.NetworkTools;
 
 /**
  * Created by melvin on 8/14/14.
@@ -37,7 +35,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
     public static class ViewHolder {
         public final TextView token;
-        public final ImageView mainPicture;
+        public final NetworkImageView mainPicture;
         public final TextView title;
         public final TextView description;
         public final LinearLayout card;
@@ -45,7 +43,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         public ViewHolder(View view) {
             card = (LinearLayout) view.findViewById(R.id.card);
             token = (TextView) view.findViewById(R.id.token);
-            mainPicture = (ImageView) view.findViewById(R.id.main_picture);
+            mainPicture = (NetworkImageView) view.findViewById(R.id.main_picture);
             title = (TextView) view.findViewById(R.id.title);
             description = (TextView) view.findViewById(R.id.description);
         }
@@ -76,20 +74,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         if (medias != null && medias.size() > 0) {
             Media firstPicture = medias.get(0);
             String url = firstPicture.getImage().getMedium();
-
-            Picasso picasso = Picasso.with(mContext);
-            picasso.setLoggingEnabled(true);
-            picasso.load(url).into(viewHolder.mainPicture, new Callback() {
-                @Override
-                public void onSuccess() {
-                    Log.i(TAG, "PICASSO OK");
-                }
-
-                @Override
-                public void onError() {
-                    Log.i(TAG, "PICASSO KO");
-                }
-            });
+            NetworkTools.attachImage(url, viewHolder.mainPicture);
         }
 
         viewHolder.card.setBackgroundColor(item.getColorUsableColor());
