@@ -49,7 +49,7 @@ public class EventFragment extends Fragment implements EventListener {
         Log.d(TAG, event.getName());
 
         eventTitle.setText(event.getName());
-        header.setBackgroundColor(event.getColorUsableColor());
+        header.setBackgroundColor(event.getColorUsableLightColor());
 
         List<Media> medias = event.getMedias();
 

@@ -46,6 +46,7 @@ public class Event extends Model {
     private transient int mColor = 0;
     private static transient final String TAG = Event.class.getSimpleName();
     public static transient final String[] COLORS = App.getContext().getResources().getStringArray(R.array.card_colors);
+    public static transient final String[] LIGHT_COLORS = App.getContext().getResources().getStringArray(R.array.card_colors_light);
 
     /**
      * Getters/Setters
@@ -137,6 +138,16 @@ public class Event extends Model {
             }
         }
         return Color.parseColor(COLORS[mColor]);
+    }
+
+    public int getColorUsableLightColor() {
+        if (mColor == 0) {
+            EventColor eventColor = getEventColor();
+            if (eventColor != null) {
+                mColor = eventColor.getColor();
+            }
+        }
+        return Color.parseColor(LIGHT_COLORS[mColor]);
     }
 
     public void setColor() {
