@@ -11,6 +11,8 @@
     <string name="action_search_hint">Enter your token</string>
     <string name="action_search">Search</string>
     <string name="action_sign_out">Sign out</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_share">Share</string>
     <string name="loading">Loading</string>
 
     <!-- Default strings for new activity -->

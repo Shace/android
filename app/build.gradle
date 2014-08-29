@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "io.shace.app"
-        minSdkVersion 16
+        minSdkVersion 16 // Under 16, the icons inside xxhdpi won't be down-scaled
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"

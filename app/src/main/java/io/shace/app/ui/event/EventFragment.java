@@ -3,6 +3,8 @@ package io.shace.app.ui.event;
 import android.app.Fragment;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ public class EventFragment extends Fragment implements EventListener {
 
     @AfterViews
     protected void init() {
+        setHasOptionsMenu(true);
         String token = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
         if (token != null) {
@@ -68,6 +71,12 @@ public class EventFragment extends Fragment implements EventListener {
     public void onEventNeedPassword() {
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.event, menu);
+    }
+
 
     @Override
     public void onEventsFound(List<Event> events) {}
