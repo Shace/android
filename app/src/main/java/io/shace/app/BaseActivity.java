@@ -74,7 +74,6 @@ public class BaseActivity extends Activity {
         if (activityName != null) {
             try {
                 Class cls = Class.forName(activityName);
-                Log.d(TAG, "Class '" + activityName + "' FOUND");
                 Intent intent = new Intent();
                 intent.setClass(this, cls);
                 return intent;
