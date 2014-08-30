@@ -2,6 +2,7 @@ package io.shace.app.ui.event;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,13 +32,14 @@ import io.shace.app.api.models.Event;
 import io.shace.app.tools.IntentTools;
 
 @EActivity(R.layout.activity_search)
-public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, SearchView.OnCloseListener {
+public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, SearchView.OnCloseListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "SearchActivity";
     private String mToken = null;
     SearchView mSearchView;
     private CharSequence mTitle;
 
     @ViewById(R.id.listview_event) ListView mListViewEvent;
+    @ViewById(R.id.refresh) SwipeRefreshLayout mRefreshView;
     TextView mCreateEventView;
 
     @AfterViews
@@ -53,6 +55,12 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
         mListViewEvent.setAdapter(adapter);
 
         mListViewEvent.setOnItemClickListener(this);
+
+        mRefreshView.setOnRefreshListener(this);
+        mRefreshView.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     public void restoreActionBar() {
@@ -162,16 +170,31 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
     }
 
     @Override
+    public boolean onClose() {
+        finish();
+        return false;
+    }
+
+    @Override
+    public void onRefresh() {
+        onQueryTextChange(mToken);
+    }
+
+    @Override
     public void onEventCreated(Event event) {}
 
     @Override
     public void onEventCreatedFail(ApiError error) {}
 
     @Override
-    public void onPreExecute() {}
+    public void onPreExecute() {
+        mRefreshView.setRefreshing(true);
+    }
 
     @Override
-    public void onPostExecute() {}
+    public void onPostExecute() {
+        mRefreshView.setRefreshing(false);
+    }
 
     @Override
     public void onEventRetrieved(Event event) {}
@@ -181,10 +204,4 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public void onEventNeedPassword() {}
-
-    @Override
-    public boolean onClose() {
-        finish();
-        return false;
-    }
 }
