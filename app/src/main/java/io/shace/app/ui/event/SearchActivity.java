@@ -1,13 +1,12 @@
 package io.shace.app.ui.event;
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.HeaderViewListAdapter;
@@ -25,11 +24,11 @@ import java.util.List;
 import io.shace.app.BaseActivity;
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
+import io.shace.app.api.adapters.EventAdapter;
 import io.shace.app.api.filters.TokenFilter;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.tools.IntentTools;
-import io.shace.app.api.adapters.EventAdapter;
 
 @EActivity(R.layout.activity_search)
 public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
@@ -71,29 +70,33 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
         if (searchItem != null) {
+            searchItem.setIcon(R.drawable.ic_action_search);
             mSearchView = (SearchView) searchItem.getActionView();
-            mSearchView.setIconifiedByDefault(false);
             setupSearch(searchItem);
         }
 
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     protected void setupSearch(MenuItem searchItem) {
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
+
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setImeOptions(EditorInfo.IME_ACTION_GO);
         mSearchView.setQueryHint(getString(R.string.action_search_hint));
-        setTokenFilter();
+        mSearchView.setSubmitButtonEnabled(false);
         mSearchView.setFocusable(true);
         mSearchView.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        setTokenFilter();
     }
 
     private void setTokenFilter() {
         int id = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText editText = (EditText) mSearchView.findViewById(id);
-        editText.setFilters(new TokenFilter[]{ new TokenFilter() });
+        editText.setFilters(new TokenFilter[]{new TokenFilter()});
+        editText.setHintTextColor(getResources().getColor(R.color.white_50));
     }
 
     @Override
@@ -111,6 +114,7 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        mSearchView.clearFocus();
         return false;
     }
 

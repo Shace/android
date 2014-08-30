@@ -3,6 +3,7 @@
     <color name="green">#259b24</color>
     <color name="green_dark">#056f00</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_50">#88FFFFFF</color>
     <color name="grey">#b2b2b2</color>
     <color name="inset_grey">#AAA</color>
     <color name="global_text">#333</color>
