@@ -110,10 +110,12 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public boolean onQueryTextChange(final String newText) {
+        mToken = newText;
+
         if (newText.length() > 0) {
-            mToken = newText;
             Event.search(this, newText);
         } else {
+            mRefreshView.setRefreshing(false);
             mListViewEvent.setVisibility(View.GONE);
             mCreateEventView.setVisibility(View.GONE);
             // todo display no result found
