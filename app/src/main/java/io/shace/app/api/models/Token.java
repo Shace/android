@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.shace.app.api.DeserializerBuilder;
@@ -146,8 +147,11 @@ public class Token extends Model {
      * @param listener instance of TokenListener
      */
     public static void generate(TokenListener listener) {
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("auto_renew", "true");
+
         Task task = new Generate(listener);
-        task.exec();
+        task.exec(data);
     }
 
     /**
