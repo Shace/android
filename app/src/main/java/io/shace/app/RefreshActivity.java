@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
 /**
  * Created by melvin on 8/30/14.
  */
-abstract public class RefreshActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+abstract public class RefreshActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener {
     protected SwipeRefreshLayout mRefreshView = null;
 
     /**
@@ -28,17 +30,21 @@ abstract public class RefreshActivity extends BaseActivity implements SwipeRefre
     /**
      * Enable user gesture
      */
-    public void enableGesture() {
+    protected void enableGesture() {
         mRefreshView.setEnabled(true);
     }
 
     /**
      * Disable user gesture
      */
-    public void disableGesture() {
+    protected void disableGesture() {
         mRefreshView.setEnabled(false);
     }
 
+
+    protected void fixScrollUp(ListView listView) {
+        listView.setOnScrollListener(this);
+    }
 
     /**
      * The following are used by the API listeners.
@@ -89,4 +95,25 @@ abstract public class RefreshActivity extends BaseActivity implements SwipeRefre
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
     }
+
+
+    /**
+     *  Fix for Scroll Up
+     */
+
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        int topRow = 0;
+
+        if (view != null && view.getChildCount() > 0) {
+            topRow = view.getChildAt(0).getTop();
+        }
+
+        mRefreshView.setEnabled(topRow >= 0);
+    }
+
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int state) {}
 }

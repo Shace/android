@@ -53,6 +53,7 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
         mListViewEvent.setAdapter(adapter);
 
         mListViewEvent.setOnItemClickListener(this);
+        fixScrollUp(mListViewEvent);
     }
 
     public void restoreActionBar() {
