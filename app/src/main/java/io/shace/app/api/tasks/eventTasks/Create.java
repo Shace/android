@@ -26,7 +26,7 @@ public class Create extends Task {
     @Override
     public void exec() {
         cancel();
-        new ApiCall().post(Routes.EVENTS, mData, this);
+        new ApiCall(TAG).post(Routes.EVENTS, mData, this);
     }
 
     @Override

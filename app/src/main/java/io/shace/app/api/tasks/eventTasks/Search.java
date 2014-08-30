@@ -31,7 +31,7 @@ public class Search extends Task {
     @Override
     public void exec() {
         cancel();
-        new ApiCall().get(Routes.EVENT_SEARCH, mData, this);
+        new ApiCall(TAG).get(Routes.EVENT_SEARCH, mData, this);
     }
 
     @Override
