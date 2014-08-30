@@ -1,22 +1,24 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
         <item name="android:textColor">@color/global_text</item>
 
         <item name="android:icon">@android:color/transparent</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_up</item>
-        <item name="homeAsUpIndicator">@drawable/ic_up</item>
+
+        <!-- For API < 16 <item name="homeAsUpIndicator">@drawable/ic_up</item>-->
 
     </style>
 
-    <style name="ActionBarWidget" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ActionBarWidget" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Theme.NoActionBar" parent="AppTheme">
-        <item name="windowActionBar">false</item>
+        <!-- For API < 16 <item name="windowActionBar">false</item>-->
+
         <item name="android:windowNoTitle">true</item>
     </style>
 
