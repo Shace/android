@@ -11,6 +11,7 @@ import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.models.Token;
 import io.shace.app.api.models.User;
 import io.shace.app.tools.IntentTools;
+import io.shace.app.ui.MainActivity_;
 
 
 @EActivity(R.layout.activity_splash_screen)
@@ -30,7 +31,7 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
         Class<?> cls = null;
 
         if (User.isLogged()) {
-            //cls = MainActivity_.class;
+            cls = MainActivity_.class;
         } else {
             if (App.isFirstLaunch()) {
                 // cls = TourActivity.class;
