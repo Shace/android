@@ -31,7 +31,7 @@ import io.shace.app.api.models.Event;
 import io.shace.app.tools.IntentTools;
 
 @EActivity(R.layout.activity_search)
-public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
+public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, SearchView.OnCloseListener {
     private static final String TAG = "SearchActivity";
     private String mToken = null;
     SearchView mSearchView;
@@ -81,8 +81,9 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
     protected void setupSearch(MenuItem searchItem) {
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
+        mSearchView.setOnCloseListener(this);
 
-        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setIconified(false);
         mSearchView.setImeOptions(EditorInfo.IME_ACTION_GO);
         mSearchView.setQueryHint(getString(R.string.action_search_hint));
         mSearchView.setSubmitButtonEnabled(false);
@@ -180,4 +181,10 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public void onEventNeedPassword() {}
+
+    @Override
+    public boolean onClose() {
+        finish();
+        return false;
+    }
 }
