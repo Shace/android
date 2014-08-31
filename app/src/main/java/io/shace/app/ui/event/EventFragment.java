@@ -59,8 +59,6 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @Override
     public void onEventRetrieved(Event event) {
-        Log.d(TAG, event.getName());
-
         mEventTitle.setText(event.getName());
         mEventDescription.setText(event.getDescription());
         mMainInfo.setBackgroundColor(event.getColorUsableLightColor());
@@ -104,9 +102,6 @@ public class EventFragment extends Fragment implements EventListener, Observable
         // todo put into BaseActivity
         Resources r = getResources();
         float twenty = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, r.getDisplayMetrics());
-
-
-        Log.d(TAG, Integer.toString(mFakeActionbar.getLayoutParams().height));
 
         if (actionBarHeight + scrollY >= Event.COVER_HEIGHT - twenty) {
             if (mAnimDone == false) {
