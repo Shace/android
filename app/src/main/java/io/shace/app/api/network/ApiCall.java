@@ -31,9 +31,7 @@ public class ApiCall {
     private static final String TAG = ApiCall.class.getSimpleName();
     private Object mRequestTag = null;
 
-    public ApiCall() {}
-
-    public void setTag(Object tag) {
+    public ApiCall(Object tag) {
         mRequestTag = tag;
     }
 

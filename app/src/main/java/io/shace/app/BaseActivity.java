@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.Map;
 
 import io.shace.app.api.ApiError;
+import io.shace.app.api.network.RequestQueue;
 
 /**
  * Created by melvin on 8/10/14.
@@ -27,11 +28,13 @@ public class BaseActivity extends Activity {
 
     protected void onPause() {
         clearReferences();
+        RequestQueue.getInstance().cancelPendingRequests();
         super.onPause();
     }
 
     protected void onDestroy() {
         clearReferences();
+        RequestQueue.getInstance().cancelPendingRequests();
         super.onDestroy();
     }
 

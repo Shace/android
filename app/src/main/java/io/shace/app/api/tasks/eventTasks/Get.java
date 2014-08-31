@@ -26,7 +26,7 @@ public class Get extends Task {
     @Override
     public void exec() {
         cancel();
-        new ApiCall().get(Routes.EVENTS, mData, this);
+        new ApiCall(TAG).get(Routes.EVENTS, mData, this);
     }
 
     @Override

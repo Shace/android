@@ -21,8 +21,8 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.shace.app.BaseActivity;
 import io.shace.app.R;
+import io.shace.app.RefreshActivity;
 import io.shace.app.api.ApiError;
 import io.shace.app.api.adapters.EventAdapter;
 import io.shace.app.api.filters.TokenFilter;
@@ -31,9 +31,9 @@ import io.shace.app.api.models.Event;
 import io.shace.app.tools.IntentTools;
 
 @EActivity(R.layout.activity_search)
-public class SearchActivity extends BaseActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, SearchView.OnCloseListener {
+public class SearchActivity extends RefreshActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, SearchView.OnCloseListener {
     private static final String TAG = "SearchActivity";
-    private String mToken = null;
+    private String mToken = "";
     SearchView mSearchView;
     private CharSequence mTitle;
 
@@ -53,6 +53,7 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
         mListViewEvent.setAdapter(adapter);
 
         mListViewEvent.setOnItemClickListener(this);
+        fixScrollUp(mListViewEvent);
     }
 
     public void restoreActionBar() {
@@ -102,10 +103,12 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public boolean onQueryTextChange(final String newText) {
+        mToken = newText;
+
         if (newText.length() > 0) {
-            mToken = newText;
             Event.search(this, newText);
         } else {
+            stopRefreshAnimation();
             mListViewEvent.setVisibility(View.GONE);
             mCreateEventView.setVisibility(View.GONE);
             // todo display no result found
@@ -162,16 +165,21 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
     }
 
     @Override
+    public boolean onClose() {
+        finish();
+        return false;
+    }
+
+    @Override
+    public void onRefresh() {
+        onQueryTextChange(mToken);
+    }
+
+    @Override
     public void onEventCreated(Event event) {}
 
     @Override
     public void onEventCreatedFail(ApiError error) {}
-
-    @Override
-    public void onPreExecute() {}
-
-    @Override
-    public void onPostExecute() {}
 
     @Override
     public void onEventRetrieved(Event event) {}
@@ -181,10 +189,4 @@ public class SearchActivity extends BaseActivity implements EventListener, Searc
 
     @Override
     public void onEventNeedPassword() {}
-
-    @Override
-    public boolean onClose() {
-        finish();
-        return false;
-    }
 }

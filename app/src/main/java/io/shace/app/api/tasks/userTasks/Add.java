@@ -35,7 +35,7 @@ public class Add extends Task {
     @Override
     public void exec() {
         cancel();
-        new ApiCall().post(Routes.USERS, mData, this);
+        new ApiCall(TAG).post(Routes.USERS, mData, this);
     }
 
     @Override

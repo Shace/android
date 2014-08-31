@@ -32,7 +32,7 @@ public class Generate extends Task {
 
     public void exec() {
         cancel();
-        new ApiCall().post(Routes.ACCESS_TOKEN, this.mData, this);
+        new ApiCall(TAG).post(Routes.ACCESS_TOKEN, this.mData, this);
     }
 
     @Override

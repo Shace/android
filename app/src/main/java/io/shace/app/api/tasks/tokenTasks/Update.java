@@ -32,7 +32,7 @@ public class Update extends Task {
 
     public void exec() {
         cancel();
-        new ApiCall().put(Routes.ACCESS_TOKEN, mData, this);
+        new ApiCall(TAG).put(Routes.ACCESS_TOKEN, mData, this);
     }
 
     public static void cancel() {
