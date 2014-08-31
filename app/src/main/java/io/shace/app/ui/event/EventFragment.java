@@ -33,6 +33,7 @@ public class EventFragment extends Fragment implements EventListener {
     @ViewById(R.id.header) LinearLayout mHeader;
     @ViewById(R.id.main_picture) NetworkImageView mCover;
     @ViewById(R.id.title) TextView mEventTitle;
+    @ViewById(R.id.description) TextView mEventDescription;
 
     @AfterViews
     protected void init() {
@@ -51,6 +52,7 @@ public class EventFragment extends Fragment implements EventListener {
         Log.d(TAG, event.getName());
 
         mEventTitle.setText(event.getName());
+        mEventDescription.setText(event.getDescription());
         mHeader.setBackgroundColor(event.getColorUsableLightColor());
 
         List<Media> medias = event.getMedias();
