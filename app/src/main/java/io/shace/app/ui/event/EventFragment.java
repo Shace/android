@@ -3,7 +3,6 @@ package io.shace.app.ui.event;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -95,51 +94,26 @@ public class EventFragment extends Fragment implements EventListener, Observable
     public void onScrollChanged(int deltaX, int deltaY) {
         int actionBarHeight = 0;
 
-        Resources r = getResources();
-        // TODO set 200 into a const
-        float mPictureHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, r.getDisplayMetrics());
-
         TypedValue tv = new TypedValue();
         if (getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
         }
 
         int scrollY = mScrollView.getScrollY();
-        int mainInfoY = mMainInfo.getScrollY();
-
-        //ViewGroup.LayoutParams lp = mMainInfo.getLayoutParams();
-
-//        if (lp.height != mHeaderHeightPixels) {
-//            lp.height = mHeaderHeightPixels;
-//            mHeaderBackgroundBox.setLayoutParams(lp);
-//        }
 
         // todo put into BaseActivity
+        Resources r = getResources();
         float twenty = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, r.getDisplayMetrics());
 
-//        Log.d(TAG, "Scroll: " + (actionBarHeight + scrollY));
-//        Log.d(TAG, "PH: " + (mPictureHeight - twenty));
-//        Log.d(TAG, "ab: " + actionBarHeight);
 
         Log.d(TAG, Integer.toString(mFakeActionbar.getLayoutParams().height));
 
-        if (actionBarHeight + scrollY >= mPictureHeight - twenty) {
+        if (actionBarHeight + scrollY >= Event.COVER_HEIGHT - twenty) {
             if (mAnimDone == false) {
-                float delta = (actionBarHeight + scrollY) - (mPictureHeight - twenty);
+                float delta = (actionBarHeight + scrollY) - (Event.COVER_HEIGHT - twenty);
                 float height = actionBarHeight - delta;
 
-//                Log.d(TAG, "Delta " + delta);
-//                Log.d(TAG, "height " + height);
-
-                // todo put in BaseActivity
-                DisplayMetrics metrics = new DisplayMetrics();
-                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-                float logicalDensity = metrics.density;
-                int heightDp = (int) Math.ceil(height / logicalDensity);
-
-//                Log.e(TAG, "DP: " + heightDp);
-
-                // todo trie with mMainAction directly
+                // todo trie with mainAction directly
                 mFakeActionbar.animate()
                         .scaleY(height)
                         .setInterpolator(new DecelerateInterpolator(2f))
@@ -158,46 +132,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
             }
         }
 
-        //mMainInfo.setTranslationY(newTop);
-//        mAddScheduleButton.setTranslationY(newTop + mHeaderHeightPixels
-//                - mAddScheduleButtonHeightPixels / 2);
-
-//        mHeaderBackgroundBox.setPivotY(mHeaderHeightPixels);
-//        int gapFillDistance = (int) (mHeaderTopClearance * GAP_FILL_DISTANCE_MULTIPLIER);
-//        boolean showGapFill = !mHasPhoto || (scrollY > (mPhotoHeightPixels - gapFillDistance));
-//        float desiredHeaderScaleY = showGapFill ?
-//                ((mHeaderHeightPixels + gapFillDistance + 1) * 1f / mHeaderHeightPixels)
-//                : 1f;
-//        if (!mHasPhoto) {
-//            mHeaderBackgroundBox.setScaleY(desiredHeaderScaleY);
-//        } else if (mGapFillShown != showGapFill) {
-//            mHeaderBackgroundBox.animate()
-//                    .scaleY(desiredHeaderScaleY)
-//                    .setInterpolator(new DecelerateInterpolator(2f))
-//                    .setDuration(250)
-//                    .start();
-//        }
-//        mGapFillShown = showGapFill;
-//
-//        LPreviewUtilsBase lpu = activity.getLPreviewUtils();
-//
-//        mHeaderShadow.setVisibility(lpu.hasLPreviewAPIs() ? View.GONE : View.VISIBLE);
-//
-//        if (mHeaderTopClearance != 0) {
-//            // Fill the gap between status bar and header bar with color
-//            float gapFillProgress = Math.min(Math.max(UIUtils.getProgress(scrollY,
-//                    mPhotoHeightPixels - mHeaderTopClearance * 2,
-//                    mPhotoHeightPixels - mHeaderTopClearance), 0), 1);
-//            lpu.setViewElevation(mHeaderBackgroundBox, gapFillProgress * mMaxHeaderElevation);
-//            lpu.setViewElevation(mHeaderContentBox, gapFillProgress * mMaxHeaderElevation + 0.1f);
-//            lpu.setViewElevation(mAddScheduleButton, gapFillProgress * mMaxHeaderElevation
-//                    + mFABElevation);
-//            if (!lpu.hasLPreviewAPIs()) {
-//                mHeaderShadow.setAlpha(gapFillProgress);
-//            }
-//        }
-//
-//        // Move background photo (parallax effect)
+        // Parallax effect
         mCover.setTranslationY(scrollY * 0.5f);
     }
 

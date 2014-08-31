@@ -43,10 +43,13 @@ public class Event extends Model {
      * in-class vars
      */
 
+
+
     private transient int mColor = 0;
     private static transient final String TAG = Event.class.getSimpleName();
     public static transient final String[] COLORS = App.getContext().getResources().getStringArray(R.array.card_colors);
     public static transient final String[] LIGHT_COLORS = App.getContext().getResources().getStringArray(R.array.card_colors_light);
+    public static transient final float COVER_HEIGHT = App.getContext().getResources().getDimension(R.dimen.cover_height);
 
     /**
      * Getters/Setters
