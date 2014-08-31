@@ -23,7 +23,6 @@
 
         <View android:id="@+id/fake_actionbar"
             android:layout_width="match_parent"
-            android:background="#000"
             android:layout_height="1dp" />
 
         <LinearLayout

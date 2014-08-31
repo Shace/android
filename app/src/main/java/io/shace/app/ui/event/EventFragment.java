@@ -64,7 +64,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
         mEventTitle.setText(event.getName());
         mEventDescription.setText(event.getDescription());
         mMainInfo.setBackgroundColor(event.getColorUsableLightColor());
-        //mFakeActionbar.setBackgroundColor(event.getColorUsableLightColor());
+        mFakeActionbar.setBackgroundColor(event.getColorUsableLightColor());
 
         List<Media> medias = event.getMedias();
 
