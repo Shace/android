@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
     @ViewById(R.id.fixed_header) LinearLayout mFixedHeader;
     @ViewById(R.id.fake_actionbar) View mFakeActionbar;
     @ViewById(R.id.main_info) LinearLayout mMainInfo;
+    @ViewById(R.id.detail_layout) LinearLayout mDetailLayout;
     @ViewById(R.id.main_picture) NetworkImageView mCover;
     @ViewById(R.id.title) TextView mEventTitle;
     @ViewById(R.id.description) TextView mEventDescription;
@@ -66,7 +68,11 @@ public class EventFragment extends Fragment implements EventListener, Observable
         mEventDescription.setText(event.getDescription());
         mMainInfo.setBackgroundColor(event.getColorUsableLightColor());
         mFakeActionbar.setBackgroundColor(event.getColorUsableLightColor());
-        //mFakeActionbar.setBackgroundColor(getResources().getColor(R.color.green_dark));
+
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)mDetailLayout.getLayoutParams();
+        lp.topMargin = mMainInfo.getHeight() + (int)Event.COVER_HEIGHT;
+        mDetailLayout.setLayoutParams(lp);
+
 
         List<Media> medias = event.getMedias();
 
