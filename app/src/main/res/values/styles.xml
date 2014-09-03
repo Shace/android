@@ -4,6 +4,7 @@
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
         <item name="android:textColor">@color/global_text</item>
+        <item name="android:windowBackground">@color/white</item>
 
         <item name="android:icon">@android:color/transparent</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_up</item>
