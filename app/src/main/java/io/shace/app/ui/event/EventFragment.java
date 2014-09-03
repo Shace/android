@@ -35,14 +35,17 @@ import io.shace.app.ui.widgets.ObservableScrollView;
 public class EventFragment extends Fragment implements EventListener, ObservableScrollView.Callbacks {
     private static final String TAG = EventFragment.class.getSimpleName();
 
-    @ViewById(R.id.fake_actionbar) View mFakeActionbar;
     @ViewById(R.id.scroll_view) ObservableScrollView mScrollView;
+    @ViewById(R.id.fixed_header) LinearLayout mFixedHeader;
+    @ViewById(R.id.fake_actionbar) View mFakeActionbar;
     @ViewById(R.id.main_info) LinearLayout mMainInfo;
     @ViewById(R.id.main_picture) NetworkImageView mCover;
     @ViewById(R.id.title) TextView mEventTitle;
     @ViewById(R.id.description) TextView mEventDescription;
 
     boolean mAnimDone = false;
+
+    int mHeight;
 
     @AfterViews
     protected void init() {
@@ -63,6 +66,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
         mEventDescription.setText(event.getDescription());
         mMainInfo.setBackgroundColor(event.getColorUsableLightColor());
         mFakeActionbar.setBackgroundColor(event.getColorUsableLightColor());
+        //mFakeActionbar.setBackgroundColor(getResources().getColor(R.color.green_dark));
 
         List<Media> medias = event.getMedias();
 
@@ -97,27 +101,44 @@ public class EventFragment extends Fragment implements EventListener, Observable
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
         }
 
+
         int scrollY = mScrollView.getScrollY();
+
+
+
+
 
         // todo put into BaseActivity
         Resources r = getResources();
         float twenty = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, r.getDisplayMetrics());
 
+        // todo Fix fast scroll
         if (actionBarHeight + scrollY >= Event.COVER_HEIGHT - twenty) {
             if (mAnimDone == false) {
-                float delta = (actionBarHeight + scrollY) - (Event.COVER_HEIGHT - twenty);
+                float delta = (actionBarHeight + scrollY) - (Event.COVER_HEIGHT);
                 float height = actionBarHeight - delta;
 
-                // todo trie with mainAction directly
+                mFakeActionbar.setPivotY(mFakeActionbar.getMeasuredHeight());
+                mFakeActionbar.setPivotX(0f);
+
+                mFixedHeader.setPivotY(mFixedHeader.getMeasuredHeight());
+                mFixedHeader.setPivotX(0f);
+
+                float scale = getResources().getDisplayMetrics().density;
+                float heightDp = height / scale + 0.5f;
+
+                mHeight = (int)heightDp;
                 mFakeActionbar.animate()
-                        .scaleY(height)
+                        .scaleY(heightDp)
                         .setInterpolator(new DecelerateInterpolator(2f))
                         .setDuration(250)
                         .start();
+
                 mAnimDone = !mAnimDone;
             }
         } else {
             if (mAnimDone) {
+                mHeight = 0;
                 mFakeActionbar.animate()
                         .scaleY(1)
                         .setInterpolator(new DecelerateInterpolator(2f))
@@ -125,6 +146,38 @@ public class EventFragment extends Fragment implements EventListener, Observable
                         .start();
                 mAnimDone = !mAnimDone;
             }
+        }
+
+
+
+
+
+        // Sticky header
+        int[] viewLocation = new int[2];
+        mMainInfo.getLocationOnScreen(viewLocation);
+
+        int padding = 0;
+
+        if (mHeight > 0) {
+            padding = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mHeight, r.getDisplayMetrics());
+            if (padding > 0) {
+                // todo not 40
+                padding -= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, r.getDisplayMetrics());
+            }
+        } else {
+            // todo try to find good values
+        }
+
+
+        int endCover = mCover.getTop() + mCover.getHeight();
+        int offsetCover = endCover - scrollY - padding;
+        int offset = scrollY - mFixedHeader.getTop() + padding;
+        int offset2 = endCover - mFixedHeader.getTop();
+
+        if (offsetCover < 0) {
+            mFixedHeader.offsetTopAndBottom(offset);
+        } else {
+            mFixedHeader.offsetTopAndBottom(offset2);
         }
 
         // Parallax effect
