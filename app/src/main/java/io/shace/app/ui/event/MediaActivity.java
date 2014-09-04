@@ -9,17 +9,17 @@ import io.shace.app.BaseActivity;
 import io.shace.app.R;
 
 @EActivity
-public class EventActivity extends BaseActivity {
-    private static final String TAG = EventActivity.class.getSimpleName();
+public class MediaActivity extends BaseActivity {
+    private static final String TAG = MediaActivity.class.getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
+        setContentView(R.layout.activity_media);
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new EventFragment_())
+                    .add(R.id.container, new MediaFragment_())
                     .commit();
         }
     }

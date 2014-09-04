@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -26,7 +27,9 @@ import io.shace.app.api.ApiError;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.api.models.Media;
+import io.shace.app.tools.IntentTools;
 import io.shace.app.tools.NetworkTools;
+import io.shace.app.tools.ToastTools;
 import io.shace.app.ui.widgets.ObservableScrollView;
 
 /**
@@ -44,6 +47,8 @@ public class EventFragment extends Fragment implements EventListener, Observable
     @ViewById(R.id.main_picture) NetworkImageView mCover;
     @ViewById(R.id.title) TextView mEventTitle;
     @ViewById(R.id.description) TextView mEventDescription;
+
+    private Event mEvent = null;
 
     boolean mAnimDone = false;
 
@@ -64,6 +69,8 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @Override
     public void onEventRetrieved(Event event) {
+        mEvent = event;
+
         mEventTitle.setText(event.getName());
         mEventDescription.setText(event.getDescription());
         mMainInfo.setBackgroundColor(event.getColorUsableLightColor());
@@ -90,7 +97,12 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @Override
     public void onEventNeedPassword() {
+        ToastTools.use().longToast("Password needed");
+    }
 
+    @Click(R.id.view_photos)
+    protected void viewPhotos() {
+        IntentTools.newBasicIntentWithExtraString(getActivity(), MediaActivity_.class, Intent.EXTRA_TEXT, mEvent.getToken());
     }
 
     @Override
@@ -130,6 +142,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
                 mFixedHeader.setPivotY(mFixedHeader.getMeasuredHeight());
                 mFixedHeader.setPivotX(0f);
 
+                // move to utilities class
                 float scale = getResources().getDisplayMetrics().density;
                 float heightDp = height / scale + 0.5f;
 

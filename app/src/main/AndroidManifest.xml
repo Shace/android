@@ -85,10 +85,20 @@
             android:name=".ui.event.EventActivity_"
             android:label="@string/title_activity_event"
             android:theme="@style/Theme.OverlayActionBar"
+            android:launchMode="singleTop"
             android:parentActivityName=".ui.event.SearchActivity_" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.shace.app.ui.event.SearchActivity_" />
+        </activity>
+
+        <activity
+            android:name=".ui.event.MediaActivity_"
+            android:label="@string/title_activity_media"
+            android:parentActivityName=".ui.event.EventActivity_" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.shace.app.ui.event.EventActivity_" />
         </activity>
     </application>
 
