@@ -32,20 +32,150 @@
             android:layout_marginTop="0dp">
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/descriptionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Description"
+                android:textSize="@dimen/text_size_large"/>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:paddingBottom="15dp"/>
 
+            <!-- TODO: try to make something generic -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <!--<TextView-->
-                <!--android:layout_width="fill_parent"-->
-                <!--android:layout_height="1000dp"-->
-                <!--android:background="@color/grey"-->
-                <!--android:gravity="center"-->
-                <!--android:text="DEBUG"/>-->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.05"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.9"
+                    android:background="#ddd"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.05"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/latest_photo_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Latest photos"
+                android:textSize="@dimen/text_size_large"/>
+
+            <!-- TODO use a different design -->
+            <Button
+                android:id="@+id/view_photos"
+                style="@style/formButton"
+                android:background="@drawable/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:text="View all" />
+
+            <!-- TODO: try to make something generic -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.05"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.9"
+                    android:background="#ddd"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.05"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/ownersTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Owners"
+                android:textSize="@dimen/text_size_large"/>
+
+            <!-- TODO: try to make something generic -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.05"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.9"
+                    android:background="#ddd"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.05"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/AttendantsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Attendants"
+                android:textSize="@dimen/text_size_large"/>
+
+            <!-- TODO: try to make something generic -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.05"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.9"
+                    android:background="#ddd"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.05"/>
+            </LinearLayout>
 
         </LinearLayout>
 
