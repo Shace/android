@@ -1,7 +1,12 @@
 package io.shace.app.ui.boot;
 
+import android.util.Log;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.shace.app.App;
 import io.shace.app.BaseActivity;
@@ -17,6 +22,7 @@ import io.shace.app.ui.MainActivity_;
 @EActivity(R.layout.activity_splash_screen)
 public class SplashScreenActivity extends BaseActivity implements TokenListener {
     private static String TAG = SplashScreenActivity.class.getSimpleName();
+    private Timer mTimer = new Timer();
 
     @AfterViews
     protected void init() {
@@ -51,7 +57,26 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
 
     @Override
     public void onTokenCreatedFail(ApiError error) {
-        // Todo retry x times then display the appropriate errors + play with onResume/onPause to reload
+        Log.e(TAG, "Error not handled: " + error.getCode());
+
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                init();
+            }
+        }, 0, 1000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mTimer.cancel();
     }
 
     @Override
