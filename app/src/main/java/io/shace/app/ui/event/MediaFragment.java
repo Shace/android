@@ -68,23 +68,20 @@ public class MediaFragment extends Fragment implements EventListener {
     }
 
     @Override
-    public void onEventCreated(Event event) {
-
-    }
+    public void onEventCreated(Event event) {}
 
     @Override
-    public void onEventCreatedFail(ApiError error) {
-
-    }
-
+    public void onEventCreatedFail(ApiError error) {}
 
     @Override
-    public void onPreExecute() {
-
-    }
+    public void onEventUpdated(Event event) {}
 
     @Override
-    public void onPostExecute() {
+    public void onEventUpdatedFail(ApiError error) {}
 
-    }
+    @Override
+    public void onPreExecute() {}
+
+    @Override
+    public void onPostExecute() {}
 }

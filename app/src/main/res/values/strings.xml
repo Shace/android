@@ -6,6 +6,10 @@
 
     <string name="title_homepage">My events</string>
 
+
+    <string name="create">Create</string>
+    <string name="update">Update</string>
+
     <!-- Actionbar -->
     <string name="action_settings">Settings</string>
     <string name="action_search_hint">Enter your token</string>

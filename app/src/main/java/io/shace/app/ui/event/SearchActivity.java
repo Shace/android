@@ -182,6 +182,12 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
     public void onEventCreatedFail(ApiError error) {}
 
     @Override
+    public void onEventUpdated(Event event) {}
+
+    @Override
+    public void onEventUpdatedFail(ApiError error) {}
+
+    @Override
     public void onEventRetrieved(Event event) {}
 
     @Override

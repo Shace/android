@@ -7,6 +7,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
@@ -20,7 +21,9 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
@@ -108,6 +111,20 @@ public class EventFragment extends Fragment implements EventListener, Observable
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.event, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.edit_item) {
+            Map<String,String> extras = new HashMap<String, String>();
+            extras.put(Intent.EXTRA_TEXT, mEvent.getToken());
+            extras.put("mode", "edit");
+            IntentTools.newBasicIntentWithExtraStrings(getActivity(), CreateEventActivity_.class, extras);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -212,6 +229,12 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @Override
     public void onEventCreatedFail(ApiError error) {}
+
+    @Override
+    public void onEventUpdated(Event event) {}
+
+    @Override
+    public void onEventUpdatedFail(ApiError error) {}
 
     @Override
     public void onPreExecute() {}

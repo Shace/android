@@ -12,7 +12,6 @@
 
 
     <string name="token">Token</string>
-    <string name="create">Create</string>
     <string name="event_name">Name</string>
     <string name="event_description">Description</string>
 

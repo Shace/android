@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.Map;
+
 import io.shace.app.App;
 
 /**
@@ -70,6 +72,38 @@ public class IntentTools {
         }
 
         newBasicIntentWithExtraString(activity, cls, extra, value);
+    }
+
+    /**
+     * Start a new intent using the specified activity
+     *
+     * @param activity activity to use (should probably be this)
+     * @param cls class to use
+     * @param extras Map of extra strings
+     */
+    public static void newBasicIntentWithExtraStrings(Activity activity, Class<?> cls, Map<String, String> extras) {
+        Intent intent = new Intent(activity, cls);
+        intent.putExtra("caller", activity.getClass().getName());
+        for (Map.Entry<String, String> entry : extras.entrySet()) {
+            intent.putExtra(entry.getKey(), entry.getValue());
+        }
+        activity.startActivity(intent);
+    }
+
+    /**
+     * Start a new intent using the current activity
+     *
+     * @param cls class to use
+     * @param extras Map of extra strings
+     */
+    public static void newBasicIntentWithExtraStrings(Class<?> cls, Map<String, String> extras) {
+        Activity activity = App.getCurrentActivity();
+
+        if (activity == null) {
+            Log.e(TAG, ACTIVITY_ERROR);
+        }
+
+        newBasicIntentWithExtraStrings(activity, cls, extras);
     }
 
     /**

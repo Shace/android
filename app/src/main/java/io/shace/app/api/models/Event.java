@@ -24,6 +24,7 @@ import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.tasks.eventTasks.Create;
 import io.shace.app.api.tasks.eventTasks.Get;
 import io.shace.app.api.tasks.eventTasks.Search;
+import io.shace.app.api.tasks.eventTasks.Update;
 
 /**
  * Created by melvin on 8/14/14.
@@ -237,7 +238,11 @@ public class Event extends Model {
             Task task = new Create(listener);
             task.exec(this);
         } else {
-            // update
+            Map<String, String> data = this.mapData();
+            data.put("event_token", getToken());
+
+            Task task = new Update(listener);
+            task.exec(data);
         }
     }
 

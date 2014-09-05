@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -42,15 +43,23 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
 
     @ViewById(R.id.icon_loader) protected ProgressBar mLoader;
     @ViewById(R.id.create_form) protected View mForm;
+    @ViewById(R.id.saveEvent) protected Button mSubmitButton;
 
     String[] mPrivacyValues = null;
+
+    /**
+     * Editing mode only
+     */
+
+    private boolean editingMode = false;
+    private Event mEvent = null;
 
     @AfterViews
     protected void init() {
         mPrivacyValues = getResources().getStringArray(R.array.privacy_values);
         mPassword.setOnEditorActionListener(this);
 
-        initToken();
+        initMode();
         initPrivacy();
     }
 
@@ -62,13 +71,37 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
         mPrivacy.setOnItemSelectedListener(this);
     }
 
-    private void initToken() {
+    private void initMode() {
         mToken.setFilters(new TokenFilter[]{ new TokenFilter() });
-
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null) {
+            // todo put mode into a const
+            String mode = bundle.getString("mode");
             String token = bundle.getString(Intent.EXTRA_TEXT);
+
+            // todo put edit into a const
+            if (mode != null && mode.equals("edit")) {
+                initEdition(token);
+            } else {
+                initCreation(token);
+            }
+        }
+    }
+
+    private void initEdition(String token) {
+        if (token != null) {
+            mSubmitButton.setText(getResources().getText(R.string.update));
+            editingMode = true;
+            mToken.setVisibility(View.GONE);
+            Event.getByToken(this, token);
+        } else {
+            Log.e(TAG, "Edit mode needs a Token");
+        }
+    }
+
+    private void initCreation(String token) {
+        if (token != null) {
             mToken.setText(token);
             mToken.setEnabled(false);
         }
@@ -81,24 +114,30 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
 
 
     @Click
-    protected void createEvent() {
+    protected void saveEvent() {
         int privacy = mPrivacy.getSelectedItemPosition();
         String name = mName.getText().toString();
         String description = mDescription.getText().toString();
 
-        Event event = new Event();
-        event.setToken(mToken.getText().toString());
-        event.setPrivacy(mPrivacyValues[privacy]);
-        event.setPassword(mPassword.getText().toString());
-        event.setDescription(description);
-        event.setName(name);
-        event.save(this);
+        if (mEvent == null) {
+            mEvent = new Event();
+        }
+
+        if (editingMode == false) {
+            mEvent.setToken(mToken.getText().toString());
+        }
+
+        mEvent.setPrivacy(mPrivacyValues[privacy]);
+        mEvent.setPassword(mPassword.getText().toString());
+        mEvent.setDescription(description);
+        mEvent.setName(name);
+        mEvent.save(this);
     }
 
     @Override
     public boolean onEditorAction(TextView textView, int actionID, KeyEvent keyEvent) {
         if (actionID == EditorInfo.IME_ACTION_DONE) {
-            createEvent();
+            saveEvent();
         }
         return true;
     }
@@ -140,6 +179,24 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
     }
 
     @Override
+    public void onEventUpdated(Event event) {
+        // Todo find a way to reload the parent
+        finish();
+    }
+
+    @Override
+    public void onEventUpdatedFail(ApiError error) {
+        if (error.is(ApiError.PARAMETERS_ERROR)) {
+            HashMap<String, TextView> fields = new HashMap<String, TextView>();
+            fields.put("name", mName);
+            fields.put("description", mDescription);
+            fields.put("password", mPassword);
+
+            checkFormError(error, fields);
+        }
+    }
+
+    @Override
     public void onPreExecute() {
         mForm.setVisibility(View.GONE);
         mLoader.setVisibility(View.VISIBLE);
@@ -151,15 +208,42 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
         mLoader.setVisibility(View.GONE);
     }
 
+    /**
+     * Called for an edition
+     */
     @Override
-    public void onEventsFound(List<Event> events) {}
+    public void onEventRetrieved(Event event) {
+        mEvent = event;
+        mName.setText(mEvent.getName());
+        mDescription.setText(mEvent.getDescription());
+        mPassword.setText(mEvent.getPassword());
+        mPrivacy.setSelection(getPrivacyKey(mEvent.getPrivacy()));
+    }
 
-    @Override
-    public void onEventRetrieved(Event event) {}
+    private int getPrivacyKey(String privacy) {
+        int length = mPrivacyValues.length;
 
+        for (int i = 0; i < length; i++) {
+            if (mPrivacyValues[i].equals(privacy)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Called for an edition
+     */
     @Override
-    public void onEventRetrievedFailed(ApiError error) {}
+    public void onEventRetrievedFailed(ApiError error) {
+        Log.e(TAG, "The provided event does not exists or User not allowed");
+        // Todo find a way to reload the parent
+        finish();
+    }
 
     @Override
     public void onEventNeedPassword() {}
+
+    @Override
+    public void onEventsFound(List<Event> events) {}
 }
