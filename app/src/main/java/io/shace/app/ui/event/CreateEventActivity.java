@@ -45,7 +45,11 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
     @ViewById(R.id.create_form) protected View mForm;
     @ViewById(R.id.saveEvent) protected Button mSubmitButton;
 
-    String[] mPrivacyValues = null;
+    private String[] mPrivacyValues = null;
+
+    public static final String EXTRA_KEY_MODE = "mode";
+    public static final String EXTRA_VALUE_MODE_ADD = "add";
+    public static final String EXTRA_VALUE_MODE_EDIT = "edit";
 
     /**
      * Editing mode only
@@ -76,12 +80,10 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null) {
-            // todo put mode into a const
-            String mode = bundle.getString("mode");
+            String mode = bundle.getString(EXTRA_KEY_MODE);
             String token = bundle.getString(Intent.EXTRA_TEXT);
 
-            // todo put edit into a const
-            if (mode != null && mode.equals("edit")) {
+            if (mode != null && mode.equals(EXTRA_VALUE_MODE_EDIT)) {
                 initEdition(token);
             } else {
                 initCreation(token);

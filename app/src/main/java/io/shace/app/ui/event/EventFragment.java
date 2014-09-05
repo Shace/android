@@ -120,7 +120,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
         if (id == R.id.edit_item) {
             Map<String,String> extras = new HashMap<String, String>();
             extras.put(Intent.EXTRA_TEXT, mEvent.getToken());
-            extras.put("mode", "edit");
+            extras.put(CreateEventActivity.EXTRA_KEY_MODE, CreateEventActivity.EXTRA_VALUE_MODE_EDIT);
             IntentTools.newBasicIntentWithExtraStrings(getActivity(), CreateEventActivity_.class, extras);
             return true;
         }
