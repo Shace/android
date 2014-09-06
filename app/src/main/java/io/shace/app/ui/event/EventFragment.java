@@ -3,7 +3,6 @@ package io.shace.app.ui.event;
 import android.app.Fragment;
 import android.content.Intent;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -144,17 +143,17 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @Override
     public void onScrollChanged(int deltaX, int deltaY) {
-        int actionBarHeight = 0;
-
-        TypedValue tv = new TypedValue();
-        if (getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
-        }
-
-
         int scrollY = mScrollView.getScrollY();
 
+        actionBarAnim(scrollY);
+        stickyHeader(scrollY);
 
+        // Parallax effect
+        mCover.setTranslationY(scrollY * 0.5f);
+    }
+
+    private void actionBarAnim(int scrollY) {
+        int actionBarHeight = MetricTools.getActionbarSize(getActivity());
         float twenty = MetricTools.dpToPx(20);
 
         // todo Fix fast scroll
@@ -191,12 +190,9 @@ public class EventFragment extends Fragment implements EventListener, Observable
                 mAnimDone = !mAnimDone;
             }
         }
+    }
 
-
-
-
-
-        // Sticky header
+    private void stickyHeader(int scrollY) {
         int[] viewLocation = new int[2];
         mMainInfo.getLocationOnScreen(viewLocation);
 
@@ -223,11 +219,17 @@ public class EventFragment extends Fragment implements EventListener, Observable
         } else {
             mFixedHeader.offsetTopAndBottom(offset2);
         }
-
-        // Parallax effect
-        mCover.setTranslationY(scrollY * 0.5f);
     }
 
+    @Override
+    public void onPreExecute() {
+        mActivity.onPreExecute();
+    }
+
+    @Override
+    public void onPostExecute() {
+        mActivity.onPostExecute();
+    }
 
     @Override
     public void onEventsFound(List<Event> events) {}
@@ -243,14 +245,4 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @Override
     public void onEventUpdatedFail(ApiError error) {}
-
-    @Override
-    public void onPreExecute() {
-        mActivity.onPreExecute();
-    }
-
-    @Override
-    public void onPostExecute() {
-        mActivity.onPostExecute();
-    }
 }
