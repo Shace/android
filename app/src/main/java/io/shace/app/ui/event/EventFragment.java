@@ -169,14 +169,22 @@ public class EventFragment extends Fragment implements EventListener, Observable
                 mFixedHeader.setPivotX(0f);
 
                 float heightDp = MetricTools.pxToDp(height);
+                float actionBarHeightDp = MetricTools.pxToDp(actionBarHeight);
+
+                if (heightDp > actionBarHeightDp) {
+                    mFakeActionbar.setScaleY(heightDp);
+                    mFakeActionbar.animate()
+                            .scaleY(heightDp)
+                            .setInterpolator(new DecelerateInterpolator(2f))
+                            .setDuration(250)
+                            .start();
+                } else {
+                    // fast scroll
+                    heightDp = actionBarHeightDp + 20;
+                    mFakeActionbar.setScaleY(heightDp);
+                }
 
                 mHeight = (int)heightDp;
-                mFakeActionbar.animate()
-                        .scaleY(heightDp)
-                        .setInterpolator(new DecelerateInterpolator(2f))
-                        .setDuration(250)
-                        .start();
-
                 mAnimDone = !mAnimDone;
             }
         } else {
@@ -187,6 +195,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
                         .setInterpolator(new DecelerateInterpolator(2f))
                         .setDuration(250)
                         .start();
+                mFakeActionbar.setScaleY(1);
                 mAnimDone = !mAnimDone;
             }
         }
@@ -205,7 +214,11 @@ public class EventFragment extends Fragment implements EventListener, Observable
                 padding -= (int)MetricTools.dpToPx(40);
             }
         } else {
-            // todo try to find good values
+            padding = (int)MetricTools.dpToPx(mHeight);
+            if (padding > 0) {
+                // todo not 40
+                padding -= (int)MetricTools.dpToPx(40);
+            }
         }
 
 
