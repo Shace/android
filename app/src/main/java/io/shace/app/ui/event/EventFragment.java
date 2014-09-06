@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -53,9 +54,10 @@ public class EventFragment extends Fragment implements EventListener, Observable
     private Event mEvent = null;
     private EventActivity_ mActivity;
 
-    boolean mAnimDone = false;
+    boolean mFakeActionbarDisplayed = false;
 
     int mHeight;
+    private ViewPropertyAnimator mCurrentAnimation;
 
     @AfterViews
     protected void init() {
@@ -154,11 +156,25 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     private void actionBarAnim(int scrollY) {
         int actionBarHeight = MetricTools.getActionbarSize(getActivity());
+        float actionBarHeightDp = MetricTools.pxToDp(actionBarHeight);
         float twenty = MetricTools.dpToPx(20);
 
-        // todo Fix fast scroll
-        if (actionBarHeight + scrollY >= Event.COVER_HEIGHT - twenty) {
-            if (mAnimDone == false) {
+        boolean shouldBeDeployed = actionBarHeight + scrollY >= Event.COVER_HEIGHT - twenty;
+
+        boolean switchNeeded = (mFakeActionbarDisplayed == false && shouldBeDeployed)
+                || (mFakeActionbarDisplayed && shouldBeDeployed == false);
+
+        if (switchNeeded) {
+            mHeight = 0;
+            float heightDp = 1f;
+            int animDuration = 250;
+
+            if (mCurrentAnimation != null) {
+                mCurrentAnimation.cancel();
+                mCurrentAnimation.setDuration(0).start();
+            }
+
+            if (mFakeActionbarDisplayed == false) {
                 float delta = (actionBarHeight + scrollY) - (Event.COVER_HEIGHT);
                 float height = actionBarHeight - delta;
 
@@ -168,36 +184,23 @@ public class EventFragment extends Fragment implements EventListener, Observable
                 mFixedHeader.setPivotY(mFixedHeader.getMeasuredHeight());
                 mFixedHeader.setPivotX(0f);
 
-                float heightDp = MetricTools.pxToDp(height);
-                float actionBarHeightDp = MetricTools.pxToDp(actionBarHeight);
-
-                if (heightDp > actionBarHeightDp) {
-                    mFakeActionbar.setScaleY(heightDp);
-                    mFakeActionbar.animate()
-                            .scaleY(heightDp)
-                            .setInterpolator(new DecelerateInterpolator(2f))
-                            .setDuration(250)
-                            .start();
-                } else {
-                    // fast scroll
-                    heightDp = actionBarHeightDp + 20;
-                    mFakeActionbar.setScaleY(heightDp);
-                }
-
-                mHeight = (int)heightDp;
-                mAnimDone = !mAnimDone;
+                heightDp = MetricTools.pxToDp(height);
             }
-        } else {
-            if (mAnimDone) {
-                mHeight = 0;
-                mFakeActionbar.animate()
-                        .scaleY(1)
-                        .setInterpolator(new DecelerateInterpolator(2f))
-                        .setDuration(250)
-                        .start();
-                mFakeActionbar.setScaleY(1);
-                mAnimDone = !mAnimDone;
+
+            if (heightDp != 1 && heightDp < actionBarHeightDp) {
+                // the swipe was too fast and we don't need any animation
+                heightDp = (int)actionBarHeightDp + 20;
+                animDuration = 0;
             }
+
+            mCurrentAnimation = mFakeActionbar.animate();
+            mCurrentAnimation.scaleY(heightDp)
+                    .setInterpolator(new DecelerateInterpolator(2f))
+                    .setDuration(animDuration)
+                    .start();
+
+            mHeight = (heightDp == 1f) ? (0) : (int)heightDp;
+            mFakeActionbarDisplayed = !mFakeActionbarDisplayed;
         }
     }
 
