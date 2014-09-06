@@ -70,7 +70,9 @@ public class SplashScreenActivity extends BaseActivity implements TokenListener 
     @Override
     protected void onResume() {
         super.onResume();
-        init();
+        if (recoveredFromPause()) {
+            init();
+        }
     }
 
     @Override
