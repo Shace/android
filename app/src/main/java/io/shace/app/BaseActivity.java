@@ -16,6 +16,7 @@ import io.shace.app.api.network.RequestQueue;
  */
 public class BaseActivity extends Activity {
     private static final String TAG = BaseActivity.class.getSimpleName();
+    protected boolean mHasBeenPaused = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +28,14 @@ public class BaseActivity extends Activity {
     }
 
     protected void onPause() {
+        mHasBeenPaused = true;
         clearReferences();
         RequestQueue.getInstance().cancelPendingRequests();
         super.onPause();
+    }
+
+    public boolean recoveredFromPause() {
+        return mHasBeenPaused;
     }
 
     protected void onDestroy() {

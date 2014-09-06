@@ -20,4 +20,10 @@ public class HomepageFragment extends Fragment {
         mActivity = (MainActivity_) getActivity();
         mActivity.setActionBarTitle(R.string.title_homepage);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // todo reload the list of event (in case the user just created a new one);
+    }
 }

@@ -182,7 +182,6 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
 
     @Override
     public void onEventUpdated(Event event) {
-        // Todo find a way to reload the parent
         finish();
     }
 
@@ -239,7 +238,6 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
     @Override
     public void onEventRetrievedFailed(ApiError error) {
         Log.e(TAG, "The provided event does not exists or User not allowed");
-        // Todo find a way to reload the parent
         finish();
     }
 

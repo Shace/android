@@ -52,6 +52,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
     @ViewById(R.id.description) TextView mEventDescription;
 
     private Event mEvent = null;
+    private EventActivity_ mActivity;
 
     boolean mAnimDone = false;
 
@@ -59,6 +60,8 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @AfterViews
     protected void init() {
+        mActivity = (EventActivity_)getActivity();
+
         setHasOptionsMenu(true);
         String token = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
@@ -125,6 +128,18 @@ public class EventFragment extends Fragment implements EventListener, Observable
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void refresh() {
+        if (mActivity.recoveredFromPause()) {
+            Event.getByToken(this, mEvent.getToken());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 
     @Override
@@ -237,8 +252,12 @@ public class EventFragment extends Fragment implements EventListener, Observable
     public void onEventUpdatedFail(ApiError error) {}
 
     @Override
-    public void onPreExecute() {}
+    public void onPreExecute() {
+        mActivity.onPreExecute();
+    }
 
     @Override
-    public void onPostExecute() {}
+    public void onPostExecute() {
+        mActivity.onPostExecute();
+    }
 }
