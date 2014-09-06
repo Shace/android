@@ -2,7 +2,6 @@ package io.shace.app.ui.event;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -31,6 +30,7 @@ import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.api.models.Media;
 import io.shace.app.tools.IntentTools;
+import io.shace.app.tools.MetricTools;
 import io.shace.app.tools.NetworkTools;
 import io.shace.app.tools.ToastTools;
 import io.shace.app.ui.widgets.ObservableScrollView;
@@ -155,12 +155,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
         int scrollY = mScrollView.getScrollY();
 
 
-
-
-
-        // todo put into BaseActivity
-        Resources r = getResources();
-        float twenty = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, r.getDisplayMetrics());
+        float twenty = MetricTools.dpToPx(20);
 
         // todo Fix fast scroll
         if (actionBarHeight + scrollY >= Event.COVER_HEIGHT - twenty) {
@@ -174,9 +169,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
                 mFixedHeader.setPivotY(mFixedHeader.getMeasuredHeight());
                 mFixedHeader.setPivotX(0f);
 
-                // move to utilities class
-                float scale = getResources().getDisplayMetrics().density;
-                float heightDp = height / scale + 0.5f;
+                float heightDp = MetricTools.pxToDp(height);
 
                 mHeight = (int)heightDp;
                 mFakeActionbar.animate()
@@ -210,10 +203,10 @@ public class EventFragment extends Fragment implements EventListener, Observable
         int padding = 0;
 
         if (mHeight > 0) {
-            padding = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mHeight, r.getDisplayMetrics());
+            padding = (int)MetricTools.dpToPx(mHeight);
             if (padding > 0) {
                 // todo not 40
-                padding -= (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, r.getDisplayMetrics());
+                padding -= (int)MetricTools.dpToPx(40);
             }
         } else {
             // todo try to find good values
