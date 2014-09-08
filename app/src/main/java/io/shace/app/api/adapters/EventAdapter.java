@@ -77,7 +77,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
             NetworkTools.attachImage(url, viewHolder.mainPicture);
         }
 
-        viewHolder.card.setBackgroundColor(item.getColorUsableColor());
+        viewHolder.card.setBackgroundColor(item.getUsableColor());
         viewHolder.token.setText(item.getToken());
         viewHolder.title.setText(item.getName());
         viewHolder.description.setText(item.getDescription());

@@ -134,17 +134,18 @@ public class Event extends Model {
         return mColor;
     }
 
-    public int getColorUsableColor() {
+    public int getUsableColor() {
         if (mColor == 0) {
             EventColor eventColor = getEventColor();
             if (eventColor != null) {
                 mColor = eventColor.getColor();
             }
         }
+
         return Color.parseColor(COLORS[mColor]);
     }
 
-    public int getColorUsableLightColor() {
+    public int getUsableLightColor() {
         if (mColor == 0) {
             EventColor eventColor = getEventColor();
             if (eventColor != null) {
