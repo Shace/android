@@ -1,8 +1,13 @@
 package io.shace.app.api.network;
 
+import android.util.Log;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
+
+import java.util.Map;
 
 import io.shace.app.App;
 
@@ -59,6 +64,16 @@ public class RequestQueue {
             mRequestQueue.cancelAll(new com.android.volley.RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> request) {
+                    try {
+                        Map<String, String> str = request.getHeaders();
+
+                        for (Map.Entry<String, String> entry : str.entrySet()) {
+                            Log.e(TAG, entry.getKey() + ": " + entry.getValue());
+                        }
+
+                    } catch (AuthFailureError authFailureError) {
+                        //authFailureError.printStackTrace();
+                    }
                     return true;
                 }
             });
