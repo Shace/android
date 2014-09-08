@@ -195,4 +195,9 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
 
     @Override
     public void onEventNeedPassword() {}
+
+    @Override
+    public void onEventWrongPassword(ApiError error) {
+
+    }
 }

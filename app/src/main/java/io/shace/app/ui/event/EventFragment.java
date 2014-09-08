@@ -1,16 +1,21 @@
 package io.shace.app.ui.event;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -32,7 +37,6 @@ import io.shace.app.api.models.Media;
 import io.shace.app.tools.IntentTools;
 import io.shace.app.tools.MetricTools;
 import io.shace.app.tools.NetworkTools;
-import io.shace.app.tools.ToastTools;
 import io.shace.app.ui.widgets.ObservableScrollView;
 
 /**
@@ -42,6 +46,7 @@ import io.shace.app.ui.widgets.ObservableScrollView;
 public class EventFragment extends Fragment implements EventListener, ObservableScrollView.Callbacks {
     private static final String TAG = EventFragment.class.getSimpleName();
 
+    @ViewById(R.id.icon_loader) ProgressBar mLoader;
     @ViewById(R.id.scroll_view) ObservableScrollView mScrollView;
     @ViewById(R.id.fixed_header) LinearLayout mFixedHeader;
     @ViewById(R.id.fake_actionbar) View mFakeActionbar;
@@ -53,6 +58,8 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     private Event mEvent = null;
     private EventActivity_ mActivity;
+    private String mToken = null;
+    private boolean mPswHasFailed = false;
 
     boolean mFakeActionbarDisplayed = false;
 
@@ -67,6 +74,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
         String token = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
         if (token != null) {
+            mToken = token;
             Event.getByToken(this, token);
         } else {
             Log.e(TAG, "Token not provided");
@@ -76,6 +84,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @Override
     public void onEventRetrieved(Event event) {
+        mPswHasFailed = false;
         mEvent = event;
 
         mEventTitle.setText(event.getName());
@@ -86,7 +95,6 @@ public class EventFragment extends Fragment implements EventListener, Observable
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams)mDetailLayout.getLayoutParams();
         lp.topMargin = mMainInfo.getHeight() + (int)Event.COVER_HEIGHT;
         mDetailLayout.setLayoutParams(lp);
-
 
         List<Media> medias = event.getMedias();
 
@@ -104,7 +112,50 @@ public class EventFragment extends Fragment implements EventListener, Observable
 
     @Override
     public void onEventNeedPassword() {
-        ToastTools.use().longToast("Password needed");
+        askPassword(false);
+    }
+
+    private void askPassword(boolean hasError) {
+        mPswHasFailed = true;
+
+        final EventFragment that = this;
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.dialog_password, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.password);
+        builder.setView(dialogView);
+
+        final EditText passwordView = (EditText)dialogView.findViewById(R.id.password);
+
+        if (hasError) {
+            passwordView.setError(getString(R.string.wrong_password));
+        }
+
+        builder.setPositiveButton(R.string.unlock, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                String password = passwordView.getText().toString();
+                Event.access(that, password, mToken);
+                dialog.cancel();
+            }
+        });
+
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+                getActivity().finish();
+            }
+        });
+
+        builder.show();
+    }
+
+    @Override
+    public void onEventWrongPassword(ApiError error) {
+        askPassword(true);
     }
 
     @Click(R.id.view_photos)
@@ -121,6 +172,7 @@ public class EventFragment extends Fragment implements EventListener, Observable
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.edit_item) {
             Map<String,String> extras = new HashMap<String, String>();
             extras.put(Intent.EXTRA_TEXT, mEvent.getToken());
@@ -240,11 +292,17 @@ public class EventFragment extends Fragment implements EventListener, Observable
     @Override
     public void onPreExecute() {
         mActivity.onPreExecute();
+        mLoader.setVisibility(View.VISIBLE);
+        mScrollView.setVisibility(View.GONE);
     }
 
     @Override
     public void onPostExecute() {
         mActivity.onPostExecute();
+        if (mPswHasFailed == false) {
+            mLoader.setVisibility(View.GONE);
+            mScrollView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

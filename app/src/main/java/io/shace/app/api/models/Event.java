@@ -21,6 +21,7 @@ import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.cache.models.EventColor;
 import io.shace.app.api.listeners.EventListener;
+import io.shace.app.api.tasks.eventTasks.Access;
 import io.shace.app.api.tasks.eventTasks.Create;
 import io.shace.app.api.tasks.eventTasks.Get;
 import io.shace.app.api.tasks.eventTasks.Search;
@@ -258,6 +259,20 @@ public class Event extends Model {
         data.put("event_token", token);
 
         Task task = new Get(listener);
+        task.exec(data);
+    }
+
+    /**
+     * Access an event
+     *
+     * @param listener
+     */
+    public static void access(EventListener listener, String password, String token) {
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("event_token", token);
+        data.put("password", password);
+
+        Task task = new Access(listener);
         task.exec(data);
     }
 }

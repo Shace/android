@@ -14,6 +14,7 @@ public interface EventListener extends Listener {
     public void onEventRetrieved(Event event);
     public void onEventRetrievedFailed(ApiError error);
     public void onEventNeedPassword();
+    public void onEventWrongPassword(ApiError error);
     public void onEventCreated(Event event);
     public void onEventCreatedFail(ApiError error);
     public void onEventUpdated(Event event);

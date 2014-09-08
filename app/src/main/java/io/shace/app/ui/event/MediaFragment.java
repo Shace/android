@@ -68,6 +68,11 @@ public class MediaFragment extends Fragment implements EventListener {
     }
 
     @Override
+    public void onEventWrongPassword(ApiError error) {
+
+    }
+
+    @Override
     public void onEventCreated(Event event) {}
 
     @Override

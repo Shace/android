@@ -246,5 +246,10 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
     public void onEventNeedPassword() {}
 
     @Override
+    public void onEventWrongPassword(ApiError error) {
+
+    }
+
+    @Override
     public void onEventsFound(List<Event> events) {}
 }
