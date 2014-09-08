@@ -93,6 +93,7 @@ public class CreateEventActivity extends BaseActivity implements TextView.OnEdit
 
     private void initEdition(String token) {
         if (token != null) {
+            setTitle(getString(R.string.title_activity_update_event));
             mSubmitButton.setText(getResources().getText(R.string.update));
             editingMode = true;
             mToken.setVisibility(View.GONE);

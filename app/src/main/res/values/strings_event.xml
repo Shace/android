@@ -3,6 +3,7 @@
     <!-- Search -->
     <string name="title_activity_search">Search an event</string>
     <string name="title_activity_create_event">Create an event</string>
+    <string name="title_activity_update_event">Update an event</string>
     <string name="title_activity_event">EventActivity</string>
     <string name="title_activity_media">MediaActivity</string>
 
