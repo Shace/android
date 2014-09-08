@@ -63,27 +63,7 @@
                     android:layout_gravity="center"
                     android:paddingBottom="15dp"/>
 
-                <!-- TODO: try to make something generic -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.05"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.9"
-                        android:background="#ddd"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.05"/>
-                </LinearLayout>
+                <include layout="@layout/element_hr" />
 
                 <TextView
                     android:id="@+id/latest_photo_title"
@@ -106,27 +86,7 @@
                     android:layout_marginBottom="15dp"
                     android:text="View all" />
 
-                <!-- TODO: try to make something generic -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.05"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.9"
-                        android:background="#ddd"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.05"/>
-                </LinearLayout>
+                <include layout="@layout/element_hr" />
 
                 <TextView
                     android:id="@+id/ownersTitle"
@@ -138,27 +98,7 @@
                     android:text="Owners"
                     android:textSize="@dimen/text_size_large"/>
 
-                <!-- TODO: try to make something generic -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.05"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.9"
-                        android:background="#ddd"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.05"/>
-                </LinearLayout>
+                <include layout="@layout/element_hr" />
 
                 <TextView
                     android:id="@+id/AttendantsTitle"
@@ -170,27 +110,7 @@
                     android:text="Attendants"
                     android:textSize="@dimen/text_size_large"/>
 
-                <!-- TODO: try to make something generic -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.05"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.9"
-                        android:background="#ddd"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="0.05"/>
-                </LinearLayout>
+                <include layout="@layout/element_hr" />
 
             </LinearLayout>
 
