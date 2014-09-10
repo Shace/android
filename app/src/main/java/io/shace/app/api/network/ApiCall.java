@@ -7,7 +7,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +18,7 @@ import java.util.Map;
 import io.shace.app.R;
 import io.shace.app.api.Routes;
 import io.shace.app.api.models.Token;
+import io.shace.app.api.network.requests.ApiJsonObjectRequest;
 import io.shace.app.api.network.utilities.EmptyApiResponse;
 import io.shace.app.tools.NetworkTools;
 import io.shace.app.tools.ToastTools;
@@ -200,7 +200,7 @@ public class ApiCall {
         response = (response == null) ? (new EmptyApiResponse()) : (response);
         String methodName = (method == Request.Method.GET) ? "GET" : "POST";
         Log.i(TAG, methodName + " " + url);
-        JsonObjectRequest req = new JsonObjectRequest(method, url, data, _success(response), _error(response));
+        ApiJsonObjectRequest req = new ApiJsonObjectRequest(method, url, data, _success(response), _error(response));
         Object tag = (mRequestTag != null) ? mRequestTag : TAG;
         RequestQueue.getInstance().add(req, tag);
         response.alwaysBefore();

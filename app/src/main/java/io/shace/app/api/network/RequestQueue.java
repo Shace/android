@@ -1,15 +1,13 @@
 package io.shace.app.api.network;
 
-import android.util.Log;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 
-import java.util.Map;
+import java.util.Date;
 
 import io.shace.app.App;
+import io.shace.app.api.network.requests.ApiRequest;
 
 /**
  * Created by melvin on 4/30/14.
@@ -50,9 +48,21 @@ public class RequestQueue {
      *
      * @param tag tag attached to the request
      */
-    public void cancelPendingRequests(Object tag) {
+    public void cancelPendingRequests(final Object tag) {
+        if (tag == null) {
+            throw new IllegalArgumentException("Cannot cancelAll with a null tag");
+        }
+
         if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(tag);
+            final long limit = new Date().getTime();
+
+            mRequestQueue.cancelAll(new com.android.volley.RequestQueue.RequestFilter() {
+                @Override
+                public boolean apply(Request<?> req) {
+                    ApiRequest<?> request = (ApiRequest)req;
+                    return request.getTag() == tag && request.getCreationDate() < limit;
+                }
+            });
         }
     }
 
@@ -61,20 +71,13 @@ public class RequestQueue {
      */
     public void cancelPendingRequests() {
         if (mRequestQueue != null) {
+            final long limit = new Date().getTime();
+
             mRequestQueue.cancelAll(new com.android.volley.RequestQueue.RequestFilter() {
                 @Override
-                public boolean apply(Request<?> request) {
-                    try {
-                        Map<String, String> str = request.getHeaders();
-
-                        for (Map.Entry<String, String> entry : str.entrySet()) {
-                            Log.e(TAG, entry.getKey() + ": " + entry.getValue());
-                        }
-
-                    } catch (AuthFailureError authFailureError) {
-                        //authFailureError.printStackTrace();
-                    }
-                    return true;
+                public boolean apply(Request<?> req) {
+                    ApiRequest<?> request = (ApiRequest)req;
+                    return request.getCreationDate() < limit;
                 }
             });
         }
