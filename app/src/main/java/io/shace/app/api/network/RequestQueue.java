@@ -4,7 +4,10 @@ import com.android.volley.Request;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.Volley;
 
+import java.util.Date;
+
 import io.shace.app.App;
+import io.shace.app.api.network.requests.ApiRequest;
 
 /**
  * Created by melvin on 4/30/14.
@@ -45,9 +48,21 @@ public class RequestQueue {
      *
      * @param tag tag attached to the request
      */
-    public void cancelPendingRequests(Object tag) {
+    public void cancelPendingRequests(final Object tag) {
+        if (tag == null) {
+            throw new IllegalArgumentException("Cannot cancelAll with a null tag");
+        }
+
         if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(tag);
+            final long limit = new Date().getTime();
+
+            mRequestQueue.cancelAll(new com.android.volley.RequestQueue.RequestFilter() {
+                @Override
+                public boolean apply(Request<?> req) {
+                    ApiRequest<?> request = (ApiRequest)req;
+                    return request.getTag() == tag && request.getCreationDate() < limit;
+                }
+            });
         }
     }
 
@@ -56,10 +71,13 @@ public class RequestQueue {
      */
     public void cancelPendingRequests() {
         if (mRequestQueue != null) {
+            final long limit = new Date().getTime();
+
             mRequestQueue.cancelAll(new com.android.volley.RequestQueue.RequestFilter() {
                 @Override
-                public boolean apply(Request<?> request) {
-                    return true;
+                public boolean apply(Request<?> req) {
+                    ApiRequest<?> request = (ApiRequest)req;
+                    return request.getCreationDate() < limit;
                 }
             });
         }
