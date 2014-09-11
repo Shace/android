@@ -54,7 +54,7 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
 
     private void initCreateButton() {
         mCreateEventButton = new FloatingActionButton.Builder(this)
-                .withDrawable(getResources().getDrawable(R.drawable.ic_action_edit))
+                .withDrawable(getResources().getDrawable(R.drawable.float_action_add))
                 .withButtonColor(getResources().getColor(R.color.green))
                 .withGravity(Gravity.BOTTOM | Gravity.END)
                 .withMargins(0, 0, 16, 16)
