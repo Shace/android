@@ -59,8 +59,12 @@ public class RequestQueue {
             mRequestQueue.cancelAll(new com.android.volley.RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> req) {
-                    ApiRequest<?> request = (ApiRequest)req;
-                    return request.getTag() == tag && request.getCreationDate() < limit;
+                    try {
+                        ApiRequest<?> request = (ApiRequest) req;
+                        return request.getTag() == tag && request.getCreationDate() < limit;
+                    } catch (ClassCastException e) {
+                        return req.getTag() == tag;
+                    }
                 }
             });
         }
@@ -76,8 +80,12 @@ public class RequestQueue {
             mRequestQueue.cancelAll(new com.android.volley.RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> req) {
-                    ApiRequest<?> request = (ApiRequest)req;
-                    return request.getCreationDate() < limit;
+                    try {
+                        ApiRequest<?> request = (ApiRequest) req;
+                        return request.getCreationDate() < limit;
+                    } catch (ClassCastException e) {
+                        return true;
+                    }
                 }
             });
         }
