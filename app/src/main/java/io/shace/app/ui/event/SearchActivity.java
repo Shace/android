@@ -2,14 +2,13 @@ package io.shace.app.ui.event;
 
 import android.app.ActionBar;
 import android.content.Intent;
-import android.view.LayoutInflater;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.HeaderViewListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -29,6 +28,7 @@ import io.shace.app.api.filters.TokenFilter;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.tools.IntentTools;
+import io.shace.app.ui.widgets.FloatingActionButton;
 
 @EActivity(R.layout.activity_search)
 public class SearchActivity extends RefreshActivity implements EventListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, SearchView.OnCloseListener {
@@ -38,22 +38,36 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
     private CharSequence mTitle;
 
     @ViewById(R.id.listview_event) ListView mListViewEvent;
-    TextView mCreateEventView;
+    FloatingActionButton mCreateEventButton;
 
     @AfterViews
     void init() {
         mTitle = getTitle();
 
-        LayoutInflater inflater = getLayoutInflater();
-        View header = inflater.inflate(R.layout.event_list_add, null);
-        mCreateEventView = (TextView) header.findViewById(R.id.create_event_text);
+        initCreateButton();
 
         EventAdapter adapter = new EventAdapter(this, R.layout.event_list_item, new ArrayList<Event>());
-        mListViewEvent.addHeaderView(header);
         mListViewEvent.setAdapter(adapter);
-
         mListViewEvent.setOnItemClickListener(this);
         fixScrollUp(mListViewEvent);
+    }
+
+    private void initCreateButton() {
+        mCreateEventButton = new FloatingActionButton.Builder(this)
+                .withDrawable(getResources().getDrawable(R.drawable.ic_action_edit))
+                .withButtonColor(getResources().getColor(R.color.green))
+                .withGravity(Gravity.BOTTOM | Gravity.END)
+                .withMargins(0, 0, 16, 16)
+                .create();
+
+        mCreateEventButton.hideFloatingActionButton();
+
+        mCreateEventButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createEvent();
+            }
+        });
     }
 
     public void restoreActionBar() {
@@ -110,7 +124,7 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
         } else {
             stopRefreshAnimation();
             mListViewEvent.setVisibility(View.GONE);
-            mCreateEventView.setVisibility(View.GONE);
+            mCreateEventButton.hideFloatingActionButton();
             // todo display no result found
         }
         return false;
@@ -126,8 +140,7 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
     public void onEventsFound(List<Event> events) {
         displayCreateButton(events);
 
-        HeaderViewListAdapter headerViewListAdapter = (HeaderViewListAdapter) mListViewEvent.getAdapter();
-        EventAdapter adapter = (EventAdapter) headerViewListAdapter.getWrappedAdapter();
+        EventAdapter adapter = (EventAdapter) mListViewEvent.getAdapter();
         adapter.clear();
         adapter.addAll(events);
         adapter.notifyDataSetChanged();
@@ -139,19 +152,20 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
             Event firstEvent = events.get(0);
 
             if (firstEvent.getToken().equals(mToken)) {
-                mCreateEventView.setVisibility(View.GONE);
+                mCreateEventButton.hideFloatingActionButton();
             } else {
-                mCreateEventView.setVisibility(View.VISIBLE);
+                mCreateEventButton.showFloatingActionButton();
             }
 
         } else if (events != null || mToken.length() > 0) {
-            mCreateEventView.setVisibility(View.VISIBLE);
+            mCreateEventButton.showFloatingActionButton();
         } else {
-            mCreateEventView.setVisibility(View.GONE);
+            mCreateEventButton.hideFloatingActionButton();
         }
     }
 
-    public void createEvent(View v) {
+
+    public void createEvent() {
         if (mToken != null && mToken.length() > 0) {
             IntentTools.newBasicIntentWithExtraString(CreateEventActivity_.class, Intent.EXTRA_TEXT, mToken);
         }
