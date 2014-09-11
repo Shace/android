@@ -52,6 +52,7 @@ public class SearchActivity extends RefreshActivity implements EventListener, Se
         fixScrollUp(mListViewEvent);
     }
 
+    //TODO Reuse
     private void initCreateButton() {
         mCreateEventButton = new FloatingActionButton.Builder(this)
                 .withDrawable(getResources().getDrawable(R.drawable.float_action_add))
