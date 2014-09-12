@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.shace.app.BaseActivity;
+import io.shace.app.BuildConfig;
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
 import io.shace.app.api.listeners.TokenListener;
@@ -35,6 +37,14 @@ public class SignInActivity extends BaseActivity implements TextView.OnEditorAct
 
     @ViewById(R.id.email) protected AutoCompleteTextView mEmailView;
     @ViewById(R.id.password) protected EditText mPasswordView;
+
+    @AfterViews
+    protected void init() {
+        if (BuildConfig.DEBUG) {
+            mEmailView.setText("admin@shace.io");
+            mPasswordView.setText("admin42");
+        }
+    }
 
     @Override
     public boolean onEditorAction(TextView textView, int actionID, KeyEvent keyEvent) {
