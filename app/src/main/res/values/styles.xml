@@ -50,9 +50,12 @@
         <item name="android:background">?android:attr/actionBarItemBackground</item>
     </style>
 
+
+    <!-- For specific elements -->
+
     <style name="formButton" >
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="a`ndroid:layout_height">wrap_content</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">15dp</item>
@@ -64,5 +67,19 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">15dp</item>
+    </style>
+
+    <style name="mainElementNoActionBar">
+        <item name="android:paddingTop">?android:attr/actionBarSize</item>
+    </style>
+
+    <style name="mainElement">
+        <item name="android:paddingTop">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="lastElement">
+        <item name="android:paddingBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
     </style>
 </resources>
