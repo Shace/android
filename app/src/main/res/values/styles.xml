@@ -55,7 +55,7 @@
 
     <style name="formButton" >
         <item name="android:layout_width">fill_parent</item>
-        <item name="a`ndroid:layout_height">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">20sp</item>
         <item name="android:padding">15dp</item>
