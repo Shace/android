@@ -40,7 +40,6 @@ public class BaseActivity extends Activity {
 
     protected void onDestroy() {
         clearReferences();
-        RequestQueue.getInstance().cancelPendingRequests();
         super.onDestroy();
     }
 

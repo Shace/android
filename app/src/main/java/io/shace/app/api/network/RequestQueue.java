@@ -75,17 +75,19 @@ public class RequestQueue {
      */
     public void cancelPendingRequests() {
         if (mRequestQueue != null) {
-            final long limit = new Date().getTime();
+            final long limit = System.currentTimeMillis();
 
             mRequestQueue.cancelAll(new com.android.volley.RequestQueue.RequestFilter() {
                 @Override
                 public boolean apply(Request<?> req) {
-                    try {
-                        ApiRequest<?> request = (ApiRequest) req;
-                        return request.getCreationDate() < limit;
-                    } catch (ClassCastException e) {
-                        return true;
-                    }
+                    return true;
+
+//                    try {
+//                        ApiRequest<?> request = (ApiRequest) req;
+//                        return request.getCreationDate() < limit;
+//                    } catch (ClassCastException e) {
+//                        return true;
+//                    }
                 }
             });
         }
