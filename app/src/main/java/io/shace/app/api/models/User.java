@@ -14,6 +14,7 @@ import io.shace.app.api.Task;
 import io.shace.app.api.listeners.UserListener;
 import io.shace.app.api.tasks.userTasks.Add;
 import io.shace.app.tools.IntentTools;
+import io.shace.app.tools.PreferenceTools;
 import io.shace.app.ui.boot.SplashScreenActivity_;
 
 /**
@@ -136,6 +137,7 @@ public class User extends Model {
      */
     public static void signOut() {
         Token.remove();
+        PreferenceTools.removeKey(PreferenceTools.KEY_BETA_STATUS);
         IntentTools.newFullIntent(SplashScreenActivity_.class);
     }
 
