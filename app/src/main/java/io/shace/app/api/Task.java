@@ -3,6 +3,7 @@ package io.shace.app.api;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +33,7 @@ abstract public class Task implements ApiResponseCallbacks {
      * Contains the data provided by exec(Model) or exec(Map)
      */
     protected Map<String, String> mData = new HashMap<String, String>();
+    protected JsonObject mJsonData = null;
 
     /*
     * HTTP codes allowed in the error callback
@@ -61,6 +63,28 @@ abstract public class Task implements ApiResponseCallbacks {
      */
     public void exec(Map<String, String> data) {
         mData = data;
+        exec();
+    }
+
+    /**
+     * Execute the query using the given data
+     *
+     * @param urlData Data to use to build the url
+     * @param jsonData Data to use as body
+     */
+    public void exec(Map<String, String> urlData, JsonObject jsonData) {
+        mData = urlData;
+        mJsonData = jsonData;
+        exec();
+    }
+
+    /**
+     * Execute the query using the given data
+     *
+     * @param jsonData Data to use as body
+     */
+    public void exec(JsonObject jsonData) {
+        mJsonData = jsonData;
         exec();
     }
 

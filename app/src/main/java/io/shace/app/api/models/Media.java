@@ -1,21 +1,29 @@
 package io.shace.app.api.models;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import io.shace.app.api.Task;
+import io.shace.app.api.listeners.MediaListener;
 import io.shace.app.api.serialization.TypeBuilder;
+import io.shace.app.api.tasks.mediaTasks.AddBulk;
 
 /**
  * Created by melvin on 8/14/14.
  */
 public class Media {
     private String type;
-    private String name;
-    private String description;
+    @Expose private String name;
+    @Expose private String description;
     private Integer rank;
     private String creation;
     @SerializedName("owner") private int ownerId;
@@ -148,17 +156,17 @@ public class Media {
      * @param token token of the event
      * @param medias media to add
      */
-//    public static void addBulk(MediaListener listener, String token, List<Media> medias) {
-//        TypeBuilder<List<Media>> serializer = new TypeBuilder<List<Media>>(TypeBuilder.Type.MEDIA_LIST);
-//        String jsonMedias = serializer.toJson(medias).toString();
-//
-//        Map<String, String> data = new HashMap<String, String>();
-//        data.put("event_token", token);
-//        data.put("medias", jsonMedias);
-//
-//        Log.i("TOTO", jsonMedias);
-//
-//        Task task = new AddBulk(listener);
-//        task.exec(data);
-//    }
+    public static void addBulk(MediaListener listener, String token, List<Media> medias) {
+        TypeBuilder<List<Media>> serializer = new TypeBuilder<List<Media>>(TypeBuilder.Type.MEDIA_LIST);
+        JsonElement jsonMedias = serializer.toJson(medias);
+
+        JsonObject jsonData = new JsonObject();
+        jsonData.add("medias", jsonMedias);
+
+        Map<String, String> urlData = new HashMap<String, String>();
+        urlData.put("event_token", token);
+
+        Task task = new AddBulk(listener);
+        task.exec(urlData, jsonData);
+    }
 }

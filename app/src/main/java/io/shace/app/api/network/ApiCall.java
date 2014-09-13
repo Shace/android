@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,21 +48,22 @@ public class ApiCall {
      * @param response instance of ApiResponse to handle the callbacks
      */
     public void post(String uri, Map<String, String> data, ApiResponseCallbacks response) {
-        _post(uri, data, response);
+        _post(uri, data, null, response);
     }
 
     /**
-     * Send a POST request to the specified URL using the data
+     * Send a POST request to the specified URL using the data, and call the given callbacks.
      *
-     * @param uri the uri (without the protocol nor the domain) to GET
-     * @param data map containing the data to inject in the uri. The method will look for
-     *             the data keys in the uri param and replace all occurrences by the its associated value
+     * @param uri the uri (without the protocol nor the domain) to POST
+     * @param urlData JsonObject to use
+     * @param jsonData JsonObject to use
+     * @param response instance of ApiResponse to handle the callbacks
      */
-    public void post(String uri, Map<String, String> data) {
-        _post(uri, data, null);
+    public void post(String uri, Map<String, String> urlData, JsonObject jsonData, ApiResponseCallbacks response) {
+        _post(uri, urlData, jsonData, response);
     }
 
-    private void _post(String url, Map<String, String> data, ApiResponseCallbacks response) {
+    private void _post(String url, Map<String, String> data, JsonObject jsonData, ApiResponseCallbacks response) {
         if (data != null) {
             Iterator<Map.Entry<String,String>> iterator = data.entrySet().iterator();
 
@@ -78,7 +80,13 @@ public class ApiCall {
 
         url = url.replaceAll(Routes.VARIABLES_REGEX, "");
 
-        makeRequest(Request.Method.POST, url, new JSONObject(data), response);
+        JSONObject json = null;
+        try {
+            json = (jsonData == null) ? (new JSONObject(data)) : (new JSONObject(jsonData.toString()));
+            makeRequest(Request.Method.POST, url, json, response);
+        } catch (JSONException e) {
+            Log.e(TAG, "invalid json: " + jsonData.toString());
+        }
     }
 
     /*

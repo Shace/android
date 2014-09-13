@@ -14,12 +14,14 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
 import io.shace.app.api.listeners.EventListener;
+import io.shace.app.api.listeners.MediaListener;
 import io.shace.app.api.models.Event;
 import io.shace.app.api.models.Media;
 import io.shace.app.tools.ToastTools;
@@ -31,7 +33,7 @@ import io.shace.app.ui.widgets.FloatingActionButton;
  * TODO check the rights
  */
 @EFragment(R.layout.fragment_media)
-public class MediaFragment extends Fragment implements EventListener {
+public class MediaFragment extends Fragment implements EventListener, MediaListener {
     private static final String TAG = MediaFragment.class.getSimpleName();
 
     private static final int FILE_PICKER = 1;
@@ -96,8 +98,65 @@ public class MediaFragment extends Fragment implements EventListener {
     }
 
     private void uploadPictures(ArrayList<String> pictures) {
-        int nb = pictures.size();
-        ToastTools.use().longToast(nb + " pictures to upload");
+        List<Media> medias = new ArrayList<Media>();
+
+        for (String elem : pictures) {
+            File file = new File(elem);
+
+            Media media = new Media();
+            media.setName(file.getName());
+            medias.add(media);
+        }
+        Media.addBulk(this, mEvent.getToken(), medias);
+
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        JSONObject params = new JSONObject();
+//
+//        for (String elem : pictures) {
+//            File file = new File(elem);
+//
+//            try {
+//                params.put("medias", file);
+//                StringEntity entity = null;
+//                try {
+//                    entity = new StringEntity(params.toString());
+//                } catch (UnsupportedEncodingException e) {
+//                    Log.e(TAG, "ERROR 2");
+//                }
+//                String url = Routes.MEDIAS;
+//                url = url.replace(":event_token", mEvent.getToken());
+//                url = url.replace(":access_token", Token.get().getToken());
+//
+//                client.post(getActivity(), url, entity, "application/json", new AsyncHttpResponseHandler() {
+//
+//                    @Override
+//                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                        ToastTools.use().longToast("Success");
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                        try {
+//                            ToastTools.use().longToast("failed: " + statusCode + " body: " + new String(responseBody, "UTF-8"));
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//            } catch (JSONException e) {
+//                Log.e(TAG, "ERROR 1");
+//            }
+//        }
+    }
+
+    @Override
+    public void onMediasGenerated(List<Media> medias) {
+        ToastTools.use().longToast("Ok, got " + medias.size());
+    }
+
+    @Override
+    public void onMediasGeneratedFail(ApiError error) {
+        ToastTools.use().longToast("Failed: " + error.getCode());
     }
 
     @Override
@@ -150,4 +209,34 @@ public class MediaFragment extends Fragment implements EventListener {
 
     @Override
     public void onPostExecute() {}
+
+    @Override
+    public void onMediaUpdated(Media media) {
+
+    }
+
+    @Override
+    public void onMediaUpdatedFail(ApiError error) {
+
+    }
+
+    @Override
+    public void onMediaRetrieved(Media media) {
+
+    }
+
+    @Override
+    public void onMediaRetrievedFail(ApiError error) {
+
+    }
+
+    @Override
+    public void onMediaDeleted(Media media) {
+
+    }
+
+    @Override
+    public void onMediaDeletedFail(ApiError error) {
+
+    }
 }
