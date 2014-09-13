@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import io.shace.app.api.DeserializerBuilder;
+import io.shace.app.api.serialization.TypeBuilder;
 
 /**
  * Created by melvin on 8/14/14.
@@ -124,15 +124,15 @@ public class Media {
 
 
     public static List<Media> fromJson(JSONArray response) {
-        DeserializerBuilder<List<Media>> builder = new DeserializerBuilder<List<Media>>();
-        builder.setMainType(DeserializerBuilder.Type.MEDIA_LIST);
+        TypeBuilder<List<Media>> builder = new TypeBuilder<List<Media>>();
+        builder.setMainType(TypeBuilder.Type.MEDIA_LIST);
         builder.handleMediaList();
         return builder.buildFromJson(response.toString());
     }
 
     public static Media fromJson(JSONObject response) {
-        DeserializerBuilder<Media> builder = new DeserializerBuilder<Media>();
-        builder.setMainType(DeserializerBuilder.Type.MEDIA);
+        TypeBuilder<Media> builder = new TypeBuilder<Media>();
+        builder.setMainType(TypeBuilder.Type.MEDIA);
         builder.handleMedia();
         return builder.buildFromJson(response.toString());
     }
@@ -141,4 +141,24 @@ public class Media {
      * Task Launchers
      */
 
+    /**
+     * Add a list of media
+     *
+     * @param listener
+     * @param token token of the event
+     * @param medias media to add
+     */
+//    public static void addBulk(MediaListener listener, String token, List<Media> medias) {
+//        TypeBuilder<List<Media>> serializer = new TypeBuilder<List<Media>>(TypeBuilder.Type.MEDIA_LIST);
+//        String jsonMedias = serializer.toJson(medias).toString();
+//
+//        Map<String, String> data = new HashMap<String, String>();
+//        data.put("event_token", token);
+//        data.put("medias", jsonMedias);
+//
+//        Log.i("TOTO", jsonMedias);
+//
+//        Task task = new AddBulk(listener);
+//        task.exec(data);
+//    }
 }

@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import io.shace.app.api.DeserializerBuilder;
+import io.shace.app.api.serialization.TypeBuilder;
 
 /**
  * Created by melvin on 8/14/14.
@@ -61,15 +61,15 @@ public class Comment {
 
 
     public static List<Comment> fromJson(JSONArray response) {
-        DeserializerBuilder<List<Comment>> builder = new DeserializerBuilder<List<Comment>>();
-        builder.setMainType(DeserializerBuilder.Type.COMMENT_LIST);
+        TypeBuilder<List<Comment>> builder = new TypeBuilder<List<Comment>>();
+        builder.setMainType(TypeBuilder.Type.COMMENT_LIST);
         builder.handleCommentList();
         return builder.buildFromJson(response.toString());
     }
 
     public static Comment fromJson(JSONObject response) {
-        DeserializerBuilder<Comment> builder = new DeserializerBuilder<Comment>();
-        builder.setMainType(DeserializerBuilder.Type.COMMENT);
+        TypeBuilder<Comment> builder = new TypeBuilder<Comment>();
+        builder.setMainType(TypeBuilder.Type.COMMENT);
         builder.handleComment();
         return builder.buildFromJson(response.toString());
     }

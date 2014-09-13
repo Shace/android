@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import io.shace.app.api.DeserializerBuilder;
+import io.shace.app.api.serialization.TypeBuilder;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.listeners.UserListener;
@@ -156,15 +156,15 @@ public class User extends Model {
      */
 
     public static User fromJson(JSONObject response) {
-        DeserializerBuilder<User> builder = new DeserializerBuilder<User>();
-        builder.setMainType(DeserializerBuilder.Type.USER);
+        TypeBuilder<User> builder = new TypeBuilder<User>();
+        builder.setMainType(TypeBuilder.Type.USER);
         builder.handleUser();
         return builder.buildFromJson(response.toString());
     }
 
     public static List<User> fromJson(JSONArray response) {
-        DeserializerBuilder<List<User>> builder = new DeserializerBuilder<List<User>>();
-        builder.setMainType(DeserializerBuilder.Type.USER_LIST);
+        TypeBuilder<List<User>> builder = new TypeBuilder<List<User>>();
+        builder.setMainType(TypeBuilder.Type.USER_LIST);
         builder.handleUserList();
         return builder.buildFromJson(response.toString());
     }

@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.shace.app.api.DeserializerBuilder;
+import io.shace.app.api.serialization.TypeBuilder;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.listeners.TokenListener;
@@ -95,15 +95,15 @@ public class Token extends Model {
      */
 
     public static Token fromJson(JSONObject response) {
-        DeserializerBuilder<Token> builder = new DeserializerBuilder<Token>();
-        builder.setMainType(DeserializerBuilder.Type.TOKEN);
+        TypeBuilder<Token> builder = new TypeBuilder<Token>();
+        builder.setMainType(TypeBuilder.Type.TOKEN);
         builder.handleToken();
         return builder.buildFromJson(response.toString());
     }
 
     public static Token fromJson(String response) {
-        DeserializerBuilder<Token> builder = new DeserializerBuilder<Token>();
-        builder.setMainType(DeserializerBuilder.Type.TOKEN);
+        TypeBuilder<Token> builder = new TypeBuilder<Token>();
+        builder.setMainType(TypeBuilder.Type.TOKEN);
         builder.handleToken();
         return builder.buildFromJson(response);
     }

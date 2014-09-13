@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import io.shace.app.api.DeserializerBuilder;
+import io.shace.app.api.serialization.TypeBuilder;
 
 /**
  * Created by melvin on 8/14/14.
@@ -70,15 +70,15 @@ public class Tag {
 
 
     public static List<Tag> fromJson(JSONArray response) {
-        DeserializerBuilder<List<Tag>> builder = new DeserializerBuilder<List<Tag>>();
-        builder.setMainType(DeserializerBuilder.Type.TAG_LIST);
+        TypeBuilder<List<Tag>> builder = new TypeBuilder<List<Tag>>();
+        builder.setMainType(TypeBuilder.Type.TAG_LIST);
         builder.handleTagList();
         return builder.buildFromJson(response.toString());
     }
 
     public static Tag fromJson(JSONObject response) {
-        DeserializerBuilder<Tag> builder = new DeserializerBuilder<Tag>();
-        builder.setMainType(DeserializerBuilder.Type.TAG);
+        TypeBuilder<Tag> builder = new TypeBuilder<Tag>();
+        builder.setMainType(TypeBuilder.Type.TAG);
         builder.handleTag();
         return builder.buildFromJson(response.toString());
     }

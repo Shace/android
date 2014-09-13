@@ -16,7 +16,7 @@ import java.util.Map;
 
 import io.shace.app.App;
 import io.shace.app.R;
-import io.shace.app.api.DeserializerBuilder;
+import io.shace.app.api.serialization.TypeBuilder;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.cache.models.EventColor;
@@ -199,15 +199,15 @@ public class Event extends Model {
      */
 
     public static List<Event> fromJson(JSONArray response) {
-        DeserializerBuilder<List<Event>> builder = new DeserializerBuilder<List<Event>>();
-        builder.setMainType(DeserializerBuilder.Type.EVENT_LIST);
+        TypeBuilder<List<Event>> builder = new TypeBuilder<List<Event>>();
+        builder.setMainType(TypeBuilder.Type.EVENT_LIST);
         builder.handleEventList();
         return builder.buildFromJson(response.toString());
     }
 
     public static Event fromJson(JSONObject response) {
-        DeserializerBuilder<Event> builder = new DeserializerBuilder<Event>();
-        builder.setMainType(DeserializerBuilder.Type.EVENT);
+        TypeBuilder<Event> builder = new TypeBuilder<Event>();
+        builder.setMainType(TypeBuilder.Type.EVENT);
         builder.handleEvent();
         return builder.buildFromJson(response.toString());
     }
