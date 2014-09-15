@@ -108,13 +108,13 @@ public class MediaFragment extends Fragment implements EventListener, MediaListe
             medias.add(media);
         }
         Media.addBulk(this, mEvent.getToken(), medias);
+    }
 
+    @Override
+    public void onMediasGenerated(List<Media> medias) {
 //        AsyncHttpClient client = new AsyncHttpClient();
-//        JSONObject params = new JSONObject();
 //
-//        for (String elem : pictures) {
-//            File file = new File(elem);
-//
+//        for (Media media : medias) {
 //            try {
 //                params.put("medias", file);
 //                StringEntity entity = null;
@@ -147,11 +147,6 @@ public class MediaFragment extends Fragment implements EventListener, MediaListe
 //                Log.e(TAG, "ERROR 1");
 //            }
 //        }
-    }
-
-    @Override
-    public void onMediasGenerated(List<Media> medias) {
-        ToastTools.use().longToast("Ok, got " + medias.size());
     }
 
     @Override
