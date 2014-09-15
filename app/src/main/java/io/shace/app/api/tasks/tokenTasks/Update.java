@@ -8,11 +8,11 @@ import org.json.JSONObject;
 
 import io.shace.app.R;
 import io.shace.app.api.ApiError;
-import io.shace.app.api.network.ApiCall;
 import io.shace.app.api.Routes;
-import io.shace.app.api.models.Token;
-import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.Task;
+import io.shace.app.api.listeners.TokenListener;
+import io.shace.app.api.models.Token;
+import io.shace.app.api.network.ApiCall;
 import io.shace.app.api.network.RequestQueue;
 import io.shace.app.tools.ToastTools;
 
@@ -27,12 +27,14 @@ public class Update extends Task {
         mListener = listener;
         setGenericListener(listener);
 
-        setAllowedCodes(new int[] {401, 404});
+        setAllowedCodes(new int[] {400, 401, 404});
+        mListener = listener;
+
     }
 
     public void exec() {
         cancel();
-        new ApiCall(TAG).put(Routes.ACCESS_TOKEN, mData, this);
+        new ApiCall(TAG).put(Routes.ACCESS_TOKEN, mData, mJsonData, this);
     }
 
     public static void cancel() {

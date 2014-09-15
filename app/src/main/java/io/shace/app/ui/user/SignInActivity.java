@@ -9,12 +9,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import io.shace.app.BaseActivity;
@@ -59,9 +60,9 @@ public class SignInActivity extends BaseActivity implements TextView.OnEditorAct
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        Map<String, String> postData = new HashMap<String, String>();
-        postData.put("email", email);
-        postData.put("password", password);
+        JsonObject postData = new JsonObject();
+        postData.addProperty("email", email);
+        postData.addProperty("password", password);
 
         Token.update(this, postData);
     }
@@ -85,6 +86,15 @@ public class SignInActivity extends BaseActivity implements TextView.OnEditorAct
 
     @Override
     public void onTokenUpdatedFail(ApiError error) {
+        Map<String,String> params = error.getParameters();
+
+        if (params.size() > 0) {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                String type = entry.getValue();
+                Log.e(TAG, ApiError.getErrorMessage(type));
+            }
+        }
+
         if (error.is(ApiError.INVALID_IDS)) {
             ToastTools.use().longToast(R.string.error_credentials);
         } else if (error.is(ApiError.BETA_PROCESSING)) {

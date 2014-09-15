@@ -1,6 +1,7 @@
 package io.shace.app.api.models;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
@@ -8,10 +9,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.shace.app.api.serialization.TypeBuilder;
 import io.shace.app.api.Model;
 import io.shace.app.api.Task;
 import io.shace.app.api.listeners.TokenListener;
+import io.shace.app.api.serialization.TypeBuilder;
 import io.shace.app.api.tasks.tokenTasks.Generate;
 import io.shace.app.api.tasks.tokenTasks.Update;
 import io.shace.app.tools.PreferenceTools;
@@ -147,8 +148,8 @@ public class Token extends Model {
      * @param listener instance of TokenListener
      */
     public static void generate(TokenListener listener) {
-        Map<String, String> data = new HashMap<String, String>();
-        data.put("auto_renew", "true");
+        JsonObject data = new JsonObject();
+        data.addProperty("auto_renew", true);
 
         Task task = new Generate(listener);
         task.exec(data);
@@ -159,10 +160,13 @@ public class Token extends Model {
      *
      * @param listener instance of TokenListener
      */
-    public static void update(TokenListener listener, Map<String, String> postData) {
-        // todo set the string "token" into Route
-        postData.put("token", Token.get().getToken());
+    public static void update(TokenListener listener, JsonObject postData) {
+        postData.addProperty("auto_renew", true);
+
+        Map<String, String> urlData = new HashMap<String, String>();
+        urlData.put("token", Token.get().getToken());
+
         Task task = new Update(listener);
-        task.exec(postData);
+        task.exec(urlData, postData);
     }
 }

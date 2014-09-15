@@ -101,22 +101,22 @@ public class ApiCall {
      * @param response instance of ApiResponse to handle the callbacks
      */
     public void put(String uri, Map<String, String> data, ApiResponseCallbacks response) {
-        _put(uri, data, response);
+        _put(uri, data, null, response);
     }
 
     /**
      * Send a PUT request to the specified URL using the data
      *
      * @param uri the uri (without the protocol nor the domain) to GET
-     * @param data map containing the data to inject in the uri. The method will look for
+     * @param urlData map containing the data to inject in the uri. The method will look for
      *             the data keys in the uri param and replace all occurrences by the its associated value
      */
-    public void put(String uri, Map<String, String> data) {
-        _put(uri, data, null);
+    public void put(String uri, Map<String, String> urlData, JsonObject jsonData, ApiResponseCallbacks response) {
+        _put(uri, urlData, jsonData, response);
     }
 
 
-    private void _put(String url, Map<String, String> data, ApiResponseCallbacks response) {
+    private void _put(String url, Map<String, String> data, JsonObject jsonData, ApiResponseCallbacks response) {
         if (data != null) {
             Iterator<Map.Entry<String,String>> iterator = data.entrySet().iterator();
 
@@ -134,7 +134,13 @@ public class ApiCall {
         // We removed the optional variables that have not been given
         url = url.replaceAll(Routes.VARIABLES_REGEX, "");
 
-        makeRequest(Request.Method.PUT, url, new JSONObject(data), response);
+        JSONObject json = null;
+        try {
+            json = (jsonData == null) ? (new JSONObject(data)) : (new JSONObject(jsonData.toString()));
+            makeRequest(Request.Method.PUT, url, json, response);
+        } catch (JSONException e) {
+            Log.e(TAG, "invalid json: " + jsonData.toString());
+        }
     }
 
     /*
@@ -206,7 +212,19 @@ public class ApiCall {
 
     private void _makeRequest(int method, String url, JSONObject data, ApiResponseCallbacks response) {
         response = (response == null) ? (new EmptyApiResponse()) : (response);
-        String methodName = (method == Request.Method.GET) ? "GET" : "POST";
+        String methodName = "Unknown";
+
+        // TODO: put in a sparseArray
+        if (method == Request.Method.GET) {
+            methodName = "GET";
+        } else if (method == Request.Method.GET) {
+            methodName = "POST";
+        } else if (method == Request.Method.PUT) {
+            methodName = "PUT";
+        } else if (method == Request.Method.DELETE) {
+            methodName = "DELETE";
+        }
+
         Log.i(TAG, methodName + " " + url);
         ApiJsonObjectRequest req = new ApiJsonObjectRequest(method, url, data, _success(response), _error(response));
         Object tag = (mRequestTag != null) ? mRequestTag : TAG;
