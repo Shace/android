@@ -1,6 +1,7 @@
 package io.shace.app.api.network;
 
 import android.util.Log;
+import android.util.SparseArray;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -32,6 +33,22 @@ import io.shace.app.tools.ToastTools;
 
 public class ApiCall {
     private static final String TAG = ApiCall.class.getSimpleName();
+    private final SparseArray<String> mMethodToString = initMethodToString();
+
+    private SparseArray<String> initMethodToString() {
+        SparseArray<String> array = new SparseArray<String>();
+        array.put(Request.Method.GET, "GET");
+        array.put(Request.Method.HEAD, "HEAD");
+        array.put(Request.Method.DELETE, "DELETE");
+        array.put(Request.Method.OPTIONS, "OPTIONS");
+        array.put(Request.Method.PATCH, "PATCH");
+        array.put(Request.Method.PUT, "PUT");
+        array.put(Request.Method.POST, "POST");
+        array.put(Request.Method.TRACE, "TRACE");
+
+        return array;
+    }
+
     private Object mRequestTag = null;
 
     public ApiCall(Object tag) {
@@ -164,23 +181,14 @@ public class ApiCall {
         }
     }
 
-    private void _makeRequest(int method, String url, JSONObject data, ApiResponseCallbacks response) {
+    private void _makeRequest(int method, String url, JSONObject body, ApiResponseCallbacks response) {
         response = (response == null) ? (new EmptyApiResponse()) : (response);
-        String methodName = "Unknown";
-
-        // TODO: put in a sparseArray
-        if (method == Request.Method.GET) {
-            methodName = "GET";
-        } else if (method == Request.Method.POST) {
-            methodName = "POST";
-        } else if (method == Request.Method.PUT) {
-            methodName = "PUT";
-        } else if (method == Request.Method.DELETE) {
-            methodName = "DELETE";
-        }
+        String methodName = mMethodToString.get(method, "Unknown");
 
         Log.i(TAG, methodName + " " + url);
-        ApiJsonObjectRequest req = new ApiJsonObjectRequest(method, url, data, _success(response), _error(response));
+        Log.d(TAG, "Body: " + ((body == null) ? ("None") : (body.toString())));
+
+        ApiJsonObjectRequest req = new ApiJsonObjectRequest(method, url, body, _success(response), _error(response));
         Object tag = (mRequestTag != null) ? mRequestTag : TAG;
         RequestQueue.getInstance().add(req, tag);
         response.alwaysBefore();
