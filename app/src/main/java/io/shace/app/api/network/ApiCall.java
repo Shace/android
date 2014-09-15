@@ -26,6 +26,8 @@ import io.shace.app.tools.ToastTools;
 
 /**
  * Created by melvin on 4/29/14.
+ *
+ * Todo: url/uri
  */
 
 public class ApiCall {
@@ -44,49 +46,23 @@ public class ApiCall {
      * Send a POST request to the specified URL using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
-     * @param data map containing the data to post.
+     * @param uriData map containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    public void post(String uri, Map<String, String> data, ApiResponseCallbacks response) {
-        _post(uri, data, null, response);
+    public void post(String uri, Map<String, String> uriData, ApiResponseCallbacks response) {
+        makeRequest(Request.Method.POST, uri, uriData, null, response);
     }
 
     /**
      * Send a POST request to the specified URL using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
-     * @param urlData JsonObject to use
-     * @param jsonData JsonObject to use
+     * @param uriData JsonObject to use
+     * @param bodyData JsonObject to use
      * @param response instance of ApiResponse to handle the callbacks
      */
-    public void post(String uri, Map<String, String> urlData, JsonObject jsonData, ApiResponseCallbacks response) {
-        _post(uri, urlData, jsonData, response);
-    }
-
-    private void _post(String url, Map<String, String> data, JsonObject jsonData, ApiResponseCallbacks response) {
-        if (data != null) {
-            Iterator<Map.Entry<String,String>> iterator = data.entrySet().iterator();
-
-            while (iterator.hasNext()) {
-                String oldUrl = url;
-                Map.Entry<String,String> entry = iterator.next();
-                url = url.replaceAll("::?" + entry.getKey(), entry.getValue());
-
-                if(url.equals(oldUrl) == false){
-                    iterator.remove();
-                }
-            }
-        }
-
-        url = url.replaceAll(Routes.VARIABLES_REGEX, "");
-
-        JSONObject json = null;
-        try {
-            json = (jsonData == null) ? (new JSONObject(data)) : (new JSONObject(jsonData.toString()));
-            makeRequest(Request.Method.POST, url, json, response);
-        } catch (JSONException e) {
-            Log.e(TAG, "invalid json: " + jsonData.toString());
-        }
+    public void post(String uri, Map<String, String> uriData, JsonObject bodyData, ApiResponseCallbacks response) {
+        makeRequest(Request.Method.POST, uri, uriData, bodyData, response);
     }
 
     /*
@@ -97,50 +73,24 @@ public class ApiCall {
      * Send a PUT request to the specified URL using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
-     * @param data map containing the data to post.
+     * @param uriData map containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    public void put(String uri, Map<String, String> data, ApiResponseCallbacks response) {
-        _put(uri, data, null, response);
+    public void put(String uri, Map<String, String> uriData, ApiResponseCallbacks response) {
+        makeRequest(Request.Method.PUT, uri, uriData, null, response);
     }
 
     /**
      * Send a PUT request to the specified URL using the data
      *
      * @param uri the uri (without the protocol nor the domain) to GET
-     * @param urlData map containing the data to inject in the uri. The method will look for
+     * @param uriData map containing the data to inject in the uri. The method will look for
      *             the data keys in the uri param and replace all occurrences by the its associated value
+     * @param bodyData map containing the data to inject in the body.
+     * @param response instance of ApiResponse to handle the callbacks
      */
-    public void put(String uri, Map<String, String> urlData, JsonObject jsonData, ApiResponseCallbacks response) {
-        _put(uri, urlData, jsonData, response);
-    }
-
-
-    private void _put(String url, Map<String, String> data, JsonObject jsonData, ApiResponseCallbacks response) {
-        if (data != null) {
-            Iterator<Map.Entry<String,String>> iterator = data.entrySet().iterator();
-
-            while (iterator.hasNext()) {
-                String oldUrl = url;
-                Map.Entry<String,String> entry = iterator.next();
-                url = url.replaceAll("::?" + entry.getKey(), entry.getValue());
-
-                if(url.equals(oldUrl) == false){
-                    iterator.remove();
-                }
-            }
-        }
-
-        // We removed the optional variables that have not been given
-        url = url.replaceAll(Routes.VARIABLES_REGEX, "");
-
-        JSONObject json = null;
-        try {
-            json = (jsonData == null) ? (new JSONObject(data)) : (new JSONObject(jsonData.toString()));
-            makeRequest(Request.Method.PUT, url, json, response);
-        } catch (JSONException e) {
-            Log.e(TAG, "invalid json: " + jsonData.toString());
-        }
+    public void put(String uri, Map<String, String> uriData, JsonObject bodyData, ApiResponseCallbacks response) {
+        makeRequest(Request.Method.PUT, uri, uriData, bodyData, response);
     }
 
     /*
@@ -148,39 +98,14 @@ public class ApiCall {
      */
 
     /**
-     * Send a GET request to the specified URL using the data
-     *
-     * @param uri the uri (without the protocol nor the domain) to GET
-     * @param data map containing the data to inject in the uri. The method will look for
-     *             the data keys in the uri param and replace all occurrences by the its associated value
-     */
-    public void get(String uri, Map<String, String> data) {
-        _get(uri, data, null);
-    }
-
-    /**
      * Send a GET request to the specified URL using the data, and call the given callbacks.
      *
-     * @param uri the uri (without the protocol nor the domain) to POST
-     * @param data map containing the data to post.
+     * @param url the uri (without the protocol nor the domain) to POST
+     * @param urlData map containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    public void get(String uri, Map<String, String> data, ApiResponseCallbacks response) {
-        _get(uri, data, response);
-    }
-
-
-    private void _get(String url, Map<String, String> data, ApiResponseCallbacks response) {
-        if (data != null) {
-            for (Map.Entry<String, String> entry : data.entrySet()) {
-                url = url.replaceAll("::?" + entry.getKey(), entry.getValue());
-            }
-        }
-
-        // We removed the optional variables that have not been given
-        url = url.replaceAll(Routes.VARIABLES_REGEX, "");
-
-        makeRequest(Request.Method.GET, url, null, response);
+    public void get(String url, Map<String, String> urlData, ApiResponseCallbacks response) {
+       makeRequest(Request.Method.GET, url, urlData, null, response);
     }
 
     /*
@@ -193,18 +118,47 @@ public class ApiCall {
      *
      * @param method method to call (GET, POST)
      * @param url full url to call
-     * @param data POST data
+     * @param urlData POST data
+     * @param bodyData POST data
      * @param response instance of ApiResponse to handle the callbacks
      */
-    protected void makeRequest(final int method, String url, final JSONObject data, final ApiResponseCallbacks response) {
+    protected void makeRequest(final int method, String url, Map<String, String> urlData, final JsonObject bodyData, final ApiResponseCallbacks response) {
         if (NetworkTools.hasInternet()) {
+
+            if (urlData != null) {
+                Iterator<Map.Entry<String,String>> iterator = urlData.entrySet().iterator();
+
+                while (iterator.hasNext()) {
+                    String oldUrl = url;
+                    Map.Entry<String,String> entry = iterator.next();
+                    url = url.replaceAll("::?" + entry.getKey(), entry.getValue());
+
+                    if(url.equals(oldUrl) == false){
+                        iterator.remove();
+                    }
+                }
+            }
+
+            JSONObject body = null;
+            if (method == Request.Method.POST || method == Request.Method.PUT) {
+                // We removed the optional variables that have not been given
+                url = url.replaceAll(Routes.VARIABLES_REGEX, "");
+
+                try {
+                    body = (bodyData == null) ? (new JSONObject(urlData)) : (new JSONObject(bodyData.toString()));
+                } catch (JSONException e) {
+                    Log.e(TAG, "invalid json: " + bodyData.toString());
+                }
+            }
+
+
             Token token = Token.get();
 
             if (token != null) {
                 url = url.replaceAll(":access_token", token.getToken());
             }
 
-            _makeRequest(method, url, data, response);
+            _makeRequest(method, url, body, response);
         } else {
             ToastTools.use().longToast(R.string.no_internet);
         }
@@ -217,7 +171,7 @@ public class ApiCall {
         // TODO: put in a sparseArray
         if (method == Request.Method.GET) {
             methodName = "GET";
-        } else if (method == Request.Method.GET) {
+        } else if (method == Request.Method.POST) {
             methodName = "POST";
         } else if (method == Request.Method.PUT) {
             methodName = "PUT";
