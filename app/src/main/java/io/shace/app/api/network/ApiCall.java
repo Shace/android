@@ -26,9 +26,7 @@ import io.shace.app.tools.NetworkTools;
 import io.shace.app.tools.ToastTools;
 
 /**
- * Created by melvin on 4/29/14.
- *
- * Todo: url/uri
+ * Created by melvin on 4/29/14
  */
 
 public class ApiCall {
@@ -60,7 +58,7 @@ public class ApiCall {
      */
 
     /**
-     * Send a POST request to the specified URL using the data, and call the given callbacks.
+     * Send a POST request to the specified URI using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
      * @param uriData map containing the data to post.
@@ -71,7 +69,7 @@ public class ApiCall {
     }
 
     /**
-     * Send a POST request to the specified URL using the data, and call the given callbacks.
+     * Send a POST request to the specified URI using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
      * @param uriData JsonObject to use
@@ -87,7 +85,7 @@ public class ApiCall {
      */
 
     /**
-     * Send a PUT request to the specified URL using the data, and call the given callbacks.
+     * Send a PUT request to the specified URI using the data, and call the given callbacks.
      *
      * @param uri the uri (without the protocol nor the domain) to POST
      * @param uriData map containing the data to post.
@@ -98,7 +96,7 @@ public class ApiCall {
     }
 
     /**
-     * Send a PUT request to the specified URL using the data
+     * Send a PUT request to the specified URI using the data
      *
      * @param uri the uri (without the protocol nor the domain) to GET
      * @param uriData map containing the data to inject in the uri. The method will look for
@@ -115,14 +113,14 @@ public class ApiCall {
      */
 
     /**
-     * Send a GET request to the specified URL using the data, and call the given callbacks.
+     * Send a GET request to the specified URI using the data, and call the given callbacks.
      *
-     * @param url the uri (without the protocol nor the domain) to POST
-     * @param urlData map containing the data to post.
+     * @param uri the uri (without the protocol nor the domain) to POST
+     * @param uriData map containing the data to post.
      * @param response instance of ApiResponse to handle the callbacks
      */
-    public void get(String url, Map<String, String> urlData, ApiResponseCallbacks response) {
-       makeRequest(Request.Method.GET, url, urlData, null, response);
+    public void get(String uri, Map<String, String> uriData, ApiResponseCallbacks response) {
+       makeRequest(Request.Method.GET, uri, uriData, null, response);
     }
 
     /*
@@ -134,23 +132,23 @@ public class ApiCall {
      * A Toast will be display in case the device has no internet connection
      *
      * @param method method to call (GET, POST)
-     * @param url full url to call
-     * @param urlData POST data
+     * @param uri full uri to call
+     * @param uriData POST data
      * @param bodyData POST data
      * @param response instance of ApiResponse to handle the callbacks
      */
-    protected void makeRequest(final int method, String url, Map<String, String> urlData, final JsonObject bodyData, final ApiResponseCallbacks response) {
+    protected void makeRequest(final int method, String uri, Map<String, String> uriData, final JsonObject bodyData, final ApiResponseCallbacks response) {
         if (NetworkTools.hasInternet()) {
 
-            if (urlData != null) {
-                Iterator<Map.Entry<String,String>> iterator = urlData.entrySet().iterator();
+            if (uriData != null) {
+                Iterator<Map.Entry<String,String>> iterator = uriData.entrySet().iterator();
 
                 while (iterator.hasNext()) {
-                    String oldUrl = url;
+                    String oldUri = uri;
                     Map.Entry<String,String> entry = iterator.next();
-                    url = url.replaceAll("::?" + entry.getKey(), entry.getValue());
+                    uri = uri.replaceAll("::?" + entry.getKey(), entry.getValue());
 
-                    if(url.equals(oldUrl) == false){
+                    if(uri.equals(oldUri) == false){
                         iterator.remove();
                     }
                 }
@@ -159,10 +157,10 @@ public class ApiCall {
             JSONObject body = null;
             if (method == Request.Method.POST || method == Request.Method.PUT) {
                 // We removed the optional variables that have not been given
-                url = url.replaceAll(Routes.VARIABLES_REGEX, "");
+                uri = uri.replaceAll(Routes.VARIABLES_REGEX, "");
 
                 try {
-                    body = (bodyData == null) ? (new JSONObject(urlData)) : (new JSONObject(bodyData.toString()));
+                    body = (bodyData == null) ? (new JSONObject(uriData)) : (new JSONObject(bodyData.toString()));
                 } catch (JSONException e) {
                     Log.e(TAG, "invalid json: " + bodyData.toString());
                 }
@@ -172,23 +170,23 @@ public class ApiCall {
             Token token = Token.get();
 
             if (token != null) {
-                url = url.replaceAll(":access_token", token.getToken());
+                uri = uri.replaceAll(":access_token", token.getToken());
             }
 
-            _makeRequest(method, url, body, response);
+            _makeRequest(method, uri, body, response);
         } else {
             ToastTools.use().longToast(R.string.no_internet);
         }
     }
 
-    private void _makeRequest(int method, String url, JSONObject body, ApiResponseCallbacks response) {
+    private void _makeRequest(int method, String uri, JSONObject body, ApiResponseCallbacks response) {
         response = (response == null) ? (new EmptyApiResponse()) : (response);
         String methodName = mMethodToString.get(method, "Unknown");
 
-        Log.i(TAG, methodName + " " + url);
+        Log.i(TAG, methodName + " " + uri);
         Log.d(TAG, "Body: " + ((body == null) ? ("None") : (body.toString())));
 
-        ApiJsonObjectRequest req = new ApiJsonObjectRequest(method, url, body, _success(response), _error(response));
+        ApiJsonObjectRequest req = new ApiJsonObjectRequest(method, uri, body, _success(response), _error(response));
         Object tag = (mRequestTag != null) ? mRequestTag : TAG;
         RequestQueue.getInstance().add(req, tag);
         response.alwaysBefore();
