@@ -26,4 +26,6 @@ public class Routes {
     public static final String EVENT_SEARCH = ROOT_URL + "/events/search?q=:query&access_token=:access_token";
 
     public static final String MEDIAS = ROOT_URL + "/events/:event_token/medias?access_token=:access_token";
+    public static final String MEDIA = ROOT_URL + "/events/:event_token/medias/:id?access_token=:access_token";
+
 }

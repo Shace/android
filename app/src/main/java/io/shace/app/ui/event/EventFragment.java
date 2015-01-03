@@ -33,6 +33,7 @@ import io.shace.app.R;
 import io.shace.app.api.ApiError;
 import io.shace.app.api.listeners.EventListener;
 import io.shace.app.api.models.Event;
+import io.shace.app.api.models.Image;
 import io.shace.app.api.models.Media;
 import io.shace.app.tools.IntentTools;
 import io.shace.app.tools.MetricTools;
@@ -96,11 +97,10 @@ public class EventFragment extends Fragment implements EventListener, Observable
         lp.topMargin = mMainInfo.getHeight() + (int)Event.COVER_HEIGHT;
         mDetailLayout.setLayoutParams(lp);
 
-        List<Media> medias = event.getMedias();
+        Image cover = event.getCover();
 
-        if (medias != null && medias.size() > 0) {
-            Media firstPicture = medias.get(0);
-            String url = firstPicture.getImage().getMedium();
+        if (cover != null) {
+            String url = cover.getBigCover();
             NetworkTools.attachImage(url, mCover);
         }
     }

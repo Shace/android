@@ -10,6 +10,8 @@ public class Image extends Model {
     private String large;
     private String medium;
     private String small;
+    private String cover;
+    private String bigCover;
 
     public long getCreation() {
         return creation;
@@ -41,5 +43,21 @@ public class Image extends Model {
 
     public void setSmall(String small) {
         this.small = small;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getBigCover() {
+        return bigCover;
+    }
+
+    public void setBigCover(String bigCover) {
+        this.bigCover = bigCover;
     }
 }

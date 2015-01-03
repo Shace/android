@@ -40,7 +40,7 @@ public class Event extends Model {
 
     private String creation;
     private List<Media> medias = new ArrayList<Media>();
-
+    private Image cover;
     /**
      * in-class vars
      */
@@ -119,6 +119,14 @@ public class Event extends Model {
 
     public void setMedias(List<Media> medias) {
         this.medias = medias;
+    }
+
+    public Image getCover() {
+        return cover;
+    }
+
+    public void setCover(Image cover) {
+        this.cover = cover;
     }
 
     public boolean hasColor() {

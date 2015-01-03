@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,9 @@ public class Media {
     private Image image;
     private long original;
     private List<Comment> comments;
+    private Integer id;
 
+    public File file;
 
     /**
      * Getter and Setters
@@ -124,6 +127,14 @@ public class Media {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     /**

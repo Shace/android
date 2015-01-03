@@ -29,7 +29,7 @@
             android:id="@+id/main_picture"
             android:layout_width="match_parent"
             android:layout_height="@dimen/cover_height"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:contentDescription="@string/event_logo"
             android:src="@null"

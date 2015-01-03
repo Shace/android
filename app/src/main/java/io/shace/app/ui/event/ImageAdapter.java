@@ -47,12 +47,12 @@ public class ImageAdapter extends BaseAdapter {
 
             //todo move to utilities class
             Resources r = mContext.getResources();
-            int heightDp = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85, r.getDisplayMetrics());
+            int heightDp = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 180, r.getDisplayMetrics());
 
             imageView = new NetworkImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(heightDp, heightDp));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+            imageView.setPadding(0, 0, 0, 0);
         } else {
             imageView = (NetworkImageView) convertView;
         }

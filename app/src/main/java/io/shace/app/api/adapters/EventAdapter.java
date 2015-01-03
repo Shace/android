@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.shace.app.R;
 import io.shace.app.api.models.Event;
+import io.shace.app.api.models.Image;
 import io.shace.app.api.models.Media;
 import io.shace.app.tools.NetworkTools;
 
@@ -81,6 +82,13 @@ public class EventAdapter extends ArrayAdapter<Event> {
         viewHolder.token.setText(item.getToken());
         viewHolder.title.setText(item.getName());
         viewHolder.description.setText(item.getDescription());
+
+        Image cover = item.getCover();
+
+        if (cover != null) {
+            String url = cover.getBigCover();
+            NetworkTools.attachImage(url, viewHolder.mainPicture);
+        }
 
         return convertView;
     }
