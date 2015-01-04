@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="io.shace.app.ui.event.ImageFragment"
+    android:background="@color/inset_grey">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.android.volley.toolbox.NetworkImageView"
+        android:id="@+id/imageBig"
+        android:layout_gravity="left|top"
+        android:scaleType="fitCenter"
+        android:focusableInTouchMode="false" />
+</FrameLayout>

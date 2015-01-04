@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -45,7 +46,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.shace.app.R;
@@ -103,12 +106,65 @@ public class MediaFragment extends Fragment implements EventListener, MediaListe
         });
     }
 
+    /** Create a file Uri for saving an image or video */
+    private Uri getOutputMediaFileUri(){
+        return Uri.fromFile(getOutputMediaFile());
+    }
+
+    /** Create a File for saving an image or video */
+    private File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = null;
+        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
+            mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES), "Shace");
+        } else {
+            mediaStorageDir = new File(getActivity().getCacheDir(), "Shace");
+        }
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                Log.d("Shace", "failed to create directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_"+ timeStamp + ".jpg");
+
+        return mediaFile;
+    }
+
+    private final static String FOLDER_NAME = "/";
     public void addPicture() {
         Intent pickIntent = new Intent();
-        pickIntent.setType("image/*");
         pickIntent.setAction(Intent.ACTION_GET_CONTENT);
-
+        if (Build.VERSION.SDK_INT >= 18) {
+            pickIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        }
+        pickIntent.setType("image/*");
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePhotoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        selectedImageUri = getOutputMediaFileUri();
+        takePhotoIntent.putExtra( MediaStore.EXTRA_OUTPUT, selectedImageUri);
+
+        /*File photo = null;
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
+            photo = new File(android.os.Environment.getExternalStorageDirectory() + FOLDER_NAME + timeStamp + ".jpg");
+        } else {
+            photo = new File(getActivity().getCacheDir() + FOLDER_NAME + timeStamp+".jpg");
+        }
+        if (photo != null) {
+            takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+            selectedImageUri = Uri.fromFile(photo);
+        }*/
 
         String pickTitle = "Select or take a new Picture"; // Or get from strings.xml
         Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
@@ -127,15 +183,18 @@ public class MediaFragment extends Fragment implements EventListener, MediaListe
         intent.setType("image/*");
         startActivityForResult(intent, FILE_PICKER);*/
     }
+    Uri selectedImageUri = null;
     Bitmap extra = null;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == FILE_PICKER && resultCode == Activity.RESULT_OK) {
             ArrayList<Uri> pictures = new ArrayList<Uri>();
             extra = null;
-            if (data.getExtras() != null) {
-                extra = (Bitmap) data.getExtras().get("data");
-                pictures.add(null);
+            if (data == null || data.getExtras() != null) {
+                if (data != null && selectedImageUri == null) {
+                    extra = (Bitmap) data.getExtras().get("data");
+                }
+                pictures.add(selectedImageUri);
             } else if (Build.VERSION.SDK_INT >= 18 && data.getData() == null) {
                 ClipData clipdata = data.getClipData();
                 for (int i = 0; i < clipdata.getItemCount(); i++) {

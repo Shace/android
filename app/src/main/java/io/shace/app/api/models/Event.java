@@ -239,6 +239,18 @@ public class Event extends Model {
     }
 
     /**
+     * List for an event
+     *
+     * @param listener
+     */
+    public static void list(EventListener listener) {
+        Map<String, String> data = new HashMap<String, String>();
+
+        Task task = new io.shace.app.api.tasks.eventTasks.List(listener);
+        task.exec(data);
+    }
+
+    /**
      * Save or update an event
      *
      * @param listener

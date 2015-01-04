@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name" translatable="false">Shace</string>
-
     <string name="todo">Action not yet available</string>
-
     <string name="title_homepage">My events</string>
-
-
     <string name="create">Create</string>
     <string name="update">Update</string>
     <string name="unlock">Unlock</string>
-
     <string name="wrong_password">Wrong password</string>
 
     <!-- Actionbar -->
@@ -24,4 +20,6 @@
 
     <!-- Default strings for new activity -->
     <string name="hello_world">Hello world</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

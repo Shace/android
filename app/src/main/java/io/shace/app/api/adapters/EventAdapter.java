@@ -28,7 +28,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
     Context mContext;
     int mLayoutResourceId;
 
-    public EventAdapter(Context context, int layoutResourceId, ArrayList<Event> items) {
+    public EventAdapter(Context context, int layoutResourceId, List<Event> items) {
         super(context, layoutResourceId, items);
         mContext = context;
         mLayoutResourceId = layoutResourceId;
@@ -80,6 +80,9 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         viewHolder.card.setBackgroundColor(item.getUsableColor());
         viewHolder.token.setText(item.getToken());
+        if (item.getPrivacy().equals("private")) {
+            viewHolder.token.setVisibility(View.INVISIBLE);
+        }
         viewHolder.title.setText(item.getName());
         viewHolder.description.setText(item.getDescription());
 
