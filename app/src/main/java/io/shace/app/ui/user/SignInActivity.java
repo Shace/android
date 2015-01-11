@@ -26,6 +26,7 @@ import io.shace.app.api.listeners.TokenListener;
 import io.shace.app.api.models.Token;
 import io.shace.app.tools.IntentTools;
 import io.shace.app.tools.ToastTools;
+import io.shace.app.ui.MainActivity;
 import io.shace.app.ui.MainActivity_;
 
 
@@ -42,8 +43,8 @@ public class SignInActivity extends BaseActivity implements TextView.OnEditorAct
     @AfterViews
     protected void init() {
         if (BuildConfig.DEBUG) {
-            mEmailView.setText("admin@shace.io");
-            mPasswordView.setText("admin42");
+            mEmailView.setText("");
+            mPasswordView.setText("");
         }
     }
 

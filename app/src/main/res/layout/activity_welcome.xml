@@ -24,7 +24,7 @@
 
         <Button
             android:id="@+id/signUpButton"
-            android:text="@string/welcome_sign_up_button"
+            android:text="Sign up"
             android:layout_marginBottom="15dp"
             android:background="@drawable/button"
             style="@style/formButton"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:linksClickable="true"
-            android:text="@string/welcome_sign_in_text" />
+            android:text="Already have an account? Log in" />
 
     </LinearLayout>
 </LinearLayout>
